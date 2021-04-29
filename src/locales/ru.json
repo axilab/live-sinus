@@ -1,0 +1,44 @@
+{
+  "main": {
+    "statusTitle": "Статус",
+    "status": {
+      "ready": "Готов",
+      "pause": "Пауза",
+      "worked": "В работе..",
+      "init": "Инициализация...",
+      "error":"Ошибка"
+    }
+  },
+  "menu": {
+    "home": "Главная",
+    "settings": "Настройки",
+    "about": "О программе",
+    "debug": "Отладка"
+  },
+  "settings": {
+    "language": "Язык приложения",
+    "languages": [{"key": "ru", "value": "Русский"}, {"key": "en", "value": "English"}],
+    "theme": "Тема приложения",
+    "themes": [{"key": "light", "value": "Светлая"}, {"key": "dark", "value": "Тёмная"}],
+    "buttonSelectGenerator": "Выбрать генератор",
+    "selectDeviceDialogTitle": "Выберете устройство",
+    "selectDeviceDialogButtonSelect": "Выбрать",
+    "selectDeviceDialogButtonCancel": "Отмена",
+    "descriptionForButtonSelectGenetatorSelect": "Выбран:",
+    "descriptionForButtonSelectGenetatorNotSelect": "(Устройство не выбрано)"
+  },
+  "generatorStatus": [
+    {"key": "0", "description": "генератор отключен, переведен в спящий режим"},
+    {"key": "1", "description": "включен в режиме поиска резонансной частоты"},
+    {"key": "2", "description": "включен в режиме вычисления добротности катушки"},
+    {"key": "3", "description": "включен в режиме подстройки резонансной частоты"},
+    {"key": "4", "description": "включен режиме PAUSE, отключена генерация на выходе и заморожены таймеры"},
+    {"key": "5", "description": "включен в режиме штатной генерации"},
+    {"key": "6", "description": "включен в режиме подстройки тока катушки"}
+  ],
+  "generatorWaveform": [
+    {"key": "0", "description": "синус"},
+    {"key": "1", "description": "меандр"},
+    {"key": "2", "description": "треугольный"}
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "main": {
+    "statusTitle": "Status",
+    "status": {
+      "ready": "Ready",
+      "pause": "Pause",
+      "worked": "Worked..",
+      "init": "Init...",
+      "error":"Error"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "settings": "Settings",
+    "about": "About",
+    "debug": "Debug"
+  },
+  "settings": {
+    "language": "Application language",
+    "languages": [{"key": "ru", "value": "Русский"}, {"key": "en", "value": "English"}],
+    "theme": "Application theme",
+    "themes": [{"key": "light", "value": "Light"}, {"key": "dark", "value": "Dark"}],
+    "buttonSelectGenerator": "Select generator",
+    "selectDeviceDialogTitle": "Select device",
+    "selectDeviceDialogButtonSelect": "Select",
+    "selectDeviceDialogButtonCancel": "Cancel",
+    "descriptionForButtonSelectGenetatorSelect": "Selected:",
+    "descriptionForButtonSelectGenetatorNotSelect": "(Device not selected)"
+  }
+
+}

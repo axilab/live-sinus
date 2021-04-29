@@ -1,3 +1,6 @@
+# keystore
+*.jks
+
 .DS_Store
 node_modules
 /dist
@@ -24,3 +27,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Cordova
+/src-cordova/platforms
+/src-cordova/plugins
+/public/cordova.js

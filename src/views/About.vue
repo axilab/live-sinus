@@ -1,5 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+    <div>
+        Live sinus
+        Мобильное приложение для управления генератором LS 5BT
+    </div>
 </template>
+
+<script>
+    // import {mapGetters} from "vuex";
+
+    export default {
+        name: "Home",
+
+        components: {},
+        data() {
+            return {
+            };
+        },
+        //computed: mapGetters(["getAllLogs"]),
+        //methods: {}
+    }
+</script>

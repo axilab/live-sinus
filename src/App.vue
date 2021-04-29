@@ -1,32 +1,121 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+
+    <v-navigation-drawer app
+                         v-model="drawer"
+                         absolute
+                         temporary
+
+    >
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            LiveSinus
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            ver 1.0
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list-item
+              v-for="item in menu"
+              :key="item.title"
+              :to="item.url"
+      >
+        <v-list-item-icon>
+          <v-icon color="primary">{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+    </v-navigation-drawer>
+
+    <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Live</span>
+        <span class="font-weight-light">Sinus | {{pageName}}</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+    </v-app-bar>
+
+    <v-main>
+        <router-view></router-view>
+    </v-main>
+
+    <v-footer app> {{$t("main.statusTitle")}}: {{ $t(getStatus)  }} </v-footer>
+
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+//import HelloWorld from "./components/HelloWorld";
+import { mapGetters } from "vuex";
 
-#nav {
-  padding: 30px;
+export default {
+  name: "App",
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  components: {
+    //HelloWorld,
+  },
 
-    &.router-link-exact-active {
-      color: #42b983;
+  data: () => ({
+    drawer: false,
+    menu: [
+            {title: 'menu.home', icon:'mdi-home', url: {name: 'Home'}},
+            {title: 'menu.settings', icon:'mdi-cog ', url: {name: 'Settings'}},
+            {title: 'menu.about', icon:'mdi-information', url: {name: 'About'}},
+            {title: 'menu.debug', icon:'mdi-bugs', url: {name: 'Debug'}},
+    ]
+  }),
+
+  //computed: mapGetters(["getStatus"]),
+  computed:{
+    ...mapGetters(["getStatus"]),
+    pageName(){
+      switch (this.$route.name) {
+        case "Home":
+          return this.$t('menu.home')
+        case "Settings":
+          return this.$t('menu.settings')
+        case "About":
+          return this.$t('menu.about')
+        case "Debug":
+          return this.$t('menu.debug')
+        default:
+          return ""
+      }
+
+    },
+
+
+
+
+  },
+  created() {
+    //init
+    if (this.$store.getters.getTheme=='dark'){
+      this.$vuetify.theme.dark = true
     }
-  }
-}
+  },
+
+  mounted() {
+    console.log("App loaded ok");
+    console.log("route", this.$route);
+    if (this.$route.path != "/home") {
+      this.$router.push({ name: "Home" });
+    }
+  },
+};
+</script>
+
+<style lang="sass">
+  @import '../node_modules/typeface-roboto/index.css'
 </style>
