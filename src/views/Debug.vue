@@ -1,10 +1,9 @@
 <template>
     <div>
-        <v-btn @click="bluetoothListBound" color="primary">List</v-btn>
-        <v-btn @click="openPort" color="primary">openPort</v-btn>
-        <v-btn @click="closePort" color="primary">closePort</v-btn>
-        <v-btn @click="sendTestData" color="primary">writePort</v-btn>
-        <v-btn @click="readPort" color="primary">readPort</v-btn>
+            <v-btn @click="DBSetPrefs" color="primary">Test DB open</v-btn>
+<!--            <v-btn @click="testDBCreateTable" color="primary">Test DB create table</v-btn>-->
+<!--            <v-btn @click="testDBInsert" color="primary">Test DB insert</v-btn>-->
+<!--            <v-btn @click="testDBSelect" color="primary">Test DB select</v-btn>-->
 
         <v-simple-table height="300px">
             <template v-slot:default>
@@ -31,17 +30,35 @@
     // import util from "../core/util";
     import constans from "../core/constans";
 
+    import Db from "../core/Db.js"
+
     export default {
         name: "Home",
 
         components: {},
         data() {
             return {
+                i: 0,
+                db: null,
             };
         },
         computed: mapGetters(["getAllLogs"]),
         methods: {
             ...mapActions(["bluetoothInitize", "bluetoothScanDevices", "bluetoothListBound", "openPort", "closePort", "writePort", "readPort"]),
+
+            async DBSetPrefs(){
+                //this.i += 1
+                //console.log('i',this.i)
+                this.db = new Db()
+
+                //console.log('set prefs')
+                //await this.db.setPref('pref007','val'+this.i)
+
+                let res = await this.db.getPref('locale','no-value')
+                console.log('res',res)
+            },
+
+
             sendTestData(){
                 console.log('sendTestData')
                 // let data = new Uint8Array(4);
@@ -50,8 +67,11 @@
                 // data[2] = 0x32;
                 // data[3] = 0x0d;
 
-                this.$store.dispatch("writePort",{data: constans.command.START})
+                 this.$store.dispatch("writePort",{data: constans.command.START})
             },
+        },
+        created() {
+            this.db = new Db()
         }
     }
 </script>

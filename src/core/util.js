@@ -3,9 +3,9 @@ export default {
         getLocaleList() {
             return process.env.VUE_APP_I18N_SUPPORTED_LOCALE.split(',')
         },
-        getUserLocale(){
-            return window.navigator.language.split('-')[0]
-        },
+        // getUserLocale(){
+        //     return window.navigator.language.split('-')[0]
+        // },
 
 // function findCordovaPath() {
 //   let platform = cordova.platformId.toUpperCase();

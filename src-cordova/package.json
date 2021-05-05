@@ -17,12 +17,14 @@
     "cordova-browser": "~6.0.0",
     "cordova-electron": "~1.1.1",
     "cordova-plugin-bluetooth-serial": "^0.4.7",
-    "cordova-plugin-whitelist": "^1.3.4"
+    "cordova-plugin-whitelist": "^1.3.4",
+    "cordova-sqlite-storage": "^6.0.0"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-bluetooth-serial": {}
+      "cordova-plugin-bluetooth-serial": {},
+      "cordova-sqlite-storage": {}
     },
     "platforms": [
       "android",

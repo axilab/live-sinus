@@ -18,7 +18,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider/>
 
       <v-list-item
               v-for="item in menu"
@@ -37,17 +37,17 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title class="headline text-uppercase">
         <span>Live</span>
         <span class="font-weight-light">Sinus | {{pageName}}</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer/>
 
     </v-app-bar>
 
     <v-main>
-        <router-view></router-view>
+        <router-view/>
     </v-main>
 
     <v-footer app> {{$t("main.statusTitle")}}: {{ $t(getStatus)  }} </v-footer>
@@ -58,6 +58,7 @@
 <script>
 //import HelloWorld from "./components/HelloWorld";
 import { mapGetters } from "vuex";
+import Db from "@/core/Db"
 
 export default {
   name: "App",
@@ -76,7 +77,6 @@ export default {
     ]
   }),
 
-  //computed: mapGetters(["getStatus"]),
   computed:{
     ...mapGetters(["getStatus"]),
     pageName(){
@@ -95,24 +95,30 @@ export default {
 
     },
 
-
+    // methods: {
+    //   init() {
+    //
+    //   },
+    // },
 
 
   },
-  created() {
-    //init
-    if (this.$store.getters.getTheme=='dark'){
-      this.$vuetify.theme.dark = true
-    }
-  },
+  async created() {
 
-  mounted() {
-    console.log("App loaded ok");
-    console.log("route", this.$route);
-    if (this.$route.path != "/home") {
+    this.$store.commit('setDb', new Db())
+      const db = this.$store.getters.getDb
+    //await db.dropTable('pref')
+      const theme = await db.getPref('theme','no-value')
+      if (theme==='dark') this.$vuetify.theme.dark = true
+
+
+    this.$store.commit('appLoadSettings')
+
+    if (this.$route.path !== "/home") {
       this.$router.push({ name: "Home" });
     }
   },
+
 };
 </script>
 
