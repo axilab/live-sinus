@@ -12,9 +12,15 @@ export default {
     logs: [],
   },
   mutations: {
-    async appLoadSettings(state){
-      console.log('appLoadSettings')
+    dbInit(state){
       state.db = new Db()
+    },
+
+    async appLoadSettings(state){
+      if (state.db == null){
+        this.commit('dbInit')
+      }
+
       let theme     = await state.db.getPref('theme','no-value')
       let language  = await state.db.getPref('language','no-value')
 
@@ -35,9 +41,9 @@ export default {
       }
 
     },
-    setDb(state, db){
-      state.db = db
-    },
+    // setDb(state, db){
+    //   state.db = db
+    // },
     addLog(state, message) {
       if (typeof message === "object") {
         message = JSON.stringify(message, null, "  ");
@@ -63,7 +69,7 @@ export default {
     },
 
     async setLanguage(state, lang){
-      console.log('setLanguage=>',lang)
+      //console.log('setLanguage=>',lang)
       //if(i18n.locale!=lang){
         i18n.locale = lang
       //}

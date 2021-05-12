@@ -1,6 +1,12 @@
 {
   "main": {
     "statusTitle": "Status",
+    "tabs": {
+      "main": "Main",
+      "modulation": "Modulation",
+      "addirionally": "Additionally"
+    },
+
     "status": {
       "ready": "Ready",
       "pause": "Pause",

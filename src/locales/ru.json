@@ -1,6 +1,11 @@
 {
   "main": {
     "statusTitle": "Статус",
+    "tabs": {
+      "main": "Основные",
+      "modulation": "Модуляция",
+      "addirionally": "Дополнительно"
+      },
     "status": {
       "ready": "Готов",
       "pause": "Пауза",

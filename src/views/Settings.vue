@@ -62,7 +62,7 @@
         },
         computed: {
             langList(){
-                console.log(this.getLocaleList())
+                //console.log(this.getLocaleList())
                 return this.getLocaleList()
             },
             descriptionForButtonSelectGenetator(){
@@ -88,7 +88,7 @@
             },
             DialogDevicesSelectCallback(ev){
                 if (ev.result){
-                    console.log('DialogDevicesSelectCallback', ev)
+                    //console.log('DialogDevicesSelectCallback', ev)
                     this.deviceSelect = ev.result
                     this.$store.commit("setCurrentDevice", ev.result)
 
@@ -97,7 +97,7 @@
             }
         },
         created() {
-            console.log('Settings create')
+            //console.log('Settings create')
             this.theme          = this.$store.getters.getTheme
             this.locale         = this.$store.getters.getLanguage
             this.deviceSelect   = this.$store.getters.getCurrentDevice

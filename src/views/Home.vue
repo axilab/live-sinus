@@ -2,9 +2,9 @@
   <div class="home">
 
     <v-tabs v-model="tab" v-on:change="tabChanhe">
-      <v-tab key="general">Основные</v-tab>
-      <v-tab key="modulation">Модуляция</v-tab>
-      <v-tab key="addirionally">Дополнительно</v-tab>
+      <v-tab key="general">{{$t("main.tabs.main")}}</v-tab>
+      <v-tab key="modulation">{{$t("main.tabs.modulation")}}</v-tab>
+      <v-tab key="addirionally">{{$t("main.tabs.addirionally")}}</v-tab>
 
       <v-tab-item>
         <generator-main></generator-main>
@@ -57,7 +57,7 @@ export default {
     // ...mapMutations([""]),
      ...mapActions(["bluetoothInitize", "bluetoothScanDevices", "bluetoothListBound", "openPort", "closePort", "writePort", "readPort"]),
     tabChanhe(){
-       console.log('tab change')
+       //console.log('tab change')
     },
     menu() {
       console.log("menu");

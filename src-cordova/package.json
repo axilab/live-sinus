@@ -13,10 +13,12 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
-    "cordova-android": "~9.1.0",
+    "cordova-android": "^9.1.0",
     "cordova-browser": "~6.0.0",
     "cordova-electron": "~1.1.1",
+    "cordova-plugin-ble-central": "^1.3.1",
     "cordova-plugin-bluetooth-serial": "^0.4.7",
+    "cordova-plugin-bluetoothle": "^6.3.1",
     "cordova-plugin-whitelist": "^1.3.4",
     "cordova-sqlite-storage": "^6.0.0"
   },
@@ -24,12 +26,14 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-bluetooth-serial": {},
+      "cordova-plugin-ble-central": {},
+      "cordova-plugin-bluetoothle": {},
       "cordova-sqlite-storage": {}
     },
     "platforms": [
-      "android",
       "browser",
-      "electron"
+      "electron",
+      "android"
     ]
   }
 }

@@ -57,14 +57,16 @@
 
 <script>
 //import HelloWorld from "./components/HelloWorld";
+import bluetooth from "./core/bluetooth";
 import { mapGetters } from "vuex";
-import Db from "@/core/Db"
+
+/* eslint-disable */
+
 
 export default {
   name: "App",
-
+  mixins: [bluetooth],
   components: {
-    //HelloWorld,
   },
 
   data: () => ({
@@ -77,6 +79,30 @@ export default {
     ]
   }),
 
+  methods:{
+    async onDeviceReady() {
+
+        this.$store.commit('dbInit')
+        const db = this.$store.getters.getDb
+
+
+        const theme = await db.getPref('theme','no-value')
+
+        if (theme==='dark') this.$vuetify.theme.dark = true
+        this.$store.commit('appLoadSettings')
+
+      /* eslint-disable */
+      // console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+      // let statusBluetooth = await this.bleInit()
+      // if (statusBluetooth.status==='disabled'){
+      //   console.log('bluetooth disabled')
+      //   let res = await this.bleEnable()
+      //   console.log('status enable = ',res)
+      //}
+    }
+
+
+  },
   computed:{
     ...mapGetters(["getStatus"]),
     pageName(){
@@ -95,24 +121,15 @@ export default {
 
     },
 
-    // methods: {
-    //   init() {
-    //
-    //   },
-    // },
-
+  },
+  async mounted() {
 
   },
+
   async created() {
+    console.log('created')
+    document.addEventListener('deviceready', this.onDeviceReady, false);
 
-    this.$store.commit('setDb', new Db())
-      const db = this.$store.getters.getDb
-    //await db.dropTable('pref')
-      const theme = await db.getPref('theme','no-value')
-      if (theme==='dark') this.$vuetify.theme.dark = true
-
-
-    this.$store.commit('appLoadSettings')
 
     if (this.$route.path !== "/home") {
       this.$router.push({ name: "Home" });
