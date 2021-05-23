@@ -1,0 +1,18 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "../keystore.jks",
+      "storePassword": "sysbasemyday11041981",
+      "alias": "keysrore",
+      "password" : "sysbasemyday11041981",
+      "keystoreType": ""
+    },
+    "release": {
+      "keystore": "../keystore.jks",
+      "storePassword": "sysbasemyday11041981",
+      "alias": "keysrore",
+      "password" : "sysbasemyday11041981",
+      "keystoreType": ""
+    }
+  }
+}

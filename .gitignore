@@ -1,6 +1,9 @@
 # keystore
 *.jks
 
+# build.json
+build.json
+
 .DS_Store
 node_modules
 /dist

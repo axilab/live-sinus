@@ -50,6 +50,20 @@
         <router-view/>
     </v-main>
 
+
+    <template v-if="error">
+      <v-snackbar
+              :timeout="5000"
+              :multi-line="true"
+              color="error"
+              @input="closeError"
+              :value="true"
+      >
+        {{error}}
+        <v-btn @click.native="closeError" dark>Закрыть</v-btn>
+      </v-snackbar>
+    </template>
+
     <v-footer app> {{$t("main.statusTitle")}}: {{ $t(getStatus)  }} </v-footer>
 
   </v-app>
@@ -80,8 +94,14 @@ export default {
   }),
 
   methods:{
-    async onDeviceReady() {
 
+    closeError () {
+      this.$store.dispatch('clearError')
+    },
+
+    async onDeviceReady() {
+      //this.$store.commit('setError',"onDeviceReady")
+        //window.alert('onDeviceReady')
         this.$store.commit('dbInit')
         const db = this.$store.getters.getDb
 
@@ -105,6 +125,9 @@ export default {
   },
   computed:{
     ...mapGetters(["getStatus"]),
+    error () {
+      return this.$store.getters.error
+    },
     pageName(){
       switch (this.$route.name) {
         case "Home":

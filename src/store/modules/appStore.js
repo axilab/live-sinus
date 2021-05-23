@@ -4,6 +4,8 @@ import Db from "@/core/Db"
 
 export default {
   state: {
+    init: false,
+    error: null,
     db: null,
     status: 'main.status.init',
     theme: 'light',
@@ -12,8 +14,20 @@ export default {
     logs: [],
   },
   mutations: {
+    setError (state, payload) {
+      state.error = payload
+    },
+
+    clearError (state) {
+      state.error = null
+    },
+
     dbInit(state){
-      state.db = new Db()
+      if (!state.init) {
+
+        state.db = new Db()
+        state.init = true
+      }
     },
 
     async appLoadSettings(state){
@@ -59,13 +73,6 @@ export default {
       //console.log('theme ',theme)
       state.theme = theme
       state.db.setPref('theme', theme)
-
-
-      // if (theme=='light'){
-      //   this.$vuetify.theme.dark = false
-      // }else {
-      //   this.$vuetify.theme.dark = true
-      // }
     },
 
     async setLanguage(state, lang){
@@ -80,6 +87,10 @@ export default {
   },
   actions: {},
   getters: {
+    error (state) {
+      return state.error
+    },
+
     getDb(state){
       return state.db
     },

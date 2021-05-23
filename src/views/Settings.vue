@@ -79,8 +79,9 @@
                 this.$store.commit("setLanguage", this.locale)
             },
             themeChange(){
+                this.$vuetify.theme.dark = this.theme=='dark'
                 this.$store.commit("setDarkTheme",this.theme)
-                this.$vuetify.theme.dark = this.$store.getters.getTheme=='dark'
+                //this.$vuetify.theme.dark = this.$store.getters.getTheme=='dark'
             },
             clickbuttonSelectGenerator(){
                 this.DialogDevicesSelectData = this.deviceSelect

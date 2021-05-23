@@ -31,10 +31,21 @@ export default class Db {
     }
 
     dbOpen(){
-        this.db = (window.cordova.platformId === 'browser') ?
-            window.openDatabase('Settings', '1.0', 'Data', 2*1024*1024) :
-            window.sqlitePlugin.openDatabase({name: 'setting.db', location: 'default', androidDatabaseProvider: 'system', androidLockWorkaround: 1})
-    }
+        if (this.db==null) {
+            this.db = (window.cordova.platformId === 'browser') ?
+                window.openDatabase('Settings', '1.0', 'Data', 2 * 1024 * 1024) :
+                window.sqlitePlugin.openDatabase({
+                    name: 'setting.db',
+                    location: 'default',
+                    androidDatabaseProvider: 'system',
+                    androidLockWorkaround: 1
+                }, successcb => {
+                    console.log('successcb',successcb)
+                }, errorcb => {
+                    console.log('errorcb', errorcb)
+                })
+        }
+        }
 
     // getPref(PrefName, DefaultValue){
     //     this.dbOpen()
