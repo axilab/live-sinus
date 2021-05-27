@@ -30,7 +30,6 @@
     "@capacitor/android": "^2.4.7",
     "@capacitor/cli": "^2.4.7",
     "@capacitor/core": "^2.4.7",
-    "@capacitor/ios": "^2.4.7",
     "cordova-plugin-bluetooth-serial": "^0.4.7",
     "cordova-sqlite-storage": "^6.0.0",
     "core-js": "^3.6.5",

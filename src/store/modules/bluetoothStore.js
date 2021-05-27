@@ -4,19 +4,15 @@ export default {
     bluetoothInit: false,
 
     devices: [],
-    deviceCurrent: null,
+    deviceCurrent: null, //{adrress, name}
     serial: null,
 
   },
   mutations: {
-
     setBluetoothle(state, ble){
       state.bluetoothle = ble
     },
 
-    // devicesAdd(state, device){
-    //   state.devices.push(device)
-    // }
     setDevices(state, devices){
       state.devices = devices
     },
@@ -103,8 +99,8 @@ export default {
       return state.bluetoothle
     },
 
-    getCurrentDevice(state){
-      return state.deviceCurrent
+    getCurrentDeviceName(state){
+      return state.deviceCurrentName
     },
     getDevices(state){
       return state.devices
