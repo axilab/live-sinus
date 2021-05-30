@@ -96,7 +96,7 @@ export default {
   methods:{
 
     closeError () {
-      this.$store.dispatch('clearError')
+      this.$store.commit('clearError')
     },
 
     async onDeviceReady() {
@@ -111,14 +111,20 @@ export default {
         if (theme==='dark') this.$vuetify.theme.dark = true
         this.$store.commit('appLoadSettings')
 
-      /* eslint-disable */
-      // console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-      // let statusBluetooth = await this.bleInit()
-      // if (statusBluetooth.status==='disabled'){
-      //   console.log('bluetooth disabled')
-      //   let res = await this.bleEnable()
-      //   console.log('status enable = ',res)
-      //}
+        let res = await this.getBluetoothEnable().catch(async err =>  {
+          let enableBle = await this.bluetoothEnable()
+          //console.log('enableBle',enableBle)
+          if (enableBle=='OK'){
+            let conn = await this.bluetoothIsConnected()
+            if (conn!=='OK'){this.openBluetoothPort()}
+          }
+        })
+        if (res=='OK'){//Bluetooth ON
+          let conn = await this.bluetoothIsConnected()
+          if (conn!=='OK'){this.openBluetoothPort()}
+        }
+
+
     }
 
 

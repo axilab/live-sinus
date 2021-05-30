@@ -92,10 +92,8 @@
                     //console.log('DialogDevicesSelectCallback', ev)
                     this.deviceSelect = ev.result
                     //console.log('result JSON', JSON.stringify(ev.result))
-                    this.$store.commit("setCurrentDevice", JSON.stringify(ev.result))
+                    this.$store.commit("setCurrentDevice", ev.result)
 
-
-                    //this.$store.commit("setCurrentDevice", ev.result)
 
                 }
                 this.DialogDevicesSelectShow = false

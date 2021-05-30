@@ -1,6 +1,37 @@
 <template>
   <div class="home">
 
+    <v-dialog v-model="menu" width="500"
+    >
+
+      <v-card>
+
+        <v-card @click="clikMenuItem($event, i)"
+                v-for="(item, i) in getMenu"
+                :key="item.title"
+                link
+
+                class="mx-auto"
+        >
+          <v-card-title>{{item.title}}</v-card-title>
+        </v-card>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <div class="flex-grow-1"></div>
+          <v-btn
+                  color="primary"
+                  text
+                  @click="menu = false"
+          >
+            Отмена
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
     <v-tabs v-model="tab" v-on:change="tabChanhe">
       <v-tab key="general">{{$t("main.tabs.main")}}</v-tab>
       <v-tab key="modulation">{{$t("main.tabs.modulation")}}</v-tab>
@@ -20,7 +51,7 @@
 
     </v-tabs>
     <v-fab-transition>
-      <v-btn bottom color="pink" dark fab fixed right @click="menu">
+      <v-btn bottom color="pink" dark fab fixed right @click="menuclick">
         <v-icon :class="fabClass">{{ fabIcon }}</v-icon>
       </v-btn>
     </v-fab-transition>
@@ -31,8 +62,8 @@
 <script>
 //import HelloWorld from "@/components/HelloWorld.vue";
 import { mapActions } from "vuex";
-import util from "../core/util";
-
+import util from "@/core/util";
+import bluetooth from "@/core/bluetooth";
 import generatorMain from "@/components/generator/generatorMain.vue"
 import generatorModulation from "@/components/generator/generatorModulation.vue"
 import generatorAdditionally from "@/components/generator/generatorAdditionally.vue"
@@ -41,10 +72,11 @@ import generatorAdditionally from "@/components/generator/generatorAdditionally.
 // import constans from "../core/constans";
 export default {
   name: "Home",
-  mixins: [util],
+  mixins: [util, bluetooth],
   components: {generatorMain, generatorModulation, generatorAdditionally},
   data() {
     return {
+      menu:false,
       tab:null,
 
       data: 'test data',
@@ -52,15 +84,34 @@ export default {
       fabIcon: "mdi-cached",
     };
   },
-  // computed: mapGetters(["getAllLogs"]),
+  computed: {
+    getMenu(){
+      return [
+              {title:"Включить"},
+      ]
+    }
+  },
   methods: {
+    clikMenuItem(ev, i){
+      console.log('ev',ev,'i',i)
+
+      this.menu=false
+    },
+
     // ...mapMutations([""]),
      ...mapActions(["bluetoothInitize", "bluetoothScanDevices", "bluetoothListBound", "openPort", "closePort", "writePort", "readPort"]),
     tabChanhe(){
        //console.log('tab change')
     },
-    menu() {
-      console.log("menu");
+    async menuclick() {
+
+      let conn = await this.bluetoothIsConnected()
+      if (conn=='OK'){
+        this.menu=!this.menu
+      }else {
+        this.$store.commit('setError','Нет соединения с генератором')
+      }
+      console.log('conn', conn)
     },
 
   },

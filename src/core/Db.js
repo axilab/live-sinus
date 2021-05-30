@@ -110,6 +110,7 @@ export default class Db {
     // }
 
     setPref(PrefName, Value){
+        //console.log('PrefName', PrefName, 'Value', Value)
         return new Promise((resolve, reject) => {
             this.db.executeSql('SELECT id, name, value FROM pref WHERE name=?', [PrefName],
                 (resultSet)=>{

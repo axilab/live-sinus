@@ -4,24 +4,26 @@ import Db from "@/core/Db"
 
 export default {
   state: {
-    init: false,
     error: null,
     db: null,
     status: 'main.status.init',
     theme: 'light',
     language: 'ru',
 
-    logs: [],
-
-//Bluetooch
-    bluetoothle: null,
-    bluetoothInit: false,
-
     devices: [],
     deviceCurrent: null, //{adrress, name}
-    serial: null,
+
+    logs: [],
   },
   mutations: {
+    bluetoothSubscribe(){
+      console.log('subscribe')
+      window.bluetoothSerial.unsubscribe(success=>{console.log('success',success)}, failure=>{console.log('failure',failure)});
+      window.bluetoothSerial.subscribe("\r", function (data) {
+        console.log('incoming',data);
+
+        }, failure=>{console.log('failure',failure)});
+    },
     setError (state, payload) {
       state.error = payload
     },
@@ -51,8 +53,6 @@ export default {
         device = JSON.parse(device);
         this.commit('setCurrentDevice',device)
       }
-
-      console.log('device',device)
 
       if (theme==='no-value'){theme = 'light'}
       this.commit('setDarkTheme', theme)
@@ -109,7 +109,7 @@ export default {
     },
     setCurrentDevice(state, device){
       state.deviceCurrent = device
-      state.db.setPref('device', device)
+      state.db.setPref('device', JSON.stringify(device))
     }
 
   },
@@ -124,65 +124,6 @@ export default {
       });
     },
 
-    openPort(){
-      //{name: "JDY-31-SPP", address: "EF:04:04:0E:45:54", id: "EF:04:04:0E:45:54", class: 7936}
-      let macAddress = "EF:04:04:0E:45:54"
-      const serial = window.bluetoothSerial
-      serial.connect(
-          macAddress,
-          ()=>{
-            console.log('serial.connect success')
-            serial.subscribe('\n', function (data) {
-              console.log('data', data)
-            },(error)=>{
-              console.log('subscribe error', error)
-            });
-          },
-          (error)=>{
-            console.log('serial.connect error', error)
-          }
-      );
-    },
-    closePort(){
-      const serial = window.bluetoothSerial
-      serial.unsubscribe(
-          (data)=> {
-            console.log('unsubscribe success', data)
-            serial.disconnect(()=>{
-              console.log('serial.disconnect success')
-            }, (error)=>{
-              console.log('serial.disconnect error', error)
-            });
-          },
-          (error)=>{
-            console.log('unsubscribe error', error)
-          }
-      );
-    },
-    writePort({commit},{data}){
-      const serial = window.bluetoothSerial
-      console.log('send ',data)
-      serial.write(data, ()=>{
-        console.log('writePort success')
-
-
-        commit('addLog',data)
-      }, ()=>{
-        console.log(data)
-      });
-    },
-    readPort(){
-      const serial = window.bluetoothSerial
-      serial.read((data)=> {
-        console.log('read data',data);
-      }, (error)=>{
-        console.log('read data error', error)
-      });
-    },
-
-    sendCommand(){
-
-    }
   },
   getters: {
     error (state) {

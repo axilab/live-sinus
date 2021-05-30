@@ -1,53 +1,103 @@
 export default {
     methods: {
-        getBluetoothPermission(){
-            console.log('getBluetoothPermission')
-            /* eslint-disable */
-            return ble.hasPermission((hasPermissionSuccess)=>{
-                console.log('hasPermissionSuccess', hasPermissionSuccess)
-            })
-        },
 
-
-        bleInit(){
+        getBluetoothEnable(){
             return new Promise((resolve, reject) => {
-                const ble = window.bluetoothle
-
-                ble.initialize((status) => {
-                        console.log('result', status)
-                        this.$store.commit('setBluetoothle',ble)
-                        resolve(status)
-                    },
-                    {
-                        "request": false,
-                        "statusReceiver": false,
-                        "restoreKey": "bluetoothleplugin"
-                    })
+                window.bluetoothSerial.isEnabled(success=>resolve(success), failure=>{reject(failure)});
             })
         },
 
-        bleEnable(){
-            console.log('bleEnable')
+        bluetoothEnable(){
             return new Promise((resolve, reject) => {
-                const ble = window.bluetoothle
-                console.log('ble', ble)
-                ble.enable(
-                    (enableSuccess) => {
-                        console.log('bluetooth enableSuccess')
-                        resolve(enableSuccess)
-                    },
-                    (enableError) => {
-                        console.log('bluetooth enableError',enableError)
-                        reject(enableError)
-                    })
+                window.bluetoothSerial.enable(success => resolve(success), failure => reject(failure));
             })
         },
 
-        bleDisable(){
-            return new Promise((resolve, reject)=>{
-                this.$store.getters.bluetoothle.disable(disableSuccess=>resolve(disableSuccess), disableError=>reject(disableError));
+        bluetoothIsConnected(){
+            return new Promise((resolve)=> {
+                window.bluetoothSerial.isConnected(success =>resolve(success), failure =>(resolve(failure)));
             })
-        }
+        },
 
+        openBluetoothPort(){
+            return new Promise((resolve, reject) => {
+                let device = this.$store.getters.getCurrentDevice
+
+                console.log('device->>', device)
+                if (device == null || device == undefined) {
+                    reject({status: 'error', message: 'device not selected', code: 0})
+                    //this.commit('setError', "Генератор не выбран")
+                }
+
+                console.log('device.address', device.address)
+                let macAddress = device.address
+
+                const serial = window.bluetoothSerial
+                serial.connect(
+                    macAddress,
+                    () => {
+                        this.$store.commit('bluetoothSubscribe')
+                        resolve({status: 'ok', message: 'port opened', code: 200})
+                    },
+                    (error) => {
+                        console.log('serial.connect error', error)
+                        reject({status: 'error', message: error, code: 1})
+                    }
+                )
+            })
+        },
+
+        closeBluetoothPort(){
+            return new Promise((resolve, reject)=> {
+                const serial = window.bluetoothSerial
+                serial.disconnect(() => {
+                    console.log('serial.disconnect success')
+                    resolve({status:'ok',code:200})
+                }, (error) => {
+                    console.log('serial.disconnect error', error)
+                    reject({status:'error',code:1, message: error})
+                });
+
+
+                // serial.unsubscribe(
+                //     (data) => {
+                //         resolve({status:'ok',code:200})
+                //         console.log('unsubscribe success', data)
+                //         serial.disconnect(() => {
+                //             console.log('serial.disconnect success')
+                //         }, (error) => {
+                //             console.log('serial.disconnect error', error)
+                //         });
+                //     },
+                //     (error) => {
+                //         console.log('unsubscribe error', error)
+                //     }
+                // );
+            })
+        },
+
+        writePort(data){
+            const serial = window.bluetoothSerial
+            console.log('send ',data)
+            serial.write(data, ()=>{
+                //console.log('writePort success')
+                //commit('addLog',data)
+            }, ()=>{
+                console.log('error write port')
+            });
+        },
+
+        readPort(){
+            return new Promise((resolve, reject)=> {
+                const serial = window.bluetoothSerial
+                serial.read((data) => {
+                    console.log('read data', data);
+                    resolve(data)
+                }, (error) => {
+                    console.log('read data error', error)
+                    reject(error)
+                });
+            })
+        },
     }
 }

@@ -1,7 +1,7 @@
 {
   "appId": "live.sinus.pro",
   "appName": "Live Sinus Pro",
-  "bundledWebRuntime": false,
+  "bundledWebRuntime": true,
   "npmClient": "npm",
   "webDir": "dist",
   "plugins": {
@@ -9,5 +9,8 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "server": {
+    "url": "http://192.168.31.15:8080"
+  }
 }
