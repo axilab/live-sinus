@@ -6,7 +6,7 @@ export default {
   state: {
     error: null,
     db: null,
-    status: 'main.status.init',
+    status: 'main.status.OFF',
     theme: 'light',
     language: 'ru',
 
@@ -18,11 +18,21 @@ export default {
   mutations: {
     bluetoothSubscribe(){
       console.log('subscribe')
+      //this.commit('setStateDevice',{command: "20", data: "1"})
+      //this.setStateDevice2("20", "0")
       window.bluetoothSerial.unsubscribe(success=>{console.log('success',success)}, failure=>{console.log('failure',failure)});
       window.bluetoothSerial.subscribe("\r", function (data) {
-        console.log('incoming',data);
+        //console.log('incoming',data);
+        let _command = data.substr(1,2)
+        //console.log('_command', _command)
+        let _data = data.substr(3,data.length-4)
+        console.log(_command, _data)
 
-        }, failure=>{console.log('failure',failure)});
+        this.commit('setStateDevice',{command: _command, data: _data})
+        //this.commit('setDarkTheme', 'light')
+        //console.log('_data', _data)
+
+        }.bind(this), failure=>{console.log('failure',failure)});
     },
     setError (state, payload) {
       state.error = payload

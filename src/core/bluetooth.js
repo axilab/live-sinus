@@ -1,3 +1,5 @@
+import constans from "./constans";
+
 export default {
     methods: {
 
@@ -57,22 +59,6 @@ export default {
                     console.log('serial.disconnect error', error)
                     reject({status:'error',code:1, message: error})
                 });
-
-
-                // serial.unsubscribe(
-                //     (data) => {
-                //         resolve({status:'ok',code:200})
-                //         console.log('unsubscribe success', data)
-                //         serial.disconnect(() => {
-                //             console.log('serial.disconnect success')
-                //         }, (error) => {
-                //             console.log('serial.disconnect error', error)
-                //         });
-                //     },
-                //     (error) => {
-                //         console.log('unsubscribe error', error)
-                //     }
-                // );
             })
         },
 
@@ -80,8 +66,6 @@ export default {
             const serial = window.bluetoothSerial
             console.log('send ',data)
             serial.write(data, ()=>{
-                //console.log('writePort success')
-                //commit('addLog',data)
             }, ()=>{
                 console.log('error write port')
             });
@@ -99,5 +83,12 @@ export default {
                 });
             })
         },
+
+        deviceInit(){
+
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"20"+constans.stopByte)
+            this.$store.commit('bluetoothSubscribe')
+
+        }
     }
 }

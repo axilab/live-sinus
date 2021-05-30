@@ -72,7 +72,8 @@
 <script>
 //import HelloWorld from "./components/HelloWorld";
 import bluetooth from "./core/bluetooth";
-import { mapGetters } from "vuex";
+//import constans from "./core/constans";
+// import { mapGetters } from "vuex";
 
 /* eslint-disable */
 
@@ -113,15 +114,22 @@ export default {
 
         let res = await this.getBluetoothEnable().catch(async err =>  {
           let enableBle = await this.bluetoothEnable()
-          //console.log('enableBle',enableBle)
           if (enableBle=='OK'){
             let conn = await this.bluetoothIsConnected()
-            if (conn!=='OK'){this.openBluetoothPort()}
+            if (conn!=='OK'){
+              this.openBluetoothPort()
+            }
           }
         })
         if (res=='OK'){//Bluetooth ON
+          console.log('Bluetooth ON')
           let conn = await this.bluetoothIsConnected()
-          if (conn!=='OK'){this.openBluetoothPort()}
+          if (conn!=='OK'){
+            this.openBluetoothPort().then(()=>{this.deviceInit()})
+          }else{
+            console.log('port is open')
+            this.deviceInit()
+          }
         }
 
 
@@ -130,7 +138,10 @@ export default {
 
   },
   computed:{
-    ...mapGetters(["getStatus"]),
+    // ...mapGetters(["getStatus"]),
+    getStatus(){
+      return "main.status."+this.$store.getters.getD03
+    },
     error () {
       return this.$store.getters.error
     },

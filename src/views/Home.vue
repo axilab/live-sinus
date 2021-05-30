@@ -6,14 +6,13 @@
 
       <v-card>
 
-        <v-card @click="clikMenuItem($event, i)"
-                v-for="(item, i) in getMenu"
+        <v-card @click="clikMenuItem(item.title)"
+                v-for="(item) in getMenu"
                 :key="item.title"
                 link
-
                 class="mx-auto"
         >
-          <v-card-title>{{item.title}}</v-card-title>
+          <v-card-title>{{$t(item.title)}}</v-card-title>
         </v-card>
 
         <v-divider></v-divider>
@@ -30,7 +29,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
 
     <v-tabs v-model="tab" v-on:change="tabChanhe">
       <v-tab key="general">{{$t("main.tabs.main")}}</v-tab>
@@ -61,45 +59,100 @@
 
 <script>
 //import HelloWorld from "@/components/HelloWorld.vue";
-import { mapActions } from "vuex";
-import util from "@/core/util";
-import bluetooth from "@/core/bluetooth";
+//import { mapActions } from "vuex";
+//import util from "@/core/util";
+import bluetooth from "@/core/bluetooth"
 import generatorMain from "@/components/generator/generatorMain.vue"
 import generatorModulation from "@/components/generator/generatorModulation.vue"
 import generatorAdditionally from "@/components/generator/generatorAdditionally.vue"
+import constans from "../core/constans";
 
 
-// import constans from "../core/constans";
+//import constans from "../core/constans";
 export default {
   name: "Home",
-  mixins: [util, bluetooth],
+  mixins: [bluetooth],
   components: {generatorMain, generatorModulation, generatorAdditionally},
   data() {
     return {
       menu:false,
       tab:null,
 
-      data: 'test data',
-      fabClass: "custom-loader",
-      fabIcon: "mdi-cached",
     };
   },
   computed: {
+    fabIcon(){
+      const status = this.$store.getters.getD03
+      console.log('status',status)
+
+      if (status=='OFF'||status=='PAUSE'||status=='init'){
+        return "mdi-cursor-pointer"
+      }else {
+        return "mdi-cached"
+      }
+    },
+
+    fabClass(){
+      const status = this.$store.getters.getD03
+      if (status=='OFF'||status=='PAUSE'||status=='init'){
+        return ""
+      }else {
+        return "custom-loader"
+      }
+    },
+
     getMenu(){
-      return [
-              {title:"Включить"},
-      ]
+      const status = this.$store.getters.getD03
+      if (status=='OFF'){
+        return [
+          {title:"main.fabcommands.START"},
+        ]
+      }
+      else if (status=='PAUSE'){
+        return [
+          {title:"main.fabcommands.RESUME"},
+          {title:"main.fabcommands.STOP"},
+        ]
+
+      }
+      else {
+        return [
+          {title:"main.fabcommands.STOP"},
+          {title:"main.fabcommands.PAUSE"},
+        ]
+      }
+
+
     }
   },
   methods: {
-    clikMenuItem(ev, i){
-      console.log('ev',ev,'i',i)
+    clikMenuItem(item){
+      //console.log('item', item)
+
+      switch (item) {
+        case "main.fabcommands.START":
+
+          this.writePort(constans.command.START)
+          break
+        case "main.fabcommands.PAUSE":
+          this.writePort(constans.command.PAUSE)
+          break
+        case "main.fabcommands.STOP":
+          this.writePort(constans.command.STOP)
+          break
+        case "main.fabcommands.RESUME":
+          this.writePort(constans.command.RESUME)
+          break
+        default:
+          break
+      }
+
 
       this.menu=false
     },
 
     // ...mapMutations([""]),
-     ...mapActions(["bluetoothInitize", "bluetoothScanDevices", "bluetoothListBound", "openPort", "closePort", "writePort", "readPort"]),
+    //...mapActions(["bluetoothInitize", "bluetoothScanDevices", "bluetoothListBound", "openPort", "closePort", "writePort", "readPort"]),
     tabChanhe(){
        //console.log('tab change')
     },
@@ -115,7 +168,6 @@ export default {
     },
 
   },
-
   mounted() {
     //console.log('mounted')
     document.addEventListener(

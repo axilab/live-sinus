@@ -7,11 +7,20 @@
       "addirionally": "Дополнительно"
       },
     "status": {
-      "ready": "Готов",
-      "pause": "Пауза",
-      "worked": "В работе..",
-      "init": "Инициализация...",
-      "error":"Ошибка"
+      "OFF": "Генератор отключен",
+      "ON_search_for_resonant_frequency": "Поиск резонансной частоты",
+      "ON_calculating_the_Qfactor_of_the_coil": "Вычисление добротности катушки",
+      "ON_in_the_mode_of_tuning_the_resonant_frequency": "Подстройки резонансной частоты",
+      "PAUSE":"Пауза",
+      "ON":"Генерация",
+      "ON_in_coil_urrent_trim_mode":"Подстройка тока катушки",
+      "init": "Инициализация..."
+    },
+    "fabcommands": {
+      "START": "Включить",
+      "STOP": "Выключить",
+      "PAUSE": "Пауза",
+      "RESUME": "Возобновить"
     }
   },
   "menu": {

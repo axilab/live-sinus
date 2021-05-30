@@ -13,6 +13,8 @@
             <v-btn @click="setListCommand" color="primary" class="ma-2">setListCommand</v-btn>
             <v-btn @click="setTimerOff" color="primary" class="ma-2">setTimerOff</v-btn>
             <v-btn @click="getTimerOff" color="primary" class="ma-2">getTimerOff</v-btn>
+            Device status {{getDeviceStatus}}
+            Device timer {{getDeviceTimer}}
 <!--            <v-btn @click="SetDB" color="primary">SetDb</v-btn>-->
 <!--            <v-btn @click="GetDB" color="primary">GetDb</v-btn>-->
 
@@ -61,6 +63,14 @@
             };
         },
         //computed: mapGetters(["getAllLogs"]),
+        computed: {
+                getDeviceStatus(){
+                        return this.$store.getters.getD03
+                },
+                getDeviceTimer(){
+                        return this.$store.getters.getD20
+                }
+        },
         methods: {
             //...mapActions(["bluetoothInitize", "bluetoothScanDevices", "bluetoothListBound", "openPort", "closePort", "writePort", "readPort"]),
 

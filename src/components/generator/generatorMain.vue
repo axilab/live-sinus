@@ -3,7 +3,7 @@
         <h1>.</h1>
         <h1>.</h1>
         <div id="clock" style="height: 80px;width: 100%;">
-            <p class="time">{{ time }}</p>
+            <p class="time">{{ getTimer }}</p>
         </div>
 
 
@@ -18,10 +18,14 @@
         components: {},
         data() {
             return {
-                time: '00:45:00'
+                //time: '00:45:00'
             };
         },
-        computed: {},
+        computed: {
+            getTimer(){
+                return this.$store.getters.getD20
+            }
+        },
         methods: {}
     }
 </script>

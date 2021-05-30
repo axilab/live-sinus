@@ -3,6 +3,12 @@ export default {
         getLocaleList() {
             return process.env.VUE_APP_I18N_SUPPORTED_LOCALE.split(',')
         },
+
+
+        getKeyByValue(object, value) {
+            return Object.keys(object).find(key => object[key] === value);
+        }
+
         // getUserLocale(){
         //     return window.navigator.language.split('-')[0]
         // },
