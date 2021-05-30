@@ -86,7 +86,7 @@ export default {
 
         deviceInit(){
 
-            this.writePort(constans.startByte+"50"+"1000"+"03"+"20"+constans.stopByte)
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+constans.stopByte)
             this.$store.commit('bluetoothSubscribe')
 
         }

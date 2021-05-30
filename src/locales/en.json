@@ -24,7 +24,30 @@
       "PAUSE": "Пауза",
       "RESUME": "Возобновить"
 
+    },
+    "settingsList": {
+      "waveform": "Форма",
+      "power": "Мощность",
+      "timer_off": "Таймер выключения",
+      "timer_on": "Таймер включения",
+      "phase_shift": "Сдвиг фазы (град.)",
+      "frequency": "Частота (кГц)"
+    },
+    "indicatorsList": {
+      "frequency": "Частота (кГц)",
+      "voltage": "Напряжение питания (В)",
+      "rms": "Вых. напр. RMS (В)",
+      "q_factor": "Добротность катушки"
+    },
+    "titles": {
+      "carrier_type": "Тип несущей",
+      "load_current": "Ток в нагрузке",
+      "session_duration": "Длительность сеанса",
+      "period_between_on": "Период между включениями",
+      "phase_shift": "Сдвиг фазы между током и напряж. (град.)",
+      "generator_frequency": "Частота генератора"
     }
+
 
   },
   "menu": {

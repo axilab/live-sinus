@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div style="margin: 0; padding: 0">
 
     <v-dialog v-model="menu" width="500"
     >
@@ -30,7 +30,7 @@
       </v-card>
     </v-dialog>
 
-    <v-tabs v-model="tab" v-on:change="tabChanhe">
+    <v-tabs v-model="tab" v-on:change="tabChanhe" class="fixed-tabs-bar">
       <v-tab key="general">{{$t("main.tabs.main")}}</v-tab>
       <v-tab key="modulation">{{$t("main.tabs.modulation")}}</v-tab>
       <v-tab key="addirionally">{{$t("main.tabs.addirionally")}}</v-tab>
@@ -192,6 +192,15 @@ export default {
 
 </script>
 <style>
+
+
+  .fixed-tabs-bar .v-tabs-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3.5rem;
+    z-index: 2;
+  }
+
   .custom-loader {
     animation: loader 1s infinite;
     display: flex;

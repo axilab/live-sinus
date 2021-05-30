@@ -2,19 +2,13 @@ import constans from "@/core/constans"
 export default {
     state: {
 
-        d02: "", //Версия прошивки генератора
+
         d03: "-1", //Рабочий Статус генератора - locales: generatorStatus
-        d06: "", //Запрос резонансной частоты контура катушки, кГц
-        d07: "", //Запрос текущей рабочей частоты генератора, кГц
-        d09: "", //Запрос текущей генерируемой формы волны генератора - locales: generatorWaveform
-        d10: "", //Запрос генерируемой формы волны генератора в EEPROM - locales: generatorWaveform
-        d11: "", //Запрос добротности контура катушки
-        d13: "", //Запрос текущего рабочего тока через контур катушки
-        d14: "", //Запрос задатчика тока для контура катушки
-        // d15: "", //Задатчик тока-1 (MINIMUM) в EEPROM, в мА
-        // d16: "", //Задатчик тока-1 (MINIMUM) в EEPROM, в мА
-        // d17: "", //Задатчик тока-1 (MINIMUM) в EEPROM, в мА
+        d07: "0.0", //Запрос текущей рабочей частоты генератора, кГц
+        d11: "0",
         d20: "0",
+        d39: "0",
+        d40: "0",
 
     },
     mutations: {
@@ -25,11 +19,22 @@ export default {
                 case '03':
                     state.d03 = data
                     break
+                case '07':
+                    state.d07 = data
+                    break
+                case '11':
+                    state.d11 = data
+                    break
+
                 case '20':
                     state.d20 = data
                     break
-
-
+                case '39':
+                    state.d39 = data
+                    break
+                case '40':
+                    state.d40 = data
+                    break
                 default:
                     break
             }
@@ -40,6 +45,12 @@ export default {
         getD03(state){
             return constans.statuses[state.d03]
           //return state.d03
+        },
+        getD07(state){
+            return state.d07
+        },
+        getD11(state){
+            return state.d11
         },
         getD20(state){
             const timestamp = Number(state.d20)
@@ -54,6 +65,12 @@ export default {
             ].join(':');
 
             return formattedTimer
+        },
+        getD39(state){
+            return state.d39
+        },
+        getD40(state){
+            return state.d40
         }
     },
 };
