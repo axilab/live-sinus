@@ -7,6 +7,12 @@
       "addirionally": "Additionally"
     },
 
+    "tabs_settings": {
+      "application": "Приложение",
+      "generator": "Генератор"
+    },
+
+
     "status": {
       "OFF": "Генератор отключен",
       "ON_search_for_resonant_frequency": "Поиск резонансной частоты",
@@ -26,12 +32,25 @@
 
     },
     "settingsList": {
+      "generator_mode": "Режим работы генератора",
       "waveform": "Форма",
       "power": "Мощность",
       "timer_off": "Таймер выключения",
       "timer_on": "Таймер включения",
       "phase_shift": "Сдвиг фазы (град.)",
-      "frequency": "Частота (кГц)"
+      "frequency": "Частота (кГц)",
+
+      "am_form": "AM Форма огибающей",
+      "am_depth": "AM глубина (%)",
+      "am_frequency": "AM частота (Гц)",
+      "fm_form": "FM форма огибающей",
+      "fm_deviation": "FM девиация (кГц)",
+      "fm_frequency": "FM частота (Гц)",
+
+      "error_off": "Отключение при ошибке",
+      "amperage_stabilization": "Стабилизация тока",
+      "frequency_autotuning": "Периодичность автоподстройки (сек)"
+
     },
     "indicatorsList": {
       "frequency": "Частота (кГц)",
@@ -67,6 +86,32 @@
     "selectDeviceDialogButtonCancel": "Cancel",
     "descriptionForButtonSelectGenetatorSelect": "Selected:",
     "descriptionForButtonSelectGenetatorNotSelect": "(Device not selected)"
+  },
+  "generator_settings": {
+    "generator_mode": "Режим",
+    "timer_off_1": "Таймер откл. №1",
+    "timer_off_2": "Таймер откл. №2",
+    "timer_off_3": "Таймер откл. №3",
+    "period_between_on": "Период между включениями",
+    "rms_out_min": "Ток вых. RMS Min (mA)",
+    "rms_out_mid": "Ток вых. RMS Mid (mA)",
+    "rms_out_max": "Ток вых. RMS Max (mA)",
+    "generator_frequency": "Частота генератора (кГц)",
+    "Searching_resonance_min": "Поиск резонанса - граница Min (кГц)",
+    "Searching_resonance_max": "Поиск резонанса - граница Max (кГц)",
+    "phase_shift": "Сдвиг фазы между током и напяж. (град.)",
+    "amperage_stabilization": "Стабилизация тока",
+    "frequency_autotuning": "Период автоподстройки (сек)",
+    "mode_incubator": "Режим  'Инкубатор'",
+    "sound_signal": "Звуковой сигнал (Вкл)",
+    "error_off": "Отключкеие при ошибке",
+    "modulation": "Модуляция (Вкл)",
+    "am_form": "AM форма огибающей",
+    "am_depth": "AM глубина (%)",
+    "am_frequency": "AM частота (Гц)",
+    "fm_form": "FM форма огибающей",
+    "fm_deviation": "FM девиация (кГц)",
+    "fm_frequency": "FM частота (Гц)",
+    "factory_settings": "Сброс на заводские настройки"
   }
-
 }

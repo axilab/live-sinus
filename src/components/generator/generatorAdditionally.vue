@@ -1,7 +1,112 @@
 <template>
-<H1>generatorAdditionally.vue</H1>
+    <v-list>
+        <v-list-item-group
+                color="primary"
+        >
+            <v-list-item>
+                <template v-slot:default="{ active, }">
+                    <v-list-item-action>
+                        <v-checkbox
+                                :input-value="active"
+                                color="primary"
+                        ></v-checkbox>
+                    </v-list-item-action>
+
+                    <v-list-item-content>
+                        <v-list-item-title>{{$t('main.settingsList.error_off')}}</v-list-item-title>
+                    </v-list-item-content>
+                </template>
+            </v-list-item>
+        </v-list-item-group>
+
+
+        <v-list-item-group
+                color="primary"
+        >
+            <v-list-item>
+                <template v-slot:default="{ active, }">
+                    <v-list-item-action>
+                        <v-checkbox
+                                :input-value="active"
+                                color="primary"
+                        ></v-checkbox>
+                    </v-list-item-action>
+
+                    <v-list-item-content>
+                        <v-list-item-title>{{$t('main.settingsList.amperage_stabilization')}}</v-list-item-title>
+                    </v-list-item-content>
+                </template>
+            </v-list-item>
+
+        </v-list-item-group>
+
+        <v-list-item-group
+                color="primary"
+        >
+            <v-list-item
+                    v-for="(item, i) in items"
+                    :key="i"
+                    @click="clickSetting(item)"
+            >
+                <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title v-text="$t(item.text)"></v-list-item-title>
+                    <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+        </v-list-item-group>
+
+    </v-list>
+
 </template>
 
 <script>
 
+    export default {
+        name: "GeneratorMain",
+
+        components: {},
+        data() {
+            return {
+                items: [
+                    { text: 'main.settingsList.frequency_autotuning',subtitle:"синус", icon: 'mdi-progress-clock' },
+
+                ],
+            }
+        },
+        computed: {
+        },
+        methods: {
+            DialogWaveformSelectCallback(ev){
+                console.log('DialogWaveformSelectCallback', ev)
+                this.DialogSelectShow = false
+                if (ev!==null){
+                    const res = ev.result
+                    const type = ev.type
+                    console.log('type', type, 'res',res)
+                }
+            },
+
+
+            clickSetting(item){
+                console.log('item', item)
+                switch (item.text) {
+                    case 'main.settingsList.waveform':
+                        this.DialogData = this.DialogWaveformSelectData
+                        this.DialogSelectShow = true
+                        break
+                    case 'main.settingsList.timer_off':
+                        this.DialogData = this.DialogSessionDurationData
+                        this.DialogSelectShow = true
+                        break
+                    //
+                    default:
+                        break
+                }
+            },
+
+        }
+    }
 </script>

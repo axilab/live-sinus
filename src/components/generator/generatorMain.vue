@@ -87,12 +87,13 @@
 
 
                 items: [
+                    { text: 'main.settingsList.generator_mode',subtitle:"авто", icon: 'mdi-image-filter-tilt-shift' },
                     { text: 'main.settingsList.waveform',subtitle:"синус", icon: 'mdi-waveform' },
                     { text: 'main.settingsList.power',subtitle:"100", icon: 'mdi-wifi' },
                     { text: 'main.settingsList.timer_off',subtitle:"00:00:00", icon: 'mdi-clock-time-two-outline' },
                     { text: 'main.settingsList.timer_on',subtitle:"00:00", icon: 'mdi-update' },
-                    { text: 'main.settingsList.phase_shift',subtitle:"0.0", icon: '' },
-                    { text: 'main.settingsList.frequency',subtitle:"269.5", icon: '' },
+                    { text: 'main.settingsList.phase_shift',subtitle:"0.0", icon: 'mdi-cog-outline' },
+                    { text: 'main.settingsList.frequency',subtitle:"269.5", icon: 'mdi-cog-outline' },
                     ],
                 indicators:[
                     {name:"main.indicatorsList.frequency", value: this.$store.getters.getD07},

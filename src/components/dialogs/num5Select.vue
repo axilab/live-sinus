@@ -4,12 +4,12 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
-                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(3))" :itemList="vList" @change="setVal(3,$event)" class="cont"></Scroller>
-                <div class="cont">.</div>
-                <Scroller :itemSelect="Number(value.charAt(4))" :itemList="vList" @change="setVal(4,$event)" class="cont"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(3))" :itemList="vList" @change="setVal(3,$event)" class="cont3"></Scroller>
+                <div class="cont3">.</div>
+                <Scroller :itemSelect="Number(value.charAt(4))" :itemList="vList" @change="setVal(4,$event)" class="cont3"></Scroller>
             </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -87,7 +87,7 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .cont {
+    .cont3 {
         flex: 1 1 15%;
         /*width: 800px;*/
         /*height: 150px;*/

@@ -4,9 +4,9 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
-                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont4"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont4"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont4"></Scroller>
             </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -81,7 +81,7 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .cont {
+    .cont4 {
         flex: 1 1 25%;
         width: 800px;
         height: 150px;

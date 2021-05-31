@@ -8,6 +8,9 @@
 
     >
       <v-list-item>
+        <v-list-item-avatar>
+          <v-img src="logo.png"></v-img>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="title">
             LiveSinus

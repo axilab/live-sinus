@@ -4,6 +4,7 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
+                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vSign" @change="setVal(0,$event)" class="cont2"></Scroller>
                 <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont2"></Scroller>
                 <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont2"></Scroller>
             </div>
@@ -36,6 +37,7 @@
         data () {
             return {
                 currentValue:[],
+                vSign: [{ value: 0, name: '+' },{ value: 1, name: '-' }],
                 vList: [
                     { value: 0, name: '0' },
                     { value: 1, name: '1' },
@@ -79,8 +81,8 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .cont2 {
-        flex: 1 1 33%;
+    .cont {
+        flex: 1 1 25%;
         width: 800px;
         height: 150px;
         display: flex;

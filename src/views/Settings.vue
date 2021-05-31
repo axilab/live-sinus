@@ -1,8 +1,15 @@
 <template>
-    <v-container fluid>
+    <div style="margin: 0; padding: 0">
         <v-dialog v-if="DialogDevicesSelectShow" v-model="DialogDevicesSelectShow" fullscreen hide-overlay scrollable>
             <devices-select :prevDevice="DialogDevicesSelectData" @DialogDevicesSelectCallback="DialogDevicesSelectCallback($event)"></devices-select>
         </v-dialog>
+
+        <v-tabs v-model="tab" v-on:change="tabChanhe" class="fixed-tabs-bar">
+            <v-tab key="general">{{$t("main.tabs_settings.application")}}</v-tab>
+            <v-tab key="modulation">{{$t("main.tabs_settings.generator")}}</v-tab>
+
+            <v-tab-item>
+                <v-container fluid>
                 <v-row>
                     <v-col cols="12">
                         <v-select
@@ -29,28 +36,42 @@
                     </v-col>
                 </v-row>
 
-        <v-row>
-            <v-col cols="12">
-                <v-btn block color="primary" @click="clickbuttonSelectGenerator">
-                {{$t('settings.buttonSelectGenerator')}}
-            </v-btn>
-                <div align="center">{{descriptionForButtonSelectGenetator}}</div>
-            </v-col>
-        </v-row>
+                <v-row>
+                    <v-col cols="12">
+                        <v-btn block color="primary" @click="clickbuttonSelectGenerator">
+                            {{$t('settings.buttonSelectGenerator')}}
+                        </v-btn>
+                        <div align="center">{{descriptionForButtonSelectGenetator}}</div>
+                    </v-col>
+                </v-row>
+                </v-container>
+            </v-tab-item>
 
-    </v-container>
+            <v-tab-item>
+                <v-container fluid>
+                    <generator-settings/>
+                </v-container>
+            </v-tab-item>
+
+
+
+        </v-tabs>
+
+    </div>
 </template>
 
 <script>
     // import {mapGetters} from "vuex";
     import devicesSelect from "@/components/dialogs/devicesSelect"
+    import generatorSettings from "@/components/generator/generatorSettings"
     import util from "../core/util";
     export default {
         name: "Settings",
         mixins: [util],
-        components: {devicesSelect},
+        components: {devicesSelect, generatorSettings},
         data() {
             return {
+                tab: null,
                 locale: 'ru',
                 theme: 'light',
                 themeList: ['light','dark'],
@@ -75,6 +96,10 @@
             }
         },
         methods:{
+            tabChanhe(){
+
+            },
+
             languageChange(){
                 this.$store.commit("setLanguage", this.locale)
             },
@@ -115,3 +140,13 @@
         //methods: {}
     }
 </script>
+
+<style>
+    .fixed-tabs-bar .v-tabs-bar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 3.5rem;
+        z-index: 2;
+    }
+
+</style>
