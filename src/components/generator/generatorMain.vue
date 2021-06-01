@@ -2,7 +2,7 @@
     <div>
 
         <v-dialog v-if="DialogSelectShow" v-model="DialogSelectShow" scrollable>
-            <radio-select :input="DialogData" @Callback="DialogWaveformSelectCallback($event)"></radio-select>
+        <radio-select :input="DialogData" @Callback="DialogSelectCallback($event)"></radio-select>
         </v-dialog>
 
         <v-dialog v-if="DialogPowerShow" v-model="DialogPowerShow" scrollable>
@@ -10,11 +10,11 @@
         </v-dialog>
 
         <v-dialog v-if="DialogfrequencyShow" v-model="DialogfrequencyShow" scrollable>
-            <num5Select :input="DialogData" @Callback="DialogfrequencyShow=!DialogfrequencyShow"></num5Select>
+            <num4_1Select :input="DialogData" @Callback="DialogfrequencyShow=!DialogfrequencyShow"></num4_1Select>
         </v-dialog>
 
         <v-dialog v-if="DialogPhaseShiftShow" v-model="DialogPhaseShiftShow" scrollable>
-            <num2select :input="DialogData" @Callback="DialogPhaseShiftShow=!DialogPhaseShiftShow"></num2select>
+            <num3select :input="DialogData" @Callback="DialogPhaseShiftShow=!DialogPhaseShiftShow"></num3select>
         </v-dialog>
 
 
@@ -65,12 +65,12 @@
 <script>
     import radioSelect from "@/components/dialogs/radioSelect"
     import powerSelect from "@/components/dialogs/powerSelect"
-    import num5Select from "@/components/dialogs/num5Select"
-    import num2select from "@/components/dialogs/num2select"
+    import num4_1Select from "@/components/dialogs/num4_1Select"
+    import num3select from "@/components/dialogs/num3select"
     export default {
         name: "GeneratorMain",
 
-        components: {radioSelect, powerSelect, num5Select, num2select},
+        components: {radioSelect, powerSelect, num4_1Select, num3select},
         data() {
             return {
                 DialogData: null,
@@ -78,11 +78,12 @@
                 DialogPowerShow: false,
                 DialogfrequencyShow: false,
                 DialogPhaseShiftShow: false,
-                DialogWaveformSelectData: {title:"main.titles.carrier_type", list:[{id:'1',text:'Sinus'},{id:'2',text:'Meander'},{id:'3',text:'Triangle'}],select:'1',type:'waveform'},
-                DialogSessionDurationData: {title:"main.titles.session_duration", list:[{id:'1',text:'15 min'},{id:'2',text:'30 min'},{id:'3',text:'45 min'}, {id:'4',text:'60 min'}],select:'2',type:'timer_off'},
-                DialogBetween_onData: {title:"main.titles.period_between_on", list:[{id:'0',text:'Stop'}, {id:'1',text:'1 hour'}, {id:'2',text:'2 hour'}, {id:'3',text:'3 hour'},
-                                                                                        {id:'4',text:'4 hour'}, {id:'5',text:'5 hour'}, {id:'6',text:'6 hour'}, {id:'7',text:'7 hour'},
-                                                                                        {id:'8',text:'8 hour'}, {id:'9',text:'9 hour'}, {id:'12',text:'12 hour'}, {id:'24',text:'24 hour'},],
+                DialogGeneratorModeSelectData:{title:"main.titles.generator_mode", list:[{id:'1',text:'generator_modes.auto'},{id:'2',text:'generator_modes.profi'},{id:'3',text:'generator_modes.engineering'}],select:'1',type:'generator_mode'},
+                DialogWaveformSelectData: {title:"main.titles.carrier_type", list:[{id:'1',text:'wave_form.sinus'},{id:'2',text:'wave_form.meander'},{id:'3',text:'wave_form.triangle'}],select:'1',type:'waveform'},
+                DialogSessionDurationData: {title:"main.titles.session_duration", list:[{id:'1',text:'timer_off_values.m15'},{id:'2',text:'timer_off_values.m30'},{id:'3',text:'timer_off_values.m45'}, {id:'4',text:'timer_off_values.m60'}],select:'2',type:'timer_off'},
+                DialogBetween_onData: {title:"main.titles.period_between_on", list:[{id:'0',text:'timer_on_values.off'}, {id:'1',text:'timer_on_values.h1'}, {id:'2',text:'timer_on_values.h2'}, {id:'3',text:'timer_on_values.h3'},
+                                                                                        {id:'4',text:'timer_on_values.h4'}, {id:'5',text:'timer_on_values.h5'}, {id:'6',text:'timer_on_values.h6'}, {id:'7',text:'timer_on_values.h7'},
+                                                                                        {id:'8',text:'timer_on_values.h8'}, {id:'9',text:'timer_on_values.h9'}, {id:'12',text:'timer_on_values.h12'}, {id:'24',text:'timer_on_values.h24'},],
                                                                                         select:'2',type:'timer_on'},
 
 
@@ -113,7 +114,7 @@
             }
         },
         methods: {
-            DialogWaveformSelectCallback(ev){
+            DialogSelectCallback(ev){
                 console.log('DialogWaveformSelectCallback', ev)
                 this.DialogSelectShow = false
                 if (ev!==null){
@@ -139,8 +140,13 @@
                         this.DialogData = this.DialogBetween_onData
                         this.DialogSelectShow = true
                         break
+                    case 'main.settingsList.generator_mode':
+                        this.DialogData = this.DialogGeneratorModeSelectData
+                        this.DialogSelectShow = true
+                        break
+
                     case 'main.settingsList.power':
-                        this.DialogData = {value:100,type:'load_current'}
+                        this.DialogData = {title: "main.titles.load_current",value:100,type:'load_current'}
                         this.DialogPowerShow = true
                         break
                     case 'main.settingsList.frequency':

@@ -1,6 +1,19 @@
 <template>
-    <v-list>
+    <div>
+        <v-dialog v-if="DialogSelectShow" v-model="DialogSelectShow" scrollable>
+            <radio-select :input="DialogData" @Callback="DialogSelectCallback($event)"></radio-select>
+        </v-dialog>
 
+        <v-dialog v-if="DialogTimerShow" v-model="DialogTimerShow" scrollable>
+            <timer-select :input="DialogData" @Callback="DialogTimerShow=!DialogTimerShow"></timer-select>
+        </v-dialog>
+
+        <v-dialog v-if="DialogPowerShow" v-model="DialogPowerShow" scrollable>
+            <power-select :input="DialogData" @Callback="DialogPowerShow=!DialogPowerShow"></power-select>
+        </v-dialog>
+
+
+        <v-list>
         <v-list-item-group
                 color="primary"
         >
@@ -61,20 +74,42 @@
             </v-list-item>
         </v-list-item-group>
 
+            <v-list-item-group color="primary">
+                <v-list-item @click="clickSetting(factory_settings)">
+                    <v-list-item-icon>
+                        <v-icon v-text="factory_settings.icon"></v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title v-text="$t(factory_settings.text)"></v-list-item-title>
+                        <v-list-item-subtitle v-html="factory_settings.subtitle"></v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list-item-group>
 
 
     </v-list>
-
+    </div>
 </template>
 
 <script>
+    import radioSelect from "@/components/dialogs/radioSelect"
+    import timerSelect from "@/components/dialogs/timerSelect"
+    import powerSelect from "@/components/dialogs/powerSelect"
 
     export default {
         name: "GeneratorSetting",
 
-        components: {},
+        components: {radioSelect, timerSelect, powerSelect},
         data() {
             return {
+                DialogSelectShow: false,
+                DialogTimerShow: false,
+                DialogPowerShow: false,
+
+                DialogData: null,
+
+                DialogGeneratorModeSelectData:{title:"main.titles.generator_mode", list:[{id:'1',text:'generator_modes.auto'},{id:'2',text:'generator_modes.profi'},{id:'3',text:'generator_modes.engineering'}],select:'1',type:'generator_mode'},
+
                 items: [
                     { text: 'generator_settings.generator_mode',subtitle:"авто", icon: 'mdi-cog-outline' },
                     { text: 'generator_settings.timer_off_1',subtitle:"00:15:00", icon: 'mdi-cog-outline' },
@@ -84,32 +119,17 @@
                     { text: 'generator_settings.rms_out_min',subtitle:"75", icon: 'mdi-cog-outline' },
                     { text: 'generator_settings.rms_out_mid',subtitle:"150", icon: 'mdi-cog-outline' },
                     { text: 'generator_settings.rms_out_max',subtitle:"300", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.generator_frequency',subtitle:"", icon: 'mdi-cog-outline' },
                     { text: 'generator_settings.Searching_resonance_min',subtitle:"150", icon: 'mdi-cog-outline' },
                     { text: 'generator_settings.Searching_resonance_max',subtitle:"350", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.phase_shift',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.amperage_stabilization',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.frequency_autotuning',subtitle:"", icon: 'mdi-cog-outline' },
-                    //  { text: 'generator_settings.mode_incubator',subtitle:"", icon: 'mdi-cog-outline' },
-                    //  { text: 'generator_settings.sound_signal',subtitle:"", icon: 'mdi-cog-outline' },
-                    //  { text: 'generator_settings.error_off',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.modulation',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.am_form',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.am_depth',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.am_frequency',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.fm_form',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.fm_deviation',subtitle:"", icon: 'mdi-cog-outline' },
-                    // { text: 'generator_settings.fm_frequency',subtitle:"", icon: 'mdi-cog-outline' },
-                    { text: 'generator_settings.factory_settings',subtitle:"", icon: 'mdi-exclamation' },
-
                 ],
+                factory_settings: { text: 'generator_settings.factory_settings',subtitle:"", icon: 'mdi-exclamation' }
             }
         },
         computed: {
         },
         methods: {
-            DialogWaveformSelectCallback(ev){
-                console.log('DialogWaveformSelectCallback', ev)
+            DialogSelectCallback(ev){
+                console.log('DialogSelectCallback', ev)
                 this.DialogSelectShow = false
                 if (ev!==null){
                     const res = ev.result
@@ -122,15 +142,50 @@
             clickSetting(item){
                 console.log('item', item)
                 switch (item.text) {
-                    case 'main.settingsList.waveform':
-                        this.DialogData = this.DialogWaveformSelectData
+                    case 'generator_settings.generator_mode':
+                        this.DialogData = this.DialogGeneratorModeSelectData
                         this.DialogSelectShow = true
                         break
-                    case 'main.settingsList.timer_off':
-                        this.DialogData = this.DialogSessionDurationData
-                        this.DialogSelectShow = true
+                    case 'generator_settings.timer_off_1':
+                        this.DialogData = {title:"generator_settings.timer_off_1", value:15}
+                        this.DialogTimerShow = true
                         break
-                    //
+                    case 'generator_settings.timer_off_2':
+                        this.DialogData = {title:"generator_settings.timer_off_2", value:30}
+                        this.DialogTimerShow = true
+                        break
+                    case 'generator_settings.timer_off_3':
+                        this.DialogData = {title:"generator_settings.timer_off_3", value:45}
+                        this.DialogTimerShow = true
+                        break
+                    case 'generator_settings.period_between_on':
+                        this.DialogData = {title:"generator_settings.period_between_on", value:0}
+                        this.DialogTimerShow = true
+                        break
+                    case 'generator_settings.rms_out_min':
+                        this.DialogData = {title:"generator_settings.rms_out_min", value:75,type:'rms_out_min'}
+                        this.DialogPowerShow = true
+                        break
+                    case 'generator_settings.rms_out_mid':
+                        this.DialogData = {title:"generator_settings.rms_out_mid",value:150,type:'rms_out_mid'}
+                        this.DialogPowerShow = true
+                        break
+                    case 'generator_settings.rms_out_max':
+                        this.DialogData = {title:"generator_settings.rms_out_max",value:300,type:'rms_out_max'}
+                        this.DialogPowerShow = true
+                        break
+                    case 'generator_settings.Searching_resonance_min':
+                        //this.DialogData = this.DialogSessionDurationData
+                        //this.DialogSelectShow = true
+                        break
+                    case 'generator_settings.Searching_resonance_max':
+                        //this.DialogData = this.DialogSessionDurationData
+                        //this.DialogSelectShow = true
+                        break
+                    case 'generator_settings.factory_settings':
+                        //this.DialogData = this.DialogSessionDurationData
+                        //this.DialogSelectShow = true
+                        break
                     default:
                         break
                 }

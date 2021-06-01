@@ -8,7 +8,7 @@
                             column
                     >
                         <v-radio v-for="item in list"
-                                :label="item.text"
+                                :label="$t(item.text)"
                                 :value="item.id"
                                 :key="item.id"
                         ></v-radio>

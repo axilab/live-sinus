@@ -1,9 +1,15 @@
 <template>
+    <div>
+
+        <v-dialog v-if="Dialognum2selectShow" v-model="Dialognum2selectShow" scrollable>
+            <num2select :input="DialogData" @Callback="Dialognum2selectShow=!Dialognum2selectShow"></num2select>
+        </v-dialog>
+
     <v-list>
         <v-list-item-group
                 color="primary"
         >
-            <v-list-item>
+            <v-list-item v-model="selected">
                 <template v-slot:default="{ active, }">
                     <v-list-item-action>
                         <v-checkbox
@@ -23,7 +29,7 @@
         <v-list-item-group
                 color="primary"
         >
-            <v-list-item>
+            <v-list-item v-model="selected1">
                 <template v-slot:default="{ active, }">
                     <v-list-item-action>
                         <v-checkbox
@@ -59,17 +65,26 @@
         </v-list-item-group>
 
     </v-list>
+        >> {{selected}}
 
+
+
+    </div>
 </template>
 
 <script>
-
+    import num2select from "@/components/dialogs/num2select"
     export default {
         name: "GeneratorMain",
 
-        components: {},
+        components: {num2select},
         data() {
             return {
+                Dialognum2selectShow: false,
+                DialogData: null,
+
+                selected1: true,
+                selected: true,
                 items: [
                     { text: 'main.settingsList.frequency_autotuning',subtitle:"синус", icon: 'mdi-progress-clock' },
 
@@ -79,7 +94,7 @@
         computed: {
         },
         methods: {
-            DialogWaveformSelectCallback(ev){
+            DialogSelectCallback(ev){
                 console.log('DialogWaveformSelectCallback', ev)
                 this.DialogSelectShow = false
                 if (ev!==null){
@@ -93,15 +108,16 @@
             clickSetting(item){
                 console.log('item', item)
                 switch (item.text) {
-                    case 'main.settingsList.waveform':
-                        this.DialogData = this.DialogWaveformSelectData
-                        this.DialogSelectShow = true
+                    case 'main.settingsList.frequency_autotuning':
+                        this.DialogData = {value:30, type:'frequency_autotuning',title:"main.titles.frequency_autotuning"}
+                        this.Dialognum2selectShow = true
                         break
-                    case 'main.settingsList.timer_off':
-                        this.DialogData = this.DialogSessionDurationData
-                        this.DialogSelectShow = true
-                        break
-                    //
+
+                    // case 'main.settingsList.timer_off':
+                    //     this.DialogData = this.DialogSessionDurationData
+                    //     this.DialogSelectShow = true
+                    //     break
+
                     default:
                         break
                 }

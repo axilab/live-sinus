@@ -4,9 +4,11 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
-                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont4"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont4"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont4"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont6"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont6"></Scroller>
+                <div class="cont6">:</div>
+                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont6"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(3))" :itemList="vList" @change="setVal(3,$event)" class="cont6"></Scroller>
             </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -68,11 +70,12 @@
         },
 
         created() {
-            const val = "000"+this.input.value.toString()
-            this.value = val.slice(-3)
+            const val = "0000"+this.input.value.toString()
+            this.value = val.slice(-4)
             this.currentValue[0] = Number(this.value.charAt(0))
             this.currentValue[1] = Number(this.value.charAt(1))
             this.currentValue[2] = Number(this.value.charAt(2))
+            this.currentValue[3] = Number(this.value.charAt(3))
             this.type  = this.input.type
             this.title = this.input.title
         }
@@ -83,8 +86,8 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .cont4 {
-        flex: 1 1 30%;
+    .cont6 {
+        flex: 1 1 20%;
         width: 800px;
         height: 150px;
         display: flex;

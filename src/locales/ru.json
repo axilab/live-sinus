@@ -35,6 +35,7 @@
       "phase_shift": "Сдвиг фазы (град.)",
       "frequency": "Частота (кГц)",
 
+      "modulation": "Модуляция",
       "am_form": "AM Форма огибающей",
       "am_depth": "AM глубина (%)",
       "am_frequency": "AM частота (Гц)",
@@ -53,12 +54,20 @@
       "q_factor": "Добротность катушки"
     },
     "titles": {
+      "generator_mode": "Режим работы генератора",
       "carrier_type": "Тип несущей",
       "load_current": "Ток в нагрузке",
       "session_duration": "Длительность сеанса",
       "period_between_on": "Период между включениями",
       "phase_shift": "Сдвиг фазы между током и напряж. (град.)",
-      "generator_frequency": "Частота генератора"
+      "generator_frequency": "Частота генератора",
+      "am_form":"AM форма огибающей",
+      "am_depth": "AM глубина (%)",
+      "am_frequency": "AM частота (Гц)",
+      "fm_form": "FM форма огибающей",
+      "fm_deviation": "FM девиация (кГц)",
+      "fm_frequency": "FM частота (Гц)",
+      "frequency_autotuning": "Периодичность автоподстройки (сек)"
     }
   },
   "menu": {
@@ -88,24 +97,57 @@
     "rms_out_min": "Ток вых. RMS Min (mA)",
     "rms_out_mid": "Ток вых. RMS Mid (mA)",
     "rms_out_max": "Ток вых. RMS Max (mA)",
-    "generator_frequency": "Частота генератора (кГц)",
     "Searching_resonance_min": "Поиск резонанса - граница Min (кГц)",
     "Searching_resonance_max": "Поиск резонанса - граница Max (кГц)",
-    "phase_shift": "Сдвиг фазы между током и напяж. (град.)",
-    "amperage_stabilization": "Стабилизация тока",
-    "frequency_autotuning": "Период автоподстройки (сек)",
     "mode_incubator": "Режим  'Инкубатор'",
     "sound_signal": "Звуковой сигнал (Вкл)",
     "error_off": "Отключкеие при ошибке",
-    "modulation": "Модуляция (Вкл)",
-    "am_form": "AM форма огибающей",
-    "am_depth": "AM глубина (%)",
-    "am_frequency": "AM частота (Гц)",
-    "fm_form": "FM форма огибающей",
-    "fm_deviation": "FM девиация (кГц)",
-    "fm_frequency": "FM частота (Гц)",
     "factory_settings": "Сброс на заводские настройки"
   },
+  "wave_form": {
+    "sinus": "синус",
+    "meander": "меандер",
+    "triangle": "треугольник"
+  },
+  "generator_modes": {
+    "auto": "авто",
+    "profi": "профи",
+    "engineering": "инженерный"
+  },
+  "timer_off_values": {
+    "m15": "15 мин",
+    "m30": "30 мин",
+    "m45": "45 мин",
+    "m60": "60 мин"
+  },
+  "timer_on_values": {
+    "off": "Отключен",
+    "h1": "1 ч.",
+    "h2": "2 ч.",
+    "h3": "3 ч.",
+    "h4": "4 ч.",
+    "h5": "5 ч.",
+    "h6": "6 ч.",
+    "h7": "7 ч.",
+    "h8": "8 ч.",
+    "h9": "9 ч.",
+    "h12": "12 ч.",
+    "h24": "24 ч."
+  },
+  "am_depth_values": {
+    "p10": "10%",
+    "p20": "20%",
+    "p30": "30%",
+    "p40": "40%",
+    "p50": "50%",
+    "p60": "60%",
+    "p70": "70%",
+    "p80": "80%",
+    "p90": "90%",
+    "p100": "100%"
+  },
+
+
   "generatorStatus": [
     {"key": "0", "description": "генератор отключен, переведен в спящий режим"},
     {"key": "1", "description": "включен в режиме поиска резонансной частоты"},
