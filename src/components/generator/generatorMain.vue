@@ -6,7 +6,7 @@
         </v-dialog>
 
         <v-dialog v-if="DialogPowerShow" v-model="DialogPowerShow" scrollable>
-            <power-select :input="DialogData" @Callback="DialogPowerShow=!DialogPowerShow"></power-select>
+            <power-select :input="DialogData" @Callback="DialogSelectCallback($event)"></power-select>
         </v-dialog>
 
         <v-dialog v-if="DialogfrequencyShow" v-model="DialogfrequencyShow" scrollable>
@@ -66,11 +66,12 @@
     import powerSelect from "@/components/dialogs/powerSelect"
     import num4_1Select from "@/components/dialogs/num4_1Select"
     import num3select from "@/components/dialogs/num3select"
-//    import constans from "../../core/constans";
-//    import constans from "../../core/constans";
+    //import constans from ".@/core/constans";
+    import bluetooth from "@/core/bluetooth"
+
     export default {
         name: "GeneratorMain",
-
+        mixins: [bluetooth],
         components: {radioSelect, powerSelect, num4_1Select, num3select},
         data() {
             return {
@@ -79,14 +80,6 @@
                 DialogPowerShow: false,
                 DialogfrequencyShow: false,
                 DialogPhaseShiftShow: false,
-                DialogGeneratorModeSelectData:{title:"main.titles.generator_mode", list:[{id:'1',text:'generator_modes.auto'},{id:'2',text:'generator_modes.profi'},{id:'3',text:'generator_modes.engineering'}],select:'1',type:'generator_mode'},
-                DialogWaveformSelectData: {title:"main.titles.carrier_type", list:[{id:'1',text:'wave_form.sinus'},{id:'2',text:'wave_form.meander'},{id:'3',text:'wave_form.triangle'}],select:'1',type:'waveform'},
-                DialogSessionDurationData: {title:"main.titles.session_duration", list:[{id:'1',text:'timer_off_values.m15'},{id:'2',text:'timer_off_values.m30'},{id:'3',text:'timer_off_values.m45'}, {id:'4',text:'timer_off_values.m60'}],select:'2',type:'timer_off'},
-                DialogBetween_onData: {title:"main.titles.period_between_on", list:[{id:'0',text:'timer_on_values.off'}, {id:'1',text:'timer_on_values.h1'}, {id:'2',text:'timer_on_values.h2'}, {id:'3',text:'timer_on_values.h3'},
-                                                                                        {id:'4',text:'timer_on_values.h4'}, {id:'5',text:'timer_on_values.h5'}, {id:'6',text:'timer_on_values.h6'}, {id:'7',text:'timer_on_values.h7'},
-                                                                                        {id:'8',text:'timer_on_values.h8'}, {id:'9',text:'timer_on_values.h9'}, {id:'12',text:'timer_on_values.h12'}, {id:'24',text:'timer_on_values.h24'},],
-                                                                                        select:'2',type:'timer_on'},
-
 
                 items: [
                     { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
@@ -107,7 +100,8 @@
         },
         computed: {
             settings(){
-                if (this.$store.getters.getD35 === 'generator_modes.profi'){
+                console.log('settings', this.$store.getters.getD75)
+                if (this.$store.getters.getD75 === 'generator_modes.profi'||this.$store.getters.getD75 === 'generator_modes.engineering'){
                     return [
                         { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
                         { text: 'main.settingsList.waveform', icon: 'mdi-waveform' },
@@ -124,8 +118,6 @@
                         { text: 'main.settingsList.power', icon: 'mdi-wifi' },
                         { text: 'main.settingsList.timer_off', icon: 'mdi-clock-time-two-outline' },
                         { text: 'main.settingsList.timer_on', icon: 'mdi-update' },
-                        // { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' },
-                        // { text: 'main.settingsList.frequency', icon: 'mdi-cog-outline' },
                     ]
                 }
             },
@@ -158,7 +150,7 @@
             subtitle(param){
                 switch (param) {
                     case 'main.settingsList.generator_mode':
-                        return this.$t(this.$store.getters.getD35)
+                        return this.$t(this.$store.getters.getD75)
                     case 'main.settingsList.waveform':
                         return this.$t(this.$store.getters.getD09)
                     case 'main.settingsList.power':
@@ -177,53 +169,76 @@
 
             },
 
-            test(){
-                console.log('test')
-                this.$store.commit('setStateDevice',{command: "09", data: "1"})
-                //console.log('getD35',this.$store.getters.getD35)
-            },
-
             DialogSelectCallback(ev){
                 console.log('DialogWaveformSelectCallback', ev)
                 this.DialogSelectShow = false
-                if (ev!==null){
-                    const res = ev.result
-                    const type = ev.type
-                    console.log('type', type, 'res',res)
-                }
-            },
+                this.DialogPowerShow = false
+                this.DialogfrequencyShow = false
+                this.DialogPhaseShiftShow = false
+                if (ev==null){return}
 
+                switch (ev.type) {
+                    case 'generator_mode':
+                        this.setGeneratorMode(ev.result, false)
+                        break
+                    case 'waveform':
+                        this.setGeneratorWaveForm(ev.result, false)
+                        break
+                    case 'power':
+                        this.setGeneratorPower(ev.result.toString())
+                        break
+                    case 'timer_off':
+                         this.setTimerOff((ev.result * 15).toString())
+                         break
+                    case 'timer_on':
+                        this.setGeneratorTimerOn((ev.result * 60).toString())
+                        break
+                    case 'phase_shift':
+                        this.setGeneratorPhaseShift(ev.result, false)
+                        break
+                    case 'frequency':
+                        this.setGeneratorFrequency(ev.result, false)
+                        break
+                    default:
+                       console.log('type undefined', ev)
+
+                }
+
+            },
 
             clickSetting(item){
                 //console.log('item', item)
                 switch (item.text) {
                     case 'main.settingsList.waveform':
-                        //this.test()
-                        this.DialogData = this.DialogWaveformSelectData
+                        this.DialogData = {title:"main.titles.carrier_type", list:[{id:'0',text:'wave_form.sinus'},{id:'1',text:'wave_form.meander'},{id:'2',text:'wave_form.triangle'}],select:this.$store.getters.get_D09,type:'waveform'}
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.timer_off':
-                        this.DialogData = this.DialogSessionDurationData
+                        this.DialogData = {title:"main.titles.session_duration", list:[{id:1,text:'timer_off_values.m15'},{id:2,text:'timer_off_values.m30'},{id:3,text:'timer_off_values.m45'}, {id:4,text:'timer_off_values.m60'}],select:3,type:'timer_off'}
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.timer_on':
-                        this.DialogData = this.DialogBetween_onData
+                        this.DialogData = {title:"main.titles.period_between_on",
+                            list:[{id:0,text:'timer_on_values.off'}, {id:1,text:'timer_on_values.h1'}, {id:2,text:'timer_on_values.h2'}, {id:3,text:'timer_on_values.h3'},
+                            {id:4,text:'timer_on_values.h4'}, {id:5,text:'timer_on_values.h5'}, {id:6,text:'timer_on_values.h6'}, {id:7,text:'timer_on_values.h7'},
+                            {id:8,text:'timer_on_values.h8'}, {id:9,text:'timer_on_values.h9'}, {id:12,text:'timer_on_values.h12'}, {id:24,text:'timer_on_values.h24'},],
+                            select: 0,type:'timer_on'}
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.generator_mode':
-                        this.DialogData = this.DialogGeneratorModeSelectData
+                        this.DialogData = {title:"main.titles.generator_mode", list:[{id:'0',text:'generator_modes.auto'},{id:'1',text:'generator_modes.profi'},{id:'2',text:'generator_modes.engineering'}],select: this.$store.getters.get_D75, type:'generator_mode'}
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.power':
-                        this.DialogData = {title: "main.titles.load_current",value:100,type:'load_current'}
+                        this.DialogData = {title: "main.titles.load_current",value: this.$store.getters.getD14,type:'power'}
                         this.DialogPowerShow = true
                         break
                     case 'main.settingsList.frequency':
-                        this.DialogData = {value:12345, type:'generator_frequency'}
+                        this.DialogData = {value: this.$store.getters.getD07, type:'frequency'}
                         this.DialogfrequencyShow = true
                         break
                     case 'main.settingsList.phase_shift':
-                        this.DialogData = {value:0, type:'phase_shift'}
+                        this.DialogData = {value: this.$store.getters.getD18, type:'phase_shift'}
                         this.DialogPhaseShiftShow = true
                         break
                     //

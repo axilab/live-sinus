@@ -65,9 +65,10 @@
     import devicesSelect from "@/components/dialogs/devicesSelect"
     import generatorSettings from "@/components/generator/generatorSettings"
     import util from "../core/util";
+    import bluetooth from "@/core/bluetooth"
     export default {
         name: "Settings",
-        mixins: [util],
+        mixins: [util, bluetooth],
         components: {devicesSelect, generatorSettings},
         data() {
             return {
@@ -112,13 +113,20 @@
                 this.DialogDevicesSelectData = this.deviceSelect
                 this.DialogDevicesSelectShow = true
             },
-            DialogDevicesSelectCallback(ev){
+            async DialogDevicesSelectCallback(ev){
                 if (ev.result){
                     //console.log('DialogDevicesSelectCallback', ev)
                     this.deviceSelect = ev.result
                     //console.log('result JSON', JSON.stringify(ev.result))
                     this.$store.commit("setCurrentDevice", ev.result)
 
+                    let conn = await this.bluetoothIsConnected()
+                    if (conn!=='OK'){
+                        this.openBluetoothPort().then(()=>{this.deviceInit()})
+                    }else{
+                        console.log('port is open')
+                        this.deviceInit()
+                    }
 
                 }
                 this.DialogDevicesSelectShow = false

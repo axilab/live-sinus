@@ -62,7 +62,7 @@
                 this.$emit('Callback', {result:null})
             },
             clickSelect(){
-                console.log('return', Number(this.currentValue.join('')))
+                //console.log('return', Number(this.currentValue.join('')))
                 this.$emit('Callback', {result: Number(this.currentValue.join('')), type: this.type})
             }
         },

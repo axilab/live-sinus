@@ -114,6 +114,12 @@ export default {
 
         if (theme==='dark') this.$vuetify.theme.dark = true
         this.$store.commit('appLoadSettings')
+      // while (this.$store.getters.getCurrentDevice===null){
+      //   console.log('wait...')
+      // }
+
+      const device = await db.getPref('device','{"adrress":"00:00:00:00", "name":"not select"}')
+      console.log('select-device', device)
 
         let res = await this.getBluetoothEnable().catch(async err =>  {
           let enableBle = await this.bluetoothEnable()

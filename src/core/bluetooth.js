@@ -87,9 +87,9 @@ export default {
 
 /* режима работы - constans.generatorMode */
 
-        requestGeneratorData(){
-            this.writePort(constans.startByte+"35"+"75"+constans.stopByte)
-        },
+        // requestGeneratorData(){
+        //     this.writePort(constans.startByte+"35"+"75"+constans.stopByte)
+        // },
 
         setGeneratorMode(mode, EEPROM){
             if (EEPROM){
@@ -127,11 +127,25 @@ export default {
             }
         },
 
+        setGeneratorFrequency(kHz,EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "76" + kHz + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "07" + kHz + constans.stopByte)
+            }
+        },
+
+        setTimerOff(minutes){
+            this.writePort(constans.startByte+"20"+minutes+constans.stopByte)
+        },
+
+
+
 
 
         deviceInit(){
 
-            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"25"+"18"+"19"+constans.stopByte)
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"25"+"18"+"19"+"75"+constans.stopByte)
             this.$store.commit('bluetoothSubscribe')
 
         }

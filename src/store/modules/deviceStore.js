@@ -84,6 +84,9 @@ export default {
         getD07(state){
             return state.d07
         },
+        get_D09(state){
+            return state.d09
+        },
         getD09(state){
             switch (state.d09) {
                 case constans.waveForm.sinus:
@@ -164,16 +167,29 @@ export default {
                 default:
                     return 'generator_modes.auto'
             }
-            //return util.getKeyByValue(constans.generatorMode, state.d35)
-            //console.log('state.d35', state.d35)
-            //util.methods.getKeyByValue(constans.generatorMode, state.d35)
-            //return state.d35
+
         },
         getD39(state){
             return state.d39
         },
         getD40(state){
             return state.d40
+        },
+        getD75(state){
+            switch (state.d75) {
+                case constans.generatorMode.auto:
+                    return 'generator_modes.auto'
+                case constans.generatorMode.manual:
+                    return 'generator_modes.profi'
+                case constans.generatorMode.manualProfi:
+                    return 'generator_modes.engineering'
+                default:
+                    return 'generator_modes.auto'
+            }
+
+        },
+        get_D75(state){
+            return state.d75
         }
     },
 };

@@ -22,12 +22,11 @@ export default {
       //this.setStateDevice2("20", "0")
       window.bluetoothSerial.unsubscribe(success=>{console.log('success',success)}, failure=>{console.log('failure',failure)});
       window.bluetoothSerial.subscribe("\r", function (data) {
-        //console.log('incoming',data);
         let _command = data.substr(1,2)
-        //console.log('_command', _command)
         let _data = data.substr(3,data.length-4)
-        console.log(_command, _data)
-
+        //==========================
+        //console.log(_command, _data)
+        //==========================
         this.commit('setStateDevice',{command: _command, data: _data})
 
         }.bind(this), failure=>{console.log('failure',failure)});
@@ -52,15 +51,15 @@ export default {
       if (state.db == null){
         this.commit('dbInit')
       }
-
-      let theme     = await state.db.getPref('theme','no-value')
-      let language  = await state.db.getPref('language','no-value')
-      let device    = await state.db.getPref('device','no-value')
-
-      if (device!=='no-value'){
+      let device    = await state.db.getPref('device','{"adrress":"00:00:00:00", "name":"not select"}')
+      //console.log('device#', device)
+      //if (device!=='no-value'){
         device = JSON.parse(device);
         this.commit('setCurrentDevice',device)
-      }
+      //}
+      let theme     = await state.db.getPref('theme','no-value')
+      let language  = await state.db.getPref('language','no-value')
+
 
       if (theme==='no-value'){theme = 'light'}
       this.commit('setDarkTheme', theme)

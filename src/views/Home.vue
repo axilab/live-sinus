@@ -82,8 +82,8 @@ export default {
   },
   computed: {
     tabModulationVisable(){
-      console.log('генератор моде', this.$store.getters.getD35)
-      if (this.$store.getters.getD35==='generator_modes.auto'){
+      console.log('генератор моде', this.$store.getters.getD75)
+      if (this.$store.getters.getD75==='generator_modes.auto'){
         return false
       }else {
         return true
