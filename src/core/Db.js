@@ -1,10 +1,8 @@
 export default class Db {
     db = null;
     constructor() {
-        console.log('Db constructor')
         this.dbOpen()
         //Инициализация таблицы для хранения настроек
-            console.log('init db')
             this.db.executeSql('CREATE TABLE IF NOT EXISTS pref (id integer primary key, name text, value text)', [],
                 (result)=> {
                     console.log("Table created successfully", result)
@@ -13,19 +11,6 @@ export default class Db {
                     console.log("Error occurred while creating the table.", error)
                 }
             );
-
-
-        // this.db.transaction((transaction)=> {
-        //     transaction.executeSql('CREATE TABLE IF NOT EXISTS pref (id integer primary key, name text, value text)', [],
-        //         (tx, result)=> {
-        //             console.log("Table created successfully", tx, result)
-        //         },
-        //         (error)=> {
-        //             console.log("Error occurred while creating the table.", error)
-        //         }
-        //     );
-        // });
-
 
 
     }
@@ -47,24 +32,6 @@ export default class Db {
         }
         }
 
-    // getPref(PrefName, DefaultValue){
-    //     this.dbOpen()
-    //     return new Promise((resolve, reject) => {
-    //         this.db.transaction((transaction)=> {
-    //             transaction.executeSql('SELECT name, value FROM pref WHERE name=?',
-    //                 [PrefName],
-    //                 (tx, results) =>{
-    //                     let res = DefaultValue
-    //                     if (results.rows.length === 1) {res = results.rows[0].value}
-    //                     resolve(res)
-    //                 },
-    //                 (err) => {
-    //                     reject(err)
-    //             });
-    //         })
-    //     })
-    // }
-
     getPref(PrefName, DefaultValue){
         this.dbOpen()
         return new Promise((resolve, reject) => {
@@ -81,33 +48,6 @@ export default class Db {
                 )
         })
     }
-
-
-    // setPref(PrefName, Value){
-    //     this.dbOpen()
-    //     return new Promise((resolve, reject) => {
-    //         const db = this.db
-    //         db.transaction((transaction)=> {
-    //             transaction.executeSql('SELECT id, name, value FROM pref WHERE name=?', [PrefName], function (tx, results) {
-    //                 let len = results.rows.length
-    //                 if (len === 1) { //update
-    //                     let id = results.rows.item(0).id
-    //                     db.transaction( (transaction) => {
-    //                         transaction.executeSql("UPDATE pref SET value=? WHERE id=?", [Value, id],
-    //                             (tx, result) => {resolve(result)},
-    //                             (error) => {reject(error)})
-    //                     });
-    //                 } else { //insert
-    //                     db.transaction( (transaction) => {
-    //                         transaction.executeSql("INSERT INTO pref (name, value) VALUES (?, ?)", [PrefName, Value],
-    //                             (tx, result) => {resolve(result)},
-    //                             (error) => {reject(error)})
-    //                     });
-    //                 }
-    //             }, (err)=>reject(err));
-    //         });
-    //     })
-    // }
 
     setPref(PrefName, Value){
         //console.log('PrefName', PrefName, 'Value', Value)
@@ -130,8 +70,6 @@ export default class Db {
                     reject(error)
                 }
             )
-
-
         })
     }
 
@@ -155,7 +93,5 @@ export default class Db {
     //         });
     //     })
     // }
-
-
 
 }

@@ -8,7 +8,7 @@
                 <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont3"></Scroller>
                 <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont3"></Scroller>
                 <Scroller :itemSelect="Number(value.charAt(3))" :itemList="vList" @change="setVal(3,$event)" class="cont3"></Scroller>
-                <div class="cont3">.</div>
+                <div class="cont03">.</div>
                 <Scroller :itemSelect="Number(value.charAt(4))" :itemList="vList" @change="setVal(4,$event)" class="cont3"></Scroller>
             </div>
         </v-card-text>
@@ -86,6 +86,14 @@
     .parent_div {
         display: flex;
         flex-wrap: wrap;
+    }
+    .cont03 {
+        flex: 1 1 5%;
+        /*width: 800px;*/
+        /*height: 150px;*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .cont3 {
         flex: 1 1 15%;

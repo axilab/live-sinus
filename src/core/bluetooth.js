@@ -64,7 +64,7 @@ export default {
 
         writePort(data){
             const serial = window.bluetoothSerial
-            console.log('send ',data)
+            //console.log('send ',data)
             serial.write(data, ()=>{
             }, ()=>{
                 console.log('error write port')
@@ -84,9 +84,54 @@ export default {
             })
         },
 
+
+/* режима работы - constans.generatorMode */
+
+        requestGeneratorData(){
+            this.writePort(constans.startByte+"35"+"75"+constans.stopByte)
+        },
+
+        setGeneratorMode(mode, EEPROM){
+            if (EEPROM){
+                this.writePort(constans.startByte+"35"+mode+constans.stopByte)
+            }else {
+                this.writePort(constans.startByte+"75"+mode+constans.stopByte)
+            }
+        },
+
+        setGeneratorWaveForm(mode, EEPROM){
+            if (EEPROM){
+                this.writePort(constans.startByte+"10"+mode+constans.stopByte)
+            }else {
+                this.writePort(constans.startByte+"09"+mode+constans.stopByte)
+            }
+        },
+
+        setGeneratorPower(mA){
+                this.writePort(constans.startByte+"14"+mA+constans.stopByte)
+        },
+
+        setGeneratorTimerOn(minutes, EEPROM){
+            if (EEPROM){
+                this.writePort(constans.startByte+"25"+minutes+constans.stopByte)
+            }else {
+                this.writePort(constans.startByte+"24"+minutes+constans.stopByte)
+            }
+        },
+
+        setGeneratorPhaseShift(gr, EEPROM){
+            if (EEPROM){
+                this.writePort(constans.startByte+"19"+gr+constans.stopByte)
+            }else {
+                this.writePort(constans.startByte+"18"+gr+constans.stopByte)
+            }
+        },
+
+
+
         deviceInit(){
 
-            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+constans.stopByte)
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"25"+"18"+"19"+constans.stopByte)
             this.$store.commit('bluetoothSubscribe')
 
         }

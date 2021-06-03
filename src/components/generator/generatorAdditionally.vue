@@ -29,7 +29,7 @@
         <v-list-item-group
                 color="primary"
         >
-            <v-list-item v-model="selected1">
+            <v-list-item v-model="selected1" v-if="amperageStabilizationVisable">
                 <template v-slot:default="{ active, }">
                     <v-list-item-action>
                         <v-checkbox
@@ -46,27 +46,19 @@
 
         </v-list-item-group>
 
-        <v-list-item-group
-                color="primary"
-        >
-            <v-list-item
-                    v-for="(item, i) in items"
-                    :key="i"
-                    @click="clickSetting(item)"
-            >
+        <v-list-item-group color="primary" v-if="frequencyAutotuningVisable">
+            <v-list-item>
                 <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-icon v-text="'mdi-progress-clock'"></v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
-                    <v-list-item-title v-text="$t(item.text)"></v-list-item-title>
-                    <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                    <v-list-item-title v-text="$t('main.settingsList.frequency_autotuning')"></v-list-item-title>
+                    <v-list-item-subtitle>30</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </v-list-item-group>
 
     </v-list>
-        >> {{selected}}
-
 
 
     </div>
@@ -85,13 +77,24 @@
 
                 selected1: true,
                 selected: true,
-                items: [
-                    { text: 'main.settingsList.frequency_autotuning',subtitle:"синус", icon: 'mdi-progress-clock' },
-
-                ],
             }
         },
         computed: {
+            amperageStabilizationVisable(){
+                if (this.$store.getters.getD35 === 'generator_modes.engineering'){
+                    return true
+                }
+                return false
+            },
+            frequencyAutotuningVisable(){
+                if (this.$store.getters.getD35 === 'generator_modes.engineering'||this.$store.getters.getD35 === 'generator_modes.profi'){
+                    return true
+                }else {
+                    return false
+                }
+            },
+
+
         },
         methods: {
             DialogSelectCallback(ev){

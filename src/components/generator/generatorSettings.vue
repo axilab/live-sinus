@@ -1,17 +1,20 @@
 <template>
     <div>
         <v-dialog v-if="DialogSelectShow" v-model="DialogSelectShow" scrollable>
-            <radio-select :input="DialogData" @Callback="DialogSelectCallback($event)"></radio-select>
+            <radio-select :input="DialogData" @Callback="DialogCallback($event)"></radio-select>
         </v-dialog>
 
         <v-dialog v-if="DialogTimerShow" v-model="DialogTimerShow" scrollable>
-            <timer-select :input="DialogData" @Callback="DialogTimerShow=!DialogTimerShow"></timer-select>
+            <timer-select :input="DialogData" @Callback="DialogCallback($event)"></timer-select>
         </v-dialog>
 
         <v-dialog v-if="DialogPowerShow" v-model="DialogPowerShow" scrollable>
-            <power-select :input="DialogData" @Callback="DialogPowerShow=!DialogPowerShow"></power-select>
+            <power-select :input="DialogData" @Callback="DialogCallback($event)"></power-select>
         </v-dialog>
 
+        <v-dialog  v-model="DialogYesNoShow" width="500">
+            <dialog-yes-no :input="DialogData" @callback="DialogCallback($event)"></dialog-yes-no>
+        </v-dialog>
 
         <v-list>
         <v-list-item-group
@@ -95,16 +98,18 @@
     import radioSelect from "@/components/dialogs/radioSelect"
     import timerSelect from "@/components/dialogs/timerSelect"
     import powerSelect from "@/components/dialogs/powerSelect"
+    import dialogYesNo from "@/components/dialogs/YesNo"
 
     export default {
         name: "GeneratorSetting",
 
-        components: {radioSelect, timerSelect, powerSelect},
+        components: {radioSelect, timerSelect, powerSelect, dialogYesNo},
         data() {
             return {
                 DialogSelectShow: false,
                 DialogTimerShow: false,
                 DialogPowerShow: false,
+                DialogYesNoShow: false,
 
                 DialogData: null,
 
@@ -128,7 +133,7 @@
         computed: {
         },
         methods: {
-            DialogSelectCallback(ev){
+            DialogCallback(ev){
                 console.log('DialogSelectCallback', ev)
                 this.DialogSelectShow = false
                 if (ev!==null){
@@ -136,6 +141,12 @@
                     const type = ev.type
                     console.log('type', type, 'res',res)
                 }
+
+                    this.DialogSelectShow = false
+                    this.DialogTimerShow = false
+                    this.DialogPowerShow = false
+                    this.DialogYesNoShow = false
+
             },
 
 
@@ -175,16 +186,16 @@
                         this.DialogPowerShow = true
                         break
                     case 'generator_settings.Searching_resonance_min':
-                        //this.DialogData = this.DialogSessionDurationData
-                        //this.DialogSelectShow = true
+                        this.DialogData = {title:"generator_settings.Searching_resonance_min",value:150,type:'Searching_resonance_min'}
+                        this.DialogPowerShow = true
                         break
                     case 'generator_settings.Searching_resonance_max':
-                        //this.DialogData = this.DialogSessionDurationData
-                        //this.DialogSelectShow = true
+                        this.DialogData = {title:"generator_settings.Searching_resonance_max",value:350,type:'Searching_resonance_max'}
+                        this.DialogPowerShow = true
                         break
                     case 'generator_settings.factory_settings':
-                        //this.DialogData = this.DialogSessionDurationData
-                        //this.DialogSelectShow = true
+                        this.DialogData = {title:"general.warning", message:"generator_settings.factory_settings_answer",type:'factory_settings'}
+                        this.DialogYesNoShow = true
                         break
                     default:
                         break

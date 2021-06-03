@@ -1,4 +1,10 @@
 {
+  "general": {
+    "yes": "Да",
+    "cancel":"Отмена",
+    "warning": "Предупреждение",
+    "nodata": "Нет данных"
+  },
   "main": {
     "statusTitle": "Статус",
     "tabs": {
@@ -102,7 +108,8 @@
     "mode_incubator": "Режим  'Инкубатор'",
     "sound_signal": "Звуковой сигнал (Вкл)",
     "error_off": "Отключкеие при ошибке",
-    "factory_settings": "Сброс на заводские настройки"
+    "factory_settings": "Сброс на заводские настройки",
+    "factory_settings_answer": "Установить заводские настройки генератора?"
   },
   "wave_form": {
     "sinus": "синус",

@@ -29,8 +29,6 @@ export default {
         console.log(_command, _data)
 
         this.commit('setStateDevice',{command: _command, data: _data})
-        //this.commit('setDarkTheme', 'light')
-        //console.log('_data', _data)
 
         }.bind(this), failure=>{console.log('failure',failure)});
     },
@@ -69,20 +67,16 @@ export default {
 
       if (language==='no-value') {
         const currLocale = window.navigator.language.split('-')[0]
-        //console.log('currLocale', language)
         if (currLocale==='ru'){this.commit('setLanguage','ru')}
         else if(currLocale==='en'){this.commit('setLanguage','en')}
         else {this.commit('setLanguage','ru')}
-        //console.log('currLocale',currLocale)
       }else {
         const lang = await state.db.getPref('language','ru')
         this.commit('setLanguage', lang)
       }
 
     },
-    // setDb(state, db){
-    //   state.db = db
-    // },
+
     addLog(state, message) {
       if (typeof message === "object") {
         message = JSON.stringify(message, null, "  ");
@@ -95,16 +89,12 @@ export default {
     },
 
     setDarkTheme(state, theme){
-      //console.log('theme ',theme)
       state.theme = theme
       state.db.setPref('theme', theme)
     },
 
     async setLanguage(state, lang){
-      //console.log('setLanguage=>',lang)
-      //if(i18n.locale!=lang){
-        i18n.locale = lang
-      //}
+      i18n.locale = lang
       await state.db.setPref('language',lang)
       state.language = lang
 
@@ -127,7 +117,7 @@ export default {
     bluetoothListBound({commit}) {
       let serial = window.bluetoothSerial
       serial.list((devices)=>{
-        console.log('devices', devices)
+        //console.log('devices', devices)
         commit("setDevices", devices)
       }, ()=>{
         console.log('failed bluetooth list')
@@ -156,9 +146,9 @@ export default {
       return state.language
     },
     //bluetooth
-    getBluetoothle(state){
-      return state.bluetoothle
-    },
+    // getBluetoothle(state){
+    //   return state.bluetoothle
+    // },
 
     getCurrentDevice(state){
       return state.deviceCurrent

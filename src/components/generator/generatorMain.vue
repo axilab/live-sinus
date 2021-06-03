@@ -28,7 +28,7 @@
                     color="primary"
             >
                 <v-list-item
-                        v-for="(item, i) in items"
+                        v-for="(item, i) in settings"
                         :key="i"
                         @click="clickSetting(item)"
                 >
@@ -37,7 +37,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title v-text="$t(item.text)"></v-list-item-title>
-                        <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                        <v-list-item-subtitle>{{subtitle(item.text)}}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>
@@ -51,13 +51,12 @@
                             :key="item.name"
                     >
                         <td>{{ $t(item.name) }}</td>
-                        <td align="right">{{ item.value }}</td>
+                        <td align="right">{{ indicator(item.name) }}</td>
                     </tr>
                     </tbody>
                 </template>
             </v-simple-table>
         </div>
-
         <br><br><br><br>
     </div>
 </template>
@@ -67,6 +66,8 @@
     import powerSelect from "@/components/dialogs/powerSelect"
     import num4_1Select from "@/components/dialogs/num4_1Select"
     import num3select from "@/components/dialogs/num3select"
+//    import constans from "../../core/constans";
+//    import constans from "../../core/constans";
     export default {
         name: "GeneratorMain",
 
@@ -88,32 +89,100 @@
 
 
                 items: [
-                    { text: 'main.settingsList.generator_mode',subtitle:"авто", icon: 'mdi-image-filter-tilt-shift' },
-                    { text: 'main.settingsList.waveform',subtitle:"синус", icon: 'mdi-waveform' },
-                    { text: 'main.settingsList.power',subtitle:"100", icon: 'mdi-wifi' },
-                    { text: 'main.settingsList.timer_off',subtitle:"00:00:00", icon: 'mdi-clock-time-two-outline' },
-                    { text: 'main.settingsList.timer_on',subtitle:"00:00", icon: 'mdi-update' },
-                    { text: 'main.settingsList.phase_shift',subtitle:"0.0", icon: 'mdi-cog-outline' },
-                    { text: 'main.settingsList.frequency',subtitle:"269.5", icon: 'mdi-cog-outline' },
+                    { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
+                    { text: 'main.settingsList.waveform', icon: 'mdi-waveform' },
+                    { text: 'main.settingsList.power', icon: 'mdi-wifi' },
+                    { text: 'main.settingsList.timer_off', icon: 'mdi-clock-time-two-outline' },
+                    { text: 'main.settingsList.timer_on', icon: 'mdi-update' },
+                    { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' },
+                    { text: 'main.settingsList.frequency', icon: 'mdi-cog-outline' },
                     ],
                 indicators:[
-                    {name:"main.indicatorsList.frequency", value: this.$store.getters.getD07},
-                    {name:"main.indicatorsList.voltage", value: this.$store.getters.getD39},
-                    {name:"main.indicatorsList.rms", value: this.$store.getters.getD40},
-                    {name:"main.indicatorsList.q_factor", value: this.$store.getters.getD11},
+                    {name:"main.indicatorsList.frequency"},
+                    {name:"main.indicatorsList.voltage"},
+                    {name:"main.indicatorsList.rms"},
+                    {name:"main.indicatorsList.q_factor"},
                 ],
             }
         },
         computed: {
+            settings(){
+                if (this.$store.getters.getD35 === 'generator_modes.profi'){
+                    return [
+                        { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
+                        { text: 'main.settingsList.waveform', icon: 'mdi-waveform' },
+                        { text: 'main.settingsList.power', icon: 'mdi-wifi' },
+                        { text: 'main.settingsList.timer_off', icon: 'mdi-clock-time-two-outline' },
+                        { text: 'main.settingsList.timer_on', icon: 'mdi-update' },
+                        { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' },
+                        { text: 'main.settingsList.frequency', icon: 'mdi-cog-outline' },
+                    ]
+                }else {
+                    return [
+                        { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
+                        { text: 'main.settingsList.waveform', icon: 'mdi-waveform' },
+                        { text: 'main.settingsList.power', icon: 'mdi-wifi' },
+                        { text: 'main.settingsList.timer_off', icon: 'mdi-clock-time-two-outline' },
+                        { text: 'main.settingsList.timer_on', icon: 'mdi-update' },
+                        // { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' },
+                        // { text: 'main.settingsList.frequency', icon: 'mdi-cog-outline' },
+                    ]
+                }
+            },
             clockClass(){
                 let theme = this.$store.getters.getTheme
                 if (theme=='light'){return 'clock_white'}else {return 'clock_black'}
             },
             getTimer(){
                 return this.$store.getters.getD20
-            }
+            },
+
         },
         methods: {
+
+            indicator(param){
+                switch (param) {
+                    case 'main.indicatorsList.frequency':
+                        return this.$store.getters.getD07
+                    case 'main.indicatorsList.voltage':
+                         return this.$store.getters.getD39
+                    case 'main.indicatorsList.rms':
+                         return this.$store.getters.getD40
+                    case 'main.indicatorsList.q_factor':
+                         return this.$store.getters.getD11
+                    default:
+                        return 'nodata'
+                }
+
+            },
+            subtitle(param){
+                switch (param) {
+                    case 'main.settingsList.generator_mode':
+                        return this.$t(this.$store.getters.getD35)
+                    case 'main.settingsList.waveform':
+                        return this.$t(this.$store.getters.getD09)
+                    case 'main.settingsList.power':
+                        return this.$store.getters.getD13
+                    case 'main.settingsList.timer_off':
+                        return this.$store.getters.getD20
+                    case 'main.settingsList.timer_on':
+                        return this.$store.getters.getD24
+                    case 'main.settingsList.phase_shift':
+                        return this.$store.getters.getD18
+                    case 'main.settingsList.frequency':
+                        return ''
+                    default:
+                        return 'no value'
+                }
+
+            },
+
+            test(){
+                console.log('test')
+                this.$store.commit('setStateDevice',{command: "09", data: "1"})
+                //console.log('getD35',this.$store.getters.getD35)
+            },
+
             DialogSelectCallback(ev){
                 console.log('DialogWaveformSelectCallback', ev)
                 this.DialogSelectShow = false
@@ -126,9 +195,10 @@
 
 
             clickSetting(item){
-                console.log('item', item)
+                //console.log('item', item)
                 switch (item.text) {
                     case 'main.settingsList.waveform':
+                        //this.test()
                         this.DialogData = this.DialogWaveformSelectData
                         this.DialogSelectShow = true
                         break
@@ -144,7 +214,6 @@
                         this.DialogData = this.DialogGeneratorModeSelectData
                         this.DialogSelectShow = true
                         break
-
                     case 'main.settingsList.power':
                         this.DialogData = {title: "main.titles.load_current",value:100,type:'load_current'}
                         this.DialogPowerShow = true
@@ -163,7 +232,8 @@
                 }
             },
 
-        }
+        },
+
     }
 </script>
 

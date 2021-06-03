@@ -17,6 +17,9 @@ https://vuetifyjs.com/en/getting-started/installation/
 ### Альтернативный плагин для bluetooth: cordova-plugin-bluetoothle
 https://github.com/randdusing/cordova-plugin-bluetoothle
 
+### Библиотека для desctop USB
+https://github.com/serialport/node-serialport
+
 ### Библиотека компонентов для Vue
 https://vuejsexamples.com/
 

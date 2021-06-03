@@ -32,14 +32,14 @@
 
     <v-tabs v-model="tab" v-on:change="tabChanhe" class="fixed-tabs-bar">
       <v-tab key="general">{{$t("main.tabs.main")}}</v-tab>
-      <v-tab key="modulation">{{$t("main.tabs.modulation")}}</v-tab>
+      <v-tab key="modulation" v-if="tabModulationVisable">{{$t("main.tabs.modulation")}}</v-tab>
       <v-tab key="addirionally">{{$t("main.tabs.addirionally")}}</v-tab>
 
       <v-tab-item>
         <generator-main></generator-main>
       </v-tab-item>
 
-      <v-tab-item>
+      <v-tab-item v-if="tabModulationVisable">
         <generator-modulation></generator-modulation>
       </v-tab-item>
 
@@ -81,6 +81,15 @@ export default {
     };
   },
   computed: {
+    tabModulationVisable(){
+      console.log('генератор моде', this.$store.getters.getD35)
+      if (this.$store.getters.getD35==='generator_modes.auto'){
+        return false
+      }else {
+        return true
+      }
+    },
+
     fabIcon(){
       const status = this.$store.getters.getD03
       console.log('status',status)
