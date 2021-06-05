@@ -4,9 +4,9 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
-                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vSign" @change="setVal(0,$event)" class="cont2"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(2,$event)" class="cont2"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(3,$event)" class="cont2"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[0])" :itemList="vSign" @change="setVal(0,$event)" class="cont2"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[1])" :itemList="vList" @change="setVal(1,$event)" class="cont2"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[2])" :itemList="vList" @change="setVal(2,$event)" class="cont2"></Scroller>
             </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -36,7 +36,7 @@
         props:['input'],
         data () {
             return {
-                currentValue:[],
+                currentValue:[0,0,0],
                 vSign: [{ value: 0, name: '+' },{ value: 1, name: '-' }],
                 vList: [
                     { value: 0, name: '0' },
@@ -62,17 +62,25 @@
                 this.$emit('Callback', {result:null})
             },
             clickSelect(){
-                console.log('return', Number(this.currentValue.join('')))
-                this.$emit('Callback', {result: Number(this.currentValue.join('')), type: this.type})
+                let p='+'
+                if (this.currentValue[0]==1){p='-'}
+                let val = Number(this.currentValue.join('').slice(-2))
+                if (val==0){
+                    this.$emit('Callback', {result: '0.0', type: this.type})
+                }else {
+                    this.$emit('Callback', {result: (p+val), type: this.type})
+                }
+
             }
         },
 
         created() {
-            const val = "00"+this.input.value.toString()
-            this.value = val.slice(-2)
-            this.currentValue[0] = Number(this.value.charAt(0))
-            this.currentValue[1] = Number(this.value.charAt(1))
             this.type  = this.input.type
+            let val = parseInt(this.input.value)
+            if (val<0){ this.currentValue[0] = 1 } else { this.currentValue[0] = 0 }
+            val = "00"+Math.abs(val).toString().slice(-2)
+            this.currentValue[1] = Number(val.slice(-2).charAt(0))
+            this.currentValue[2] = Number(val.slice(-2).charAt(1))
         }
     }
 </script>

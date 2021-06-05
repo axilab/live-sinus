@@ -14,7 +14,7 @@
         </v-dialog>
 
         <v-dialog v-if="DialogPhaseShiftShow" v-model="DialogPhaseShiftShow" scrollable>
-            <num3select :input="DialogData" @Callback="DialogPhaseShiftShow=!DialogPhaseShiftShow"></num3select>
+            <num3select :input="DialogData" @Callback="DialogSelectCallback($event)"></num3select>
         </v-dialog>
 
 
@@ -179,7 +179,6 @@
             },
 
             DialogSelectCallback(ev){
-                console.log('DialogWaveformSelectCallback', ev)
                 this.DialogSelectShow = false
                 this.DialogPowerShow = false
                 this.DialogfrequencyShow = false
