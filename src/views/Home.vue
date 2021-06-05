@@ -30,7 +30,7 @@
       </v-card>
     </v-dialog>
 
-    <v-tabs v-model="tab" v-on:change="tabChanhe" class="fixed-tabs-bar">
+    <v-tabs v-model="tab" v-on:change="tabChanhe" class="fixed-tabs-bar" :key="+tabModulationVisable">
       <v-tab key="general">{{$t("main.tabs.main")}}</v-tab>
       <v-tab key="modulation" v-if="tabModulationVisable">{{$t("main.tabs.modulation")}}</v-tab>
       <v-tab key="addirionally">{{$t("main.tabs.addirionally")}}</v-tab>
@@ -77,7 +77,7 @@ export default {
     return {
       menu:false,
       tab:null,
-
+      tabKey: 1,
     };
   },
   computed: {

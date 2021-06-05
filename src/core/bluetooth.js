@@ -31,7 +31,7 @@ export default {
                     //this.commit('setError', "Генератор не выбран")
                 }
 
-                console.log('device.address', device.address)
+                //console.log('device.address', device.address)
                 let macAddress = device.address
 
                 const serial = window.bluetoothSerial

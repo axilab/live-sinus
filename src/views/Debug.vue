@@ -117,7 +117,9 @@
             },
 
             StartCommand(){
-                this.writePort(constans.command.START)
+                    //navigator.app.exitApp()
+
+                    this.writePort(constans.command.START)
             },
 
             StopCommand(){

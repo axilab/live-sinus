@@ -18,11 +18,11 @@
         </v-dialog>
 
 
-        <div id="clock" class="mt-0" :class="clockClass">
+        <div id="clock" :class="clockClass">
             <p class="time" style="margin-bottom: 0px;">{{ getTimer }}</p>
         </div>
 
-        <div style="width: 100%; height: 100%;">
+        <div style="width: 100%; height: 100%;" class="mt-14">
         <v-list>
             <v-list-item-group
                     color="primary"
@@ -101,7 +101,7 @@
         computed: {
             settings(){
                 console.log('settings', this.$store.getters.getD75)
-                if (this.$store.getters.getD75 === 'generator_modes.profi'||this.$store.getters.getD75 === 'generator_modes.engineering'){
+                if (this.$store.getters.getD75 === 'generator_modes.engineering'){
                     return [
                         { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
                         { text: 'main.settingsList.waveform', icon: 'mdi-waveform' },
@@ -110,6 +110,15 @@
                         { text: 'main.settingsList.timer_on', icon: 'mdi-update' },
                         { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' },
                         { text: 'main.settingsList.frequency', icon: 'mdi-cog-outline' },
+                    ]
+                }else if (this.$store.getters.getD75 === 'generator_modes.profi'){
+                    return [
+                        { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },
+                        { text: 'main.settingsList.waveform', icon: 'mdi-waveform' },
+                        { text: 'main.settingsList.power', icon: 'mdi-wifi' },
+                        { text: 'main.settingsList.timer_off', icon: 'mdi-clock-time-two-outline' },
+                        { text: 'main.settingsList.timer_on', icon: 'mdi-update' },
+                        { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' }
                     ]
                 }else {
                     return [
@@ -214,7 +223,7 @@
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.timer_off':
-                        this.DialogData = {title:"main.titles.session_duration", list:[{id:1,text:'timer_off_values.m15'},{id:2,text:'timer_off_values.m30'},{id:3,text:'timer_off_values.m45'}, {id:4,text:'timer_off_values.m60'}],select:3,type:'timer_off'}
+                        this.DialogData = {title:"main.titles.session_duration", list:[{id:0,text:'timer_off_values.off'},{id:1,text:'timer_off_values.m15'},{id:2,text:'timer_off_values.m30'},{id:3,text:'timer_off_values.m45'}, {id:4,text:'timer_off_values.m60'}],select:3,type:'timer_off'}
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.timer_on':
@@ -255,8 +264,13 @@
 <style lang="scss">
 
         .clock_white {
-            /*background: #0f3854;*/
-            /*background: radial-gradient(ellipse at center,  #0a2e38  0%, #000000 70%);*/
+            position: fixed;
+            top: 6rem;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            background: #FFFFFF;
+
             background-size: 100%;
             font-family: 'Share Tech Mono', monospace;
             color: #ffffff;
@@ -280,8 +294,16 @@
 }
 
 .clock_black {
-    background: #0f3854;
-    background: radial-gradient(ellipse at center,  #0a2e38  0%, #000000 70%);
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: #1E1E1E;
+    /*background: #121212;*/
+    /*background: #0f3854;*/
+    /*background: radial-gradient(ellipse at center,  #0a2e38  0%, #000000 70%);*/
+
     background-size: 100%;
     font-family: 'Share Tech Mono', monospace;
     color: #ffffff;

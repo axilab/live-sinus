@@ -1,71 +1,53 @@
 # live-sinus
 
+## Мобильное приложение для генератора Live Sinus 
 
-### Плагин cordova-plugin-bluetooth-serial
-https://github.com/don/BluetoothSerial#read
-
-### Плагин cordova-sqlite-storage
-https://github.com/storesafe/cordova-sqlite-storage
-
-### Отладка в браузере chrome
-chrome://inspect/#devices
-
-### UI библиотека Vuetify
-https://vuetifyjs.com/en/getting-started/installation/
-
-
-### Альтернативный плагин для bluetooth: cordova-plugin-bluetoothle
-https://github.com/randdusing/cordova-plugin-bluetoothle
-
-### Библиотека для desctop USB
-https://github.com/serialport/node-serialport
-
-### Библиотека компонентов для Vue
-https://vuejsexamples.com/
-
-### simple scroll picker plugin for Vue 3
-https://vuejsexamples.com/a-simple-scroll-picker-plugin-for-vue-3/
-
-### light-weight flexible
-https://vuejsexamples.com/a-light-weight-flexible-scroll-picker-similiar-to-mobiscroll-built-with-vue-js/
-
-### Translete guide
-https://zen.yandex.ru/media/nuancesprog/perevod-liubogo-prilojeniia-vuejs-za-chas-5feb4f6ab17f202ff338e160
-
-
-### sign apk
-```
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore.jks src-cordova\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk keysrore
-```
-
-
-## Project setup
+Установка зависимостей проекта:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
+Сборка приложения:
 ```
 npm run build
 ```
 
-### Run your unit tests
 ```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
+npx cap open android
 ```
 
-### Lints and fixes files
+### Отладка приложения
+Устройство должно быть подключено кабелем к ПК
+Для отладки приложения нужно собрать приложение и запустить его на устройстве после чего в браузере chrome перейти по
 ```
-npm run lint
+chrome://inspect/#devices
 ```
+и подключится к устройству
+
+Для использования режима hot-reload при отладке необходимо: 
+1. запустить локальный веб сервер проекта:
+```
+npm run serve
+```
+
+2. добавить в файле capacitor.config.json раздел:
+           "server": {
+             "url": "http://192.168.31.15:8080"
+           }
+указав ip и порт своего локального веб сервера
+
+3. собрать приложение
+```
+npm run build
+```
+и запустить его на устройстве 
+
+### Используемые зависимости:
+Фреймворк: Vue включая пакеты: Vuetify, vue-router, vuex, vue-i18n
+Фреймворк: Capacitor
+
+Плагины cordova:
+cordova-plugin-bluetooth-serial
+cordova-sqlite-storage
+cordova-plugin-app-exit
 

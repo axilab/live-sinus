@@ -114,9 +114,6 @@ export default {
 
         if (theme==='dark') this.$vuetify.theme.dark = true
         this.$store.commit('appLoadSettings')
-      // while (this.$store.getters.getCurrentDevice===null){
-      //   console.log('wait...')
-      // }
 
       const device = await db.getPref('device','{"adrress":"00:00:00:00", "name":"not select"}')
       console.log('select-device', device)
@@ -142,9 +139,23 @@ export default {
         }
 
 
-    }
+    },
+    async onPause(){
+      console.log('onPAUSE')
+      let res = await this.closeBluetoothPort().catch(err=>console.log('error:', err))
+      console.log('res', res)
+      this.$store.commit('setStateDevice',{command:'03', data:'-1'})
 
+    },
 
+    async onResume(){
+      console.log('onRESUME')
+      let conn = await this.bluetoothIsConnected()
+      if (conn!=='OK'){
+        console.log('generator disconnect')
+        this.openBluetoothPort()
+      }
+    },
   },
   computed:{
     // ...mapGetters(["getStatus"]),
@@ -178,7 +189,8 @@ export default {
   async created() {
     console.log('created')
     document.addEventListener('deviceready', this.onDeviceReady, false);
-
+    document.addEventListener("pause", this.onPause, false);
+    document.addEventListener("resume", this.onResume, false);
 
     if (this.$route.path !== "/home") {
       this.$router.push({ name: "Home" });

@@ -20,4 +20,13 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+    //console.log('to', to, 'from', from, 'history length',window.history.length)
+    if (to.path==='/' && from.path!=='/'){
+        //console.log('to.path', to.path)
+        navigator.app.exitApp()
+    }
+    next()
+})
+
 export default router;
