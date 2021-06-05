@@ -88,6 +88,7 @@ export default {
   },
 
   data: () => ({
+    timerId: null,
     drawer: false,
     menu: [
             {title: 'menu.home', icon:'mdi-home', url: {name: 'Home'}},
@@ -142,6 +143,7 @@ export default {
     },
     async onPause(){
       console.log('onPAUSE')
+      this.stopTimer()
       let res = await this.closeBluetoothPort().catch(err=>console.log('error:', err))
       console.log('res', res)
       this.$store.commit('setStateDevice',{command:'03', data:'-1'})
@@ -155,7 +157,23 @@ export default {
         console.log('generator disconnect')
         this.openBluetoothPort()
       }
+      this.startTimer()
     },
+    async timer(){
+      if (await this.bluetoothIsConnected()!=='OK'){
+        this.$store.commit('setStateDevice',{command:'03', data:'-1'})
+        this.openBluetoothPort()
+      }
+    },
+    startTimer(){
+      this.timerId = setInterval(() => this.timer(), 5000);
+    },
+    stopTimer(){
+      if (this.timerId!=null){
+        clearInterval(this.timerId)
+        this.timerId = null
+      }
+    }
   },
   computed:{
     // ...mapGetters(["getStatus"]),
@@ -187,7 +205,8 @@ export default {
   },
 
   async created() {
-    console.log('created')
+    console.log('!!created!!')
+    this.startTimer()
     document.addEventListener('deviceready', this.onDeviceReady, false);
     document.addEventListener("pause", this.onPause, false);
     document.addEventListener("resume", this.onResume, false);

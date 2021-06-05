@@ -100,7 +100,7 @@
         },
         computed: {
             settings(){
-                console.log('settings', this.$store.getters.getD75)
+                //console.log('settings', this.$store.getters.getD75)
                 if (this.$store.getters.getD75 === 'generator_modes.engineering'){
                     return [
                         { text: 'main.settingsList.generator_mode', icon: 'mdi-image-filter-tilt-shift' },

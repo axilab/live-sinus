@@ -47,7 +47,7 @@
         </v-list-item-group>
 
         <v-list-item-group color="primary" v-if="frequencyAutotuningVisable">
-            <v-list-item>
+            <v-list-item @click="clickSetting('main.settingsList.frequency_autotuning')">
                 <v-list-item-icon>
                     <v-icon v-text="'mdi-progress-clock'"></v-icon>
                 </v-list-item-icon>
@@ -81,13 +81,13 @@
         },
         computed: {
             amperageStabilizationVisable(){
-                if (this.$store.getters.getD35 === 'generator_modes.engineering'){
+                if (this.$store.getters.getD75 === 'generator_modes.engineering'){
                     return true
                 }
                 return false
             },
             frequencyAutotuningVisable(){
-                if (this.$store.getters.getD35 === 'generator_modes.engineering'||this.$store.getters.getD35 === 'generator_modes.profi'){
+                if (this.$store.getters.getD75 === 'generator_modes.engineering'||this.$store.getters.getD75 === 'generator_modes.profi'){
                     return true
                 }else {
                     return false
@@ -110,17 +110,11 @@
 
             clickSetting(item){
                 console.log('item', item)
-                switch (item.text) {
+                switch (item) {
                     case 'main.settingsList.frequency_autotuning':
                         this.DialogData = {value:30, type:'frequency_autotuning',title:"main.titles.frequency_autotuning"}
                         this.Dialognum2selectShow = true
                         break
-
-                    // case 'main.settingsList.timer_off':
-                    //     this.DialogData = this.DialogSessionDurationData
-                    //     this.DialogSelectShow = true
-                    //     break
-
                     default:
                         break
                 }

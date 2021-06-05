@@ -87,10 +87,6 @@ export default {
 
 /* режима работы - constans.generatorMode */
 
-        // requestGeneratorData(){
-        //     this.writePort(constans.startByte+"35"+"75"+constans.stopByte)
-        // },
-
         setGeneratorMode(mode, EEPROM){
             if (EEPROM){
                 this.writePort(constans.startByte+"35"+mode+constans.stopByte)

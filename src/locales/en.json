@@ -21,14 +21,14 @@
 
 
     "status": {
-      "OFF": "Генератор отключен",
+      "OFF": "Waiting...",
       "ON_search_for_resonant_frequency": "Поиск резонансной частоты",
       "ON_calculating_the_Qfactor_of_the_coil": "Вычисление добротности катушки",
       "ON_in_the_mode_of_tuning_the_resonant_frequency": "Подстройки резонансной частоты",
       "PAUSE":"Пауза",
       "ON":"Генерация",
       "ON_in_coil_urrent_trim_mode":"Подстройка тока катушки",
-      "init": "Инициализация..."
+      "init": "Connected..."
     },
 
     "fabcommands": {

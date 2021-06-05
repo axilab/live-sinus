@@ -22,57 +22,7 @@ export default {
     },
     mutations: {
         setStateDevice(state,payload){
-            let command = payload.command
-            let data = payload.data
-            switch(command) {
-                case '03':
-                    state.d03 = data
-                    break
-                case '07':
-                    state.d07 = data
-                    break
-                case '09':
-                    state.d09 = data
-                    break
-                case '11':
-                    state.d11 = data
-                    break
-                case '13':
-                    state.d13 = data
-                    break
-                case '14':
-                    state.d14 = data
-                    break
-                case '18':
-                    state.d18 = data
-                    break
-                case '19':
-                    state.d19 = data
-                    break
-                case '20':
-                    state.d20 = data
-                    break
-                case '24':
-                    state.d24 = data
-                    break
-                case '25':
-                    state.d25 = data
-                    break
-                case '35':
-                    state.d35 = data
-                    break
-                case '39':
-                    state.d39 = data
-                    break
-                case '40':
-                    state.d40 = data
-                    break
-                case '75':
-                    state.d75 = data
-                    break
-                default:
-                    break
-            }
+            state['d'+payload.command] = payload.data
         },
     },
     actions: {},

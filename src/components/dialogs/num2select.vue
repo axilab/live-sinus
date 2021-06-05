@@ -5,7 +5,7 @@
         <v-card-text style="height: 300px;">
             <div class="parent_div">
                 <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont2"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(2,$event)" class="cont2"></Scroller>
+                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont2"></Scroller>
             </div>
         </v-card-text>
         <v-divider></v-divider>
