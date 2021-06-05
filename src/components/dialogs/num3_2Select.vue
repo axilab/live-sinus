@@ -4,12 +4,12 @@
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
-                <Scroller :itemSelect="Number(value.charAt(0))" :itemList="vList" @change="setVal(0,$event)" class="cont3"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(1))" :itemList="vList" @change="setVal(1,$event)" class="cont3"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(2))" :itemList="vList" @change="setVal(2,$event)" class="cont3"></Scroller>
-                <Scroller :itemSelect="Number(value.charAt(3))" :itemList="vList" @change="setVal(3,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[0])" :itemList="vList" @change="setVal(0,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[1])" :itemList="vList" @change="setVal(1,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[2])" :itemList="vList" @change="setVal(2,$event)" class="cont3"></Scroller>
                 <div class="cont03">.</div>
-                <Scroller :itemSelect="Number(value.charAt(4))" :itemList="vList" @change="setVal(4,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[3])" :itemList="vList" @change="setVal(3,$event)" class="cont3"></Scroller>
+                <Scroller :itemSelect="Number(currentValue[4])" :itemList="vList" @change="setVal(4,$event)" class="cont3"></Scroller>
             </div>
         </v-card-text>
         <v-divider></v-divider>
@@ -64,20 +64,18 @@
                 this.$emit('Callback', {result:null})
             },
             clickSelect(){
-                console.log('return', Number(this.currentValue.join('')))
-                this.$emit('Callback', {result: Number(this.currentValue.join('')), type: this.type})
+                let val = String(this.currentValue[0])+String(this.currentValue[1])+String(this.currentValue[2])+'.'+String(this.currentValue[3])+String(this.currentValue[4])
+                this.$emit('Callback', {result: val, type: this.type})
             }
         },
 
         created() {
-            const val = "00000"+this.input.value.toString()
-            this.value = val.slice(-5)
-            console.log('val', this.value)
+            this.value = ("00000"+this.input.value.toString()).slice(-6)
             this.currentValue[0] = Number(this.value.charAt(0))
             this.currentValue[1] = Number(this.value.charAt(1))
             this.currentValue[2] = Number(this.value.charAt(2))
-            this.currentValue[3] = Number(this.value.charAt(3))
-            this.currentValue[4] = Number(this.value.charAt(4))
+            this.currentValue[3] = Number(this.value.charAt(4))
+            this.currentValue[4] = Number(this.value.charAt(5))
             this.type  = this.input.type
         }
     }

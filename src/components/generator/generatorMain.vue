@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <v-dialog v-if="DialogSelectShow" v-model="DialogSelectShow" scrollable>
         <radio-select :input="DialogData" @Callback="DialogSelectCallback($event)"></radio-select>
         </v-dialog>
@@ -10,7 +9,7 @@
         </v-dialog>
 
         <v-dialog v-if="DialogfrequencyShow" v-model="DialogfrequencyShow" scrollable>
-            <num4_1Select :input="DialogData" @Callback="DialogfrequencyShow=!DialogfrequencyShow"></num4_1Select>
+            <num3_2Select :input="DialogData" @Callback="DialogSelectCallback($event)"></num3_2Select>
         </v-dialog>
 
         <v-dialog v-if="DialogPhaseShiftShow" v-model="DialogPhaseShiftShow" scrollable>
@@ -64,7 +63,7 @@
 <script>
     import radioSelect from "@/components/dialogs/radioSelect"
     import powerSelect from "@/components/dialogs/powerSelect"
-    import num4_1Select from "@/components/dialogs/num4_1Select"
+    import num3_2Select from "@/components/dialogs/num3_2Select"
     import num3select from "@/components/dialogs/num3select"
     //import constans from ".@/core/constans";
     import bluetooth from "@/core/bluetooth"
@@ -72,7 +71,7 @@
     export default {
         name: "GeneratorMain",
         mixins: [bluetooth],
-        components: {radioSelect, powerSelect, num4_1Select, num3select},
+        components: {radioSelect, powerSelect, num3_2Select, num3select},
         data() {
             return {
                 DialogData: null,
@@ -90,12 +89,6 @@
                     { text: 'main.settingsList.phase_shift', icon: 'mdi-cog-outline' },
                     { text: 'main.settingsList.frequency', icon: 'mdi-cog-outline' },
                     ],
-                indicators:[
-                    {name:"main.indicatorsList.frequency"},
-                    {name:"main.indicatorsList.voltage"},
-                    {name:"main.indicatorsList.rms"},
-                    {name:"main.indicatorsList.q_factor"},
-                ],
             }
         },
         computed: {
@@ -130,6 +123,23 @@
                     ]
                 }
             },
+            indicators(){
+                if (this.$store.getters.getD75 === 'generator_modes.engineering') {
+                    return [
+                        {name: "main.indicatorsList.voltage"},
+                        {name: "main.indicatorsList.rms"},
+                        {name: "main.indicatorsList.q_factor"},
+                    ]
+                }else {
+                    return [
+                        {name: "main.indicatorsList.frequency"},
+                        {name: "main.indicatorsList.voltage"},
+                        {name: "main.indicatorsList.rms"},
+                        {name: "main.indicatorsList.q_factor"},
+                    ]
+                }
+            },
+
             clockClass(){
                 let theme = this.$store.getters.getTheme
                 if (theme=='light'){return 'clock_white'}else {return 'clock_black'}
@@ -171,7 +181,7 @@
                     case 'main.settingsList.phase_shift':
                         return this.$store.getters.getD18
                     case 'main.settingsList.frequency':
-                        return ''
+                        return this.$store.getters.getD07
                     default:
                         return 'no value'
                 }
