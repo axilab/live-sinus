@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-card-title>{{$t('main.titles.generator_frequency')}}</v-card-title>
+        <v-card-title>{{$t(title)}}</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
             <div class="parent_div">
@@ -39,6 +39,7 @@
         props:['input'],
         data () {
             return {
+                title:"",
                 currentValue:[],
                 vList: [
                     { value: 0, name: '0' },
@@ -77,6 +78,7 @@
             this.currentValue[3] = Number(this.value.charAt(4))
             this.currentValue[4] = Number(this.value.charAt(5))
             this.type  = this.input.type
+            this.title = this.input.title
         }
     }
 </script>

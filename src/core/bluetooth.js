@@ -132,12 +132,64 @@ export default {
         },
 
         setModulation(on, EEPROM){
+            console.log('modulation set',on)
             if (EEPROM) {
                 this.writePort(constans.startByte + "26" + on + constans.stopByte)
             }else {
                 this.writePort(constans.startByte + "66" + on + constans.stopByte)
             }
         },
+
+        setGeneratorAmForm(form, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "29" + form + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "69" + form + constans.stopByte)
+            }
+        },
+
+        setGeneratorFmForm(form, EEPROM){
+            console.log('setGeneratorFmForm', form)
+            if (EEPROM) {
+                this.writePort(constans.startByte + "33" + form + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "73" + form + constans.stopByte)
+            }
+        },
+        setGeneratorFmDeviation(khz, EEPROM){
+            console.log('setGeneratorFmDeviation', khz)
+            if (EEPROM) {
+                this.writePort(constans.startByte + "31" + khz + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "71" + khz + constans.stopByte)
+            }
+        },
+
+        setGeneratorAmDepth(depth, EEPROM){
+            console.log('setGeneratorAmDepth')
+            if (EEPROM) {
+                this.writePort(constans.startByte + "27" + depth + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "67" + depth + constans.stopByte)
+            }
+        },
+
+        setGeneratorAmFrequency(hz, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "28" + hz + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "68" + hz + constans.stopByte)
+            }
+        },
+
+        setGeneratorFmFrequency(hz, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "32" + hz + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "72" + hz + constans.stopByte)
+            }
+        },
+
         setAmperageStabilization(on, EEPROM){
             if (EEPROM) {
                 this.writePort(constans.startByte + "78" + on + constans.stopByte)
@@ -177,16 +229,8 @@ export default {
             this.writePort(constans.startByte+"01"+constans.stopByte)
         },
         deviceInit(){
-            //this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"26"+"39"+"40"+"13"+"14"+"24"+"25"+"18"+"19"+"66"+"75"+"78"+"79"+"80"+"37"+"77"+"45"+"65","02"+"90"+constans.stopByte)
-            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"18"+"66"+"75"+"79"+"80"+"77"+"65"+constans.stopByte)
-            //EEPROM
-            //26
-            //25
-            //19
-            //78
-            //37
-            //45
-
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"18"+"66"+"75"+"79"+"80"+"77"+"65"+"69"+"67"+"68"+"73"+"71"+"72"+constans.stopByte)
+            //EEPROM 26 25 19 78 37 45 29 27 28 31 32
 
             this.$store.commit('bluetoothSubscribe')
 

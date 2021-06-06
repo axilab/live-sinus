@@ -252,7 +252,7 @@
                         this.DialogPowerShow = true
                         break
                     case 'main.settingsList.frequency':
-                        this.DialogData = {value: this.$store.getters.getD07, type:'frequency'}
+                        this.DialogData = {value: this.$store.getters.getD07, type:'frequency',title: 'main.titles.generator_frequency'}
                         this.DialogfrequencyShow = true
                         break
                     case 'main.settingsList.phase_shift':

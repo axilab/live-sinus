@@ -107,5 +107,12 @@ export default {
         meander:"1",
         triangle:"2"
     },
+    waveWormFromIndex:{
+        "0":"wave_form.sinus",
+        "1":"wave_form.meander",
+        "2":"wave_form.triangle",
+        "3":"wave_form.sawtooth",
+        "4":"wave_form.rectangular"
+    },
 
 }
