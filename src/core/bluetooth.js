@@ -222,6 +222,21 @@ export default {
             this.writePort(constans.startByte+"20"+minutes+constans.stopByte)
         },
 
+        setGeneratorDutyCycleAM(percent, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "30" + percent + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "70" + percent + constans.stopByte)
+            }
+        },
+
+        setGeneratorDutyCycleFM(percent, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "34" + percent + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "74" + percent + constans.stopByte)
+            }
+        },
 
 
 
@@ -229,7 +244,7 @@ export default {
             this.writePort(constans.startByte+"01"+constans.stopByte)
         },
         deviceInit(){
-            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"18"+"66"+"75"+"79"+"80"+"77"+"65"+"69"+"67"+"68"+"73"+"71"+"72"+constans.stopByte)
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"18"+"66"+"75"+"79"+"80"+"77"+"65"+"69"+"67"+"68"+"73"+"71"+"72"+"70"+"74"+constans.stopByte)
             //EEPROM 26 25 19 78 37 45 29 27 28 31 32
 
             this.$store.commit('bluetoothSubscribe')

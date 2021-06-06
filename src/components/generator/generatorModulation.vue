@@ -74,21 +74,30 @@
                 DialogSelectShow: false,
                 DialogfrequencyShow: false,
                 DialogNum3_1Show: null,
-
-                items: [
-                    { text: 'main.settingsList.am_form',subtitle:"синус", icon: 'mdi-cog-outline' },
-                    { text: 'main.settingsList.am_depth',subtitle:"50%", icon: 'mdi-cog-outline' },
-                    { text: 'main.settingsList.am_frequency',subtitle:"285.0", icon: 'mdi-cog-outline' },
-                    { text: 'main.settingsList.fm_form',subtitle:"синус", icon: 'mdi-cog-outline' },
-                    { text: 'main.settingsList.fm_deviation',subtitle:"0.00", icon: 'mdi-cog-outline' },
-                    { text: 'main.settingsList.fm_frequency',subtitle:"0.1", icon: 'mdi-cog-outline' },
-                ],
-
-                //DialogFmFormSelectData: {title:"main.titles.fm_form", list:[{id:'1',text:'wave_form.sinus'},{id:'2',text:'wave_form.meander'},{id:'3',text:'wave_form.triangle'}],select:'1'},
-
             }
         },
         computed: {
+
+            items(){
+                let options = []
+                options.push({ text: 'main.settingsList.am_form', icon: 'mdi-cog-outline' })
+                if (this.$store.getters.getD69==='3'||this.$store.getters.getD69==='4'){
+                    options.push({ text: 'main.settingsList.am_dutyCycle', icon: 'mdi-cog-outline' })
+                }
+
+                options.push({ text: 'main.settingsList.am_depth', icon: 'mdi-cog-outline' })
+                options.push({ text: 'main.settingsList.am_frequency', icon: 'mdi-cog-outline' })
+                options.push({ text: 'main.settingsList.fm_form', icon: 'mdi-cog-outline' })
+
+                if (this.$store.getters.getD73==='3'||this.$store.getters.getD73==='4')
+                {
+                    options.push({text: 'main.settingsList.fm_dutyCycle', icon: 'mdi-cog-outline'})
+                }
+                options.push({ text: 'main.settingsList.fm_deviation', icon: 'mdi-cog-outline' })
+                options.push({ text: 'main.settingsList.fm_frequency', icon: 'mdi-cog-outline' })
+                return options
+            },
+
             ModulationOn(){
                 return this.$store.getters.getD66
             },
@@ -112,28 +121,30 @@
                 this.DialogNum3_1Show = false
                 this.DialogfrequencyShow = false
                 if (ev!==null){
-                    console.log('type', ev.type, 'res',ev.result)
-
+                    //console.log('type', ev.type, 'res',ev.result)
                     switch (ev.type) {
                         case 'main.settingsList.am_form':
-                            //console.log('return main.settingsList.am_form')
                             this.setGeneratorAmForm(ev.result, false)
                             break
+                        case 'main.settingsList.am_dutyCycle':
+                            this.setGeneratorDutyCycleAM(String((ev.result)), false)
+                            break
                         case 'main.settingsList.am_depth':
-                            this.setGeneratorAmDepth(String((ev.result*10)), false)
+                            this.setGeneratorAmDepth(String((ev.result)), false)
                             break
                         case 'main.titles.am_frequency':
-                            console.log('set main.titles.am_frequency',ev.result)
                             this.setGeneratorAmFrequency(ev.result, false)
                             break
                         case 'main.settingsList.fm_form':
                             this.setGeneratorFmForm(ev.result, false)
                             break
+                        case 'main.settingsList.fm_dutyCycle':
+                            this.setGeneratorDutyCycleFM(String((ev.result)), false)
+                            break
                         case 'main.titles.fm_deviation':
                             this.setGeneratorFmDeviation(ev.result, false)
                             break
                         case 'main.titles.fm_frequency':
-                            console.log('set main.titles.fm_frequency',ev.result)
                             this.setGeneratorFmFrequency(ev.result, false)
                             break
                         default:
@@ -143,40 +154,50 @@
             },
 
             clickSetting(item){
-                console.log('item', item)
+                // console.log('item', item)
                 switch (item) {
                     case 'main.settingsList.am_form':
-                        console.log('main.settingsList.am_form')
                         this.DialogData = {title:"main.titles.am_form", list:[{id:'0',text:'wave_form.sinus'},{id:'1',text:'wave_form.meander'},{id:'2',text:'wave_form.triangle'}, {id:'3',text:'wave_form.sawtooth'},{id:'4',text:'wave_form.rectangular'}],select: this.$store.getters.getD69, type: 'main.settingsList.am_form'}
                         this.DialogSelectShow = true
                         break
+                    case 'main.settingsList.am_dutyCycle':
+                        this.DialogData = {title:'main.settingsList.am_dutyCycle', list:[{id:0,text:'am_depth_values.p0'},{id:10,text:'am_depth_values.p10'},{id:20,text:'am_depth_values.p20'},{id:30,text:'am_depth_values.p30'},
+                                {id:40,text:'am_depth_values.p40'},{id:50,text:'am_depth_values.p50'},{id:60,text:'am_depth_values.p60'},
+                                {id:70,text:'am_depth_values.p70'},{id:80,text:'am_depth_values.p80'},{id:90,text:'am_depth_values.p90'},
+                                {id:100,text:'am_depth_values.p100'},
+                            ],select: (Number(this.$store.getters.getD70)), type:'main.settingsList.am_dutyCycle'}
+                        this.DialogSelectShow = true
+                        break
                     case 'main.settingsList.am_depth':
-                        console.log('main.settingsList.am_depth')
-                        this.DialogData = {title:"main.titles.am_depth", list:[{id:1,text:'am_depth_values.p10'},{id:2,text:'am_depth_values.p20'},{id:3,text:'am_depth_values.p30'},
-                                {id:4,text:'am_depth_values.p40'},{id:5,text:'am_depth_values.p50'},{id:'6',text:'am_depth_values.p60'},
-                                {id:7,text:'am_depth_values.p70'},{id:8,text:'am_depth_values.p80'},{id:9,text:'am_depth_values.p90'},
-                                {id:10,text:'am_depth_values.p100'},
-                            ],select:this.$store.getters.getD67, type:'main.settingsList.am_depth'}
+                        this.DialogData = {title:'main.titles.am_depth', list:[{id:10,text:'am_depth_values.p10'},{id:20,text:'am_depth_values.p20'},{id:30,text:'am_depth_values.p30'},
+                                {id:40,text:'am_depth_values.p40'},{id:50,text:'am_depth_values.p50'},{id:60,text:'am_depth_values.p60'},
+                                {id:70,text:'am_depth_values.p70'},{id:80,text:'am_depth_values.p80'},{id:90,text:'am_depth_values.p90'},
+                                {id:100,text:'am_depth_values.p100'},
+                            ],select: Number(this.$store.getters.getD67), type:'main.settingsList.am_depth'}
                         this.DialogSelectShow = true
                         break
                     case 'main.settingsList.am_frequency':
-                        console.log('main.settingsList.am_frequency')
                         this.DialogData = {value: this.$store.getters.getD68,type:'main.titles.am_frequency',title:"main.titles.am_frequency"}
                         this.DialogNum3_1Show = true
                         break
                     case 'main.settingsList.fm_form':
-                        console.log('main.settingsList.fm_form')
                         this.DialogData = {title:"main.titles.fm_form", list:[{id:'0',text:'wave_form.sinus'},{id:'1',text:'wave_form.meander'},{id:'2',text:'wave_form.triangle'}, {id:'3',text:'wave_form.sawtooth'},{id:'4',text:'wave_form.rectangular'}],select:this.$store.getters.getD73, type: 'main.settingsList.fm_form'}
                         this.DialogSelectShow = true
                         break
+                    case 'main.settingsList.fm_dutyCycle':
+                        this.DialogData = {title:'main.settingsList.fm_dutyCycle', list:[{id:0,text:'am_depth_values.p0'}, {id:10,text:'am_depth_values.p10'},{id:20,text:'am_depth_values.p20'},{id:30,text:'am_depth_values.p30'},
+                                {id:40,text:'am_depth_values.p40'},{id:50,text:'am_depth_values.p50'},{id:60,text:'am_depth_values.p60'},
+                                {id:70,text:'am_depth_values.p70'},{id:80,text:'am_depth_values.p80'},{id:90,text:'am_depth_values.p90'},
+                                {id:100,text:'am_depth_values.p100'},
+                            ],select: (Number(this.$store.getters.getD74)), type:'main.settingsList.fm_dutyCycle'}
+                        this.DialogSelectShow = true
+                        break
                     case 'main.settingsList.fm_deviation':
-                        console.log('main.settingsList.fm_deviation', this.$store.getters.getD71)
                         this.DialogData = {value:this.$store.getters.getD71,type:'main.titles.fm_deviation',title:"main.titles.fm_deviation"}
                         this.DialogfrequencyShow = true
                         break
                     case 'main.settingsList.fm_frequency':
-                        console.log('main.settingsList.fm_frequency')
-                        this.DialogData = {value:this.$store.getters.getD72,type:'main.titles.fm_frequency',title:"main.titles.fm_frequency"}
+                        this.DialogData = {value: this.$store.getters.getD72,type:'main.titles.fm_frequency',title:"main.titles.fm_frequency"}
                         this.DialogNum3_1Show = true
                         break
                     default:
@@ -188,12 +209,16 @@
                 switch (param) {
                     case 'main.settingsList.am_form':
                         return this.$t(constans.waveWormFromIndex[this.$store.getters.getD69])
+                    case 'main.settingsList.am_dutyCycle':
+                        return this.$store.getters.getD70
                     case 'main.settingsList.am_depth':
                         return this.$store.getters.getD67
                     case 'main.settingsList.am_frequency':
                         return this.$store.getters.getD68
                     case 'main.settingsList.fm_form':
                         return this.$t(constans.waveWormFromIndex[this.$store.getters.getD73])
+                    case 'main.settingsList.fm_dutyCycle':
+                        return this.$store.getters.getD74
                     case 'main.settingsList.fm_deviation':
                         return this.$store.getters.getD71
                     case 'main.settingsList.fm_frequency':
