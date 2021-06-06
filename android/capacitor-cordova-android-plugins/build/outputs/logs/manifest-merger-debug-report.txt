@@ -1,0 +1,53 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+	xmlns:amazon
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:4:1-57
+	package
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:11-46
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:2:1-11:12
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:3:1-59
+application
+ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:5:1-7:15
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:8:1-63
+	android:name
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:8:18-61
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:9:1-69
+	android:name
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:9:18-67
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:10:1-76
+	android:name
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml:10:18-74
+uses-sdk
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		ADDED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml
+		INJECTED from C:\Project\LiveSinus\android\capacitor-cordova-android-plugins\src\main\AndroidManifest.xml

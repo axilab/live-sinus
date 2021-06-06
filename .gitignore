@@ -37,3 +37,4 @@ pnpm-debug.log*
 /src-cordova/platforms
 /src-cordova/plugins
 /public/cordova.js
+/android/capacitor-cordova-android-plugins/build

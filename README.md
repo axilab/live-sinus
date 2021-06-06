@@ -2,6 +2,10 @@
 
 ## Мобильное приложение для генератора Live Sinus 
 
+```
+git clone https://github.com/axilab/live-sinus.git
+```
+
 Установка зависимостей проекта:
 ```
 npm install
