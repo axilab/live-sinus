@@ -131,6 +131,41 @@ export default {
             }
         },
 
+        setModulation(on, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "26" + on + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "66" + on + constans.stopByte)
+            }
+        },
+        setAmperageStabilization(on, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "78" + on + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "79" + on + constans.stopByte)
+            }
+        },
+
+        setFrequencyAutotuning(on, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "37" + on + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "77" + on + constans.stopByte)
+            }
+        },
+
+        setErrorOff(on, EEPROM){
+            if (EEPROM) {
+                this.writePort(constans.startByte + "45" + on + constans.stopByte)
+            }else {
+                this.writePort(constans.startByte + "65" + on + constans.stopByte)
+            }
+        },
+
+        setIncubator(on){
+            this.writePort(constans.startByte + "80" + on + constans.stopByte)
+        },
+
         setTimerOff(minutes){
             this.writePort(constans.startByte+"20"+minutes+constans.stopByte)
         },
@@ -138,10 +173,21 @@ export default {
 
 
 
-
+        reset(){
+            this.writePort(constans.startByte+"01"+constans.stopByte)
+        },
         deviceInit(){
+            //this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"26"+"39"+"40"+"13"+"14"+"24"+"25"+"18"+"19"+"66"+"75"+"78"+"79"+"80"+"37"+"77"+"45"+"65","02"+"90"+constans.stopByte)
+            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"18"+"66"+"75"+"79"+"80"+"77"+"65"+constans.stopByte)
+            //EEPROM
+            //26
+            //25
+            //19
+            //78
+            //37
+            //45
 
-            this.writePort(constans.startByte+"50"+"1000"+"03"+"07"+"11"+"20"+"39"+"40"+"13"+"14"+"24"+"25"+"18"+"19"+"75"+constans.stopByte)
+
             this.$store.commit('bluetoothSubscribe')
 
         }
