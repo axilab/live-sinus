@@ -17,6 +17,22 @@
         <v-list-item-group
                 color="primary"
         >
+
+            <v-list-item>
+                <template>
+                    <v-list-item-action>
+                        <v-checkbox
+                                v-model="selectFibonachiOn"
+                                color="primary"
+                        ></v-checkbox>
+                    </v-list-item-action>
+
+                    <v-list-item-content @click="selectFibonachiOn=!selectFibonachiOn">
+                        <v-list-item-title>{{$t('main.settingsList.fibonachi')}}</v-list-item-title>
+                    </v-list-item-content>
+                </template>
+            </v-list-item>
+
             <v-list-item>
                 <template>
                     <v-list-item-action>
@@ -70,6 +86,7 @@
         data() {
             return {
                 selectModulationOn: false,
+                selectFibonachiOn: false,
                 DialogData: null,
                 DialogSelectShow: false,
                 DialogfrequencyShow: false,
@@ -101,6 +118,9 @@
             ModulationOn(){
                 return this.$store.getters.getD66
             },
+            FibonachiOn(){
+                return this.$store.getters.getD61
+            },
         },
         watch:{
             ModulationOn(newValue) {
@@ -109,10 +129,22 @@
                     this.selectModulationOn = val
                 }
             },
+            FibonachiOn(newValue) {
+                let val = Boolean(parseInt(newValue))
+                if (val!=this.selectFibonachiOn){
+                    this.selectFibonachiOn = val
+                }
+            },
+
             selectModulationOn(newValue){
                 let val = newValue ? "1": "0"
                 let old = String(this.$store.getters.getD66)
-                if (val!==old){this.setModulation(val, false)}
+                if (val!==old){this.setGeneratorModulation(val, false)}
+            },
+            selectFibonachiOn(newValue){
+                let val = newValue ? "1": "0"
+                let old = String(this.$store.getters.getD61)
+                if (val!==old){this.setGeneratorFibonchi(val, false)}
             },
         },
         methods: {
@@ -230,6 +262,7 @@
         },
         created() {
             this.selectModulationOn= (String(this.$store.getters.getD66)==="1") ? true : false
+            this.selectFibonachiOn= (String(this.$store.getters.getD61)==="1") ? true : false
         }
     }
 </script>
