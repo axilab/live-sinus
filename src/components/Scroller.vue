@@ -1,9 +1,25 @@
 <template>
   <div class="vscroller">
-
     <div class="vscroller__body">
-      <ul :style="{ webkitTransition: '-webkit-transform ' + transitionDuration / 1000 + 's ease-out', transition: 'transform ' + transitionDuration / 1000 + 's ease-out', webkitTransform: 'translate3d(0px, ' + currentTranslatedY + 'px, 0px)', transform: 'translate3d(0px, ' + currentTranslatedY + 'px, 0px)' }" ref="ul">
-        <li v-for="item in itemList" :key="item.id" :data-val="item.value" :class="item.selected ? 'vselected' : ''">{{item.name}}</li>
+      <ul
+        :style="{
+          webkitTransition:
+            '-webkit-transform ' + transitionDuration / 1000 + 's ease-out',
+          transition: 'transform ' + transitionDuration / 1000 + 's ease-out',
+          webkitTransform:
+            'translate3d(0px, ' + currentTranslatedY + 'px, 0px)',
+          transform: 'translate3d(0px, ' + currentTranslatedY + 'px, 0px)',
+        }"
+        ref="ul"
+      >
+        <li
+          v-for="item in itemList"
+          :key="item.id"
+          :data-val="item.value"
+          :class="item.selected ? 'vselected' : ''"
+        >
+          {{ item.name }}
+        </li>
       </ul>
     </div>
   </div>
@@ -11,7 +27,7 @@
 
 <script>
 export default {
-  name: 'Scroller',
+  name: "Scroller",
   props: {
     itemList: Array,
     itemSelect: Number,
@@ -24,7 +40,7 @@ export default {
       currentPosY: 0,
       startTime: 0,
       endTime: 0,
-      lastTime: (new Date()).getTime(),
+      lastTime: new Date().getTime(),
       transitionDuration: 0,
       lastPosY: 0,
       lastV: 0,
@@ -35,12 +51,11 @@ export default {
       totalHeight: 40,
     };
   },
-  created() {
-  },
+  created() {},
   mounted() {
     let supportedTouch = false;
     this.initData();
-    if ('ontouchstart' in window) {
+    if ("ontouchstart" in window) {
       supportedTouch = true;
     }
     if (supportedTouch) {
@@ -50,19 +65,17 @@ export default {
     }
     this.bindClickEvent();
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     initData() {
       if (this.itemList.length > 0) {
-        this.selectedIndex = this.itemSelect
-        this.selectedValue = this.itemList[this.itemSelect].value
+        this.selectedIndex = this.itemSelect;
+        this.selectedValue = this.itemList[this.itemSelect].value;
 
-
-        this.startTranslatedY = 80 - (this.selectedIndex * 40);
+        this.startTranslatedY = 80 - this.selectedIndex * 40;
         this.currentTranslatedY = this.startTranslatedY;
       } else {
-        this.itemList = [{ value: 1, name: 'Please select..', selected: true }];
+        this.itemList = [{ value: 1, name: "Please select..", selected: true }];
       }
       this.totalHeight = this.itemList.length * 40;
     },
@@ -70,69 +83,86 @@ export default {
     bindTouchEvents() {
       const el = this.$refs.ul;
       // bind events
-      el.addEventListener('touchstart', (e) => {
-        this.startPosY = e.changedTouches[0].pageY;
-        this.currentPosY = this.startPosY;
-        this.startTime = (new Date()).getTime();
-        this.startTranslatedY = this.currentTranslatedY;
-        this.lastV = 0;
-        // console.log('touchstart!');
-      }, false);
+      el.addEventListener(
+        "touchstart",
+        (e) => {
+          this.startPosY = e.changedTouches[0].pageY;
+          this.currentPosY = this.startPosY;
+          this.startTime = new Date().getTime();
+          this.startTranslatedY = this.currentTranslatedY;
+          this.lastV = 0;
+          // console.log('touchstart!');
+        },
+        false
+      );
 
-      el.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // prevent default scrolling event when touch moving
-        this.lastV = (e.changedTouches[0].pageY - this.lastPosY)
-         / ((new Date()).getTime() - this.lastTime);
-        this.currentPosY = e.changedTouches[0].pageY;
-        this.currentTranslatedY = (this.startTranslatedY + this.currentPosY) - this.startPosY;
-        this.lastPosY = this.currentPosY;
-        this.lastTime = (new Date()).getTime();
-      }, false);
+      el.addEventListener(
+        "touchmove",
+        (e) => {
+          e.preventDefault(); // prevent default scrolling event when touch moving
+          this.lastV =
+            (e.changedTouches[0].pageY - this.lastPosY) /
+            (new Date().getTime() - this.lastTime);
+          this.currentPosY = e.changedTouches[0].pageY;
+          this.currentTranslatedY =
+            this.startTranslatedY + this.currentPosY - this.startPosY;
+          this.lastPosY = this.currentPosY;
+          this.lastTime = new Date().getTime();
+        },
+        false
+      );
 
-      el.addEventListener('touchend', () => {
-        this.endTime = (new Date()).getTime();
-        if (Math.abs(this.currentPosY - this.startPosY) > 5 && this.endTime - this.startTime > 50) {
-          const v = this.lastV;
-          const s = v > 0 ? (0.5 * (v ** 2)) / 0.001 : (-0.5 * (v ** 2)) / 0.001;
-          const t = Math.abs(v) / 0.001;
-          let currentTranslatedY = this.currentTranslatedY;
-          currentTranslatedY += s;
-          const residue = currentTranslatedY % 40;
-          if (Math.abs(residue) >= 20) {
-            if (residue < 0) {
-              currentTranslatedY += ((40 + residue) * (-1));
+      el.addEventListener(
+        "touchend",
+        () => {
+          this.endTime = new Date().getTime();
+          if (
+            Math.abs(this.currentPosY - this.startPosY) > 5 &&
+            this.endTime - this.startTime > 50
+          ) {
+            const v = this.lastV;
+            const s = v > 0 ? (0.5 * v ** 2) / 0.001 : (-0.5 * v ** 2) / 0.001;
+            const t = Math.abs(v) / 0.001;
+            let currentTranslatedY = this.currentTranslatedY;
+            currentTranslatedY += s;
+            const residue = currentTranslatedY % 40;
+            if (Math.abs(residue) >= 20) {
+              if (residue < 0) {
+                currentTranslatedY += (40 + residue) * -1;
+              } else {
+                currentTranslatedY += 40 - residue;
+              }
             } else {
-              currentTranslatedY += (40 - residue);
+              currentTranslatedY -= residue;
             }
+            if (currentTranslatedY > 80) {
+              currentTranslatedY = 80;
+            } else if (currentTranslatedY < (this.totalHeight - 120) * -1) {
+              currentTranslatedY = (this.totalHeight - 120) * -1;
+            }
+            const selectedIndex = Math.abs((currentTranslatedY - 80) / -40);
+            this.transitionDuration = t;
+            this.currentTranslatedY = currentTranslatedY;
+            setTimeout(() => {
+              this.itemList[this.selectedIndex].selected = false;
+              this.selectedIndex = selectedIndex;
+              this.itemList[this.selectedIndex].selected = true;
+              this.selectedValue = this.itemList[this.selectedIndex].value;
+              this.haveClicked = false;
+            }, t);
           } else {
-            currentTranslatedY -= residue;
+            this.haveClicked = true;
           }
-          if (currentTranslatedY > 80) {
-            currentTranslatedY = 80;
-          } else if (currentTranslatedY < (this.totalHeight - 120) * (-1)) {
-            currentTranslatedY = (this.totalHeight - 120) * (-1);
-          }
-          const selectedIndex = Math.abs((currentTranslatedY - 80) / (-40));
-          this.transitionDuration = t;
-          this.currentTranslatedY = currentTranslatedY;
-          setTimeout(() => {
-            this.itemList[this.selectedIndex].selected = false;
-            this.selectedIndex = selectedIndex;
-            this.itemList[this.selectedIndex].selected = true;
-            this.selectedValue = this.itemList[this.selectedIndex].value;
-            this.haveClicked = false;
-          }, t);
-        } else {
-          this.haveClicked = true;
-        }
-        this.startPosY = 0;
-        this.currentPosY = 0;
-        this.startTranslatedY = 0;
-        this.startTime = 0;
-        this.endTime = 0;
-        this.lastPosY = 0;
-        this.lastV = 0;
-      }, false);
+          this.startPosY = 0;
+          this.currentPosY = 0;
+          this.startTranslatedY = 0;
+          this.startTime = 0;
+          this.endTime = 0;
+          this.lastPosY = 0;
+          this.lastV = 0;
+        },
+        false
+      );
     },
     bindMouseEvents() {
       const el = this.$refs.ul;
@@ -142,53 +172,60 @@ export default {
       let mouseLeave = null;
       let mouseWheel = null;
 
-      mouseDown = (e) => { // mouse down event
+      mouseDown = (e) => {
+        // mouse down event
         this.isMouseDown = true;
         this.startPosY = e.pageY;
         this.currentPosY = this.startPosY;
-        this.startTime = (new Date()).getTime();
+        this.startTime = new Date().getTime();
         this.startTranslatedY = this.currentTranslatedY;
-        el.addEventListener('mousemove', mouseMove);
-        el.addEventListener('mouseup', mouseUp);
-        el.addEventListener('mouseleave', mouseLeave);
+        el.addEventListener("mousemove", mouseMove);
+        el.addEventListener("mouseup", mouseUp);
+        el.addEventListener("mouseleave", mouseLeave);
         // console.log('mouseDown!');
       };
-      mouseMove = (e) => { // mouse move event
+      mouseMove = (e) => {
+        // mouse move event
         if (this.isMouseDown) {
           e.preventDefault(); // prevent default selecting event when mouse moving
-          this.lastV = (e.pageY - this.lastPosY)
-           / ((new Date()).getTime() - this.lastTime);
+          this.lastV =
+            (e.pageY - this.lastPosY) / (new Date().getTime() - this.lastTime);
           this.currentPosY = e.pageY;
-          this.currentTranslatedY = (this.startTranslatedY + this.currentPosY) - this.startPosY;
+          this.currentTranslatedY =
+            this.startTranslatedY + this.currentPosY - this.startPosY;
           this.lastPosY = this.currentPosY;
-          this.lastTime = (new Date()).getTime();
+          this.lastTime = new Date().getTime();
           this.haveClicked = false;
         }
       };
-      mouseUp = () => { // mouse up event
-        this.endTime = (new Date()).getTime();
-        if (Math.abs(this.currentPosY - this.startPosY) > 5 && this.endTime - this.startTime > 20) {
+      mouseUp = () => {
+        // mouse up event
+        this.endTime = new Date().getTime();
+        if (
+          Math.abs(this.currentPosY - this.startPosY) > 5 &&
+          this.endTime - this.startTime > 20
+        ) {
           const v = this.lastV;
-          const s = v > 0 ? (0.5 * (v ** 2)) / 0.001 : (-0.5 * (v ** 2)) / 0.001;
+          const s = v > 0 ? (0.5 * v ** 2) / 0.001 : (-0.5 * v ** 2) / 0.001;
           const t = Math.abs(v) / 0.001;
           let currentTranslatedY = this.currentTranslatedY;
           currentTranslatedY += s;
           const residue = currentTranslatedY % 40;
           if (Math.abs(residue) >= 20) {
             if (residue < 0) {
-              currentTranslatedY += ((40 + residue) * (-1));
+              currentTranslatedY += (40 + residue) * -1;
             } else {
-              currentTranslatedY += (40 - residue);
+              currentTranslatedY += 40 - residue;
             }
           } else {
             currentTranslatedY -= residue;
           }
           if (currentTranslatedY > 80) {
             currentTranslatedY = 80;
-          } else if (currentTranslatedY < (this.totalHeight - 120) * (-1)) {
-            currentTranslatedY = (this.totalHeight - 120) * (-1);
+          } else if (currentTranslatedY < (this.totalHeight - 120) * -1) {
+            currentTranslatedY = (this.totalHeight - 120) * -1;
           }
-          const selectedIndex = Math.abs((currentTranslatedY - 80) / (-40));
+          const selectedIndex = Math.abs((currentTranslatedY - 80) / -40);
           this.transitionDuration = t;
           this.currentTranslatedY = currentTranslatedY;
           setTimeout(() => {
@@ -209,38 +246,40 @@ export default {
         this.lastPosY = 0;
         this.lastV = 0;
         this.isMouseDown = false;
-        el.removeEventListener('mousemove', mouseMove);
-        el.removeEventListener('mouseup', mouseUp);
-        el.removeEventListener('mouseleave', mouseLeave);
+        el.removeEventListener("mousemove", mouseMove);
+        el.removeEventListener("mouseup", mouseUp);
+        el.removeEventListener("mouseleave", mouseLeave);
         // console.log('mouseUp!');
       };
-      mouseLeave = () => { // mouse leave event
+      mouseLeave = () => {
+        // mouse leave event
         if (this.isMouseDown) {
           mouseUp();
           // console.log('mouseLeave!');
         }
       };
-      mouseWheel = (e) => { // mouse wheel event
+      mouseWheel = (e) => {
+        // mouse wheel event
         this.startTranslatedY = this.currentTranslatedY;
-        let currentTranslatedY = this.startTranslatedY + (e.deltaY * 0.5);
+        let currentTranslatedY = this.startTranslatedY + e.deltaY * 0.5;
         const residue = currentTranslatedY % 40;
         if (Math.abs(residue) >= 20) {
           if (residue < 0) {
-            currentTranslatedY += ((40 + residue) * (-1));
+            currentTranslatedY += (40 + residue) * -1;
           } else {
-            currentTranslatedY += (40 - residue);
+            currentTranslatedY += 40 - residue;
           }
         } else {
           currentTranslatedY -= residue;
         }
         if (currentTranslatedY > 80) {
           currentTranslatedY = 80;
-        } else if (currentTranslatedY < (this.totalHeight - 120) * (-1)) {
-          currentTranslatedY = (this.totalHeight - 120) * (-1);
+        } else if (currentTranslatedY < (this.totalHeight - 120) * -1) {
+          currentTranslatedY = (this.totalHeight - 120) * -1;
         }
         this.transitionDuration = 0.2;
         this.currentTranslatedY = currentTranslatedY;
-        const selectedIndex = Math.abs((currentTranslatedY - 80) / (-40));
+        const selectedIndex = Math.abs((currentTranslatedY - 80) / -40);
         setTimeout(() => {
           this.itemList[this.selectedIndex].selected = false;
           this.selectedIndex = selectedIndex;
@@ -250,13 +289,13 @@ export default {
         this.startTranslatedY = 0;
       };
       // bind events
-      el.addEventListener('mousedown', mouseDown);
-      el.addEventListener('wheel', mouseWheel);
+      el.addEventListener("mousedown", mouseDown);
+      el.addEventListener("wheel", mouseWheel);
     },
     bindClickEvent() {
       const el = this.$refs.ul;
-      el.querySelectorAll('li').forEach(($li, index) => {
-        $li.addEventListener('click', () => {
+      el.querySelectorAll("li").forEach(($li, index) => {
+        $li.addEventListener("click", () => {
           if (this.haveClicked) {
             const itemPositionY = $li.offsetTop;
             const currentTranslatedY = 80 - itemPositionY;
@@ -275,10 +314,10 @@ export default {
   },
   watch: {
     selectedValue: {
-      handler: function(val) {
-        this.$emit('change', {val})
+      handler: function (val) {
+        this.$emit("change", { val });
       },
-      deep: true
+      deep: true,
     },
 
     itemList: () => {
@@ -289,9 +328,9 @@ export default {
 </script>
 
 <style>
-.vscroller{
-  font-family: arial,verdana,sans-serif;
-  padding: .5em .25em;
+.vscroller {
+  font-family: arial, verdana, sans-serif;
+  padding: 0.5em 0.25em;
   min-width: 20px;
   max-width: 100%;
   -webkit-box-flex: 1;
@@ -302,14 +341,13 @@ export default {
   touch-action: none;
 }
 
-
 .vscroller__body {
   height: 200px;
   overflow: hidden;
   position: relative;
 }
 .vscroller__body:before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 80px;
@@ -322,7 +360,7 @@ export default {
   z-index: 1;
 }
 .vscroller__body:after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 80px;

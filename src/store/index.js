@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     appStore,
-    deviceStore
+    deviceStore,
   },
-//  mixins: [util]
+  //  mixins: [util]
 });

@@ -8,11 +8,11 @@ import Debug from "../views/Debug";
 Vue.use(VueRouter);
 
 const routes = [
-    { path: "/home", name: "Home", component: Home },
-    { path: "/settings", name: "Settings", component: Settings },
-    { path: "/about", name: "About", component: About },
-    { path: "/debug", name: "Debug", component: Debug },
-    ];
+  { path: "/home", name: "Home", component: Home },
+  { path: "/settings", name: "Settings", component: Settings },
+  { path: "/about", name: "About", component: About },
+  { path: "/debug", name: "Debug", component: Debug },
+];
 
 const router = new VueRouter({
   mode: "history",
@@ -21,12 +21,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    //console.log('to', to, 'from', from, 'history length',window.history.length)
-    if (to.path==='/' && from.path!=='/'){
-        //console.log('to.path', to.path)
-        navigator.app.exitApp()
-    }
-    next()
-})
+  //console.log('to', to, 'from', from, 'history length',window.history.length)
+  if (to.path === "/" && from.path !== "/") {
+    //console.log('to.path', to.path)
+    navigator.app.exitApp();
+  }
+  next();
+});
 
 export default router;

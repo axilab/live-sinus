@@ -1,33 +1,19 @@
 <template>
   <v-app>
-
-    <v-navigation-drawer app
-                         v-model="drawer"
-                         absolute
-                         temporary
-
-    >
+    <v-navigation-drawer app v-model="drawer" absolute temporary>
       <v-list-item>
         <v-list-item-avatar>
           <v-img src="logo.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="title">
-            LiveSinus
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            ver 1.0
-          </v-list-item-subtitle>
+          <v-list-item-title class="title"> LiveSinus </v-list-item-title>
+          <v-list-item-subtitle> ver 1.0 </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider/>
+      <v-divider />
 
-      <v-list-item
-              v-for="item in menu"
-              :key="item.title"
-              :to="item.url"
-      >
+      <v-list-item v-for="item in menu" :key="item.title" :to="item.url">
         <v-list-item-icon>
           <v-icon color="primary">{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -36,39 +22,35 @@
           <v-list-item-title>{{ $t(item.title) }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="headline text-uppercase">
         <span>Live</span>
-        <span class="font-weight-light">Sinus | {{pageName}}</span>
+        <span class="font-weight-light">Sinus | {{ pageName }}</span>
       </v-toolbar-title>
-      <v-spacer/>
-
+      <v-spacer />
     </v-app-bar>
 
     <v-main>
-        <router-view/>
+      <router-view />
     </v-main>
-
 
     <template v-if="error">
       <v-snackbar
-              :timeout="5000"
-              :multi-line="true"
-              color="error"
-              @input="closeError"
-              :value="true"
+        :timeout="5000"
+        :multi-line="true"
+        color="error"
+        @input="closeError"
+        :value="true"
       >
-        {{error}}
+        {{ error }}
         <v-btn @click.native="closeError" dark>Закрыть</v-btn>
       </v-snackbar>
     </template>
 
-    <v-footer app> {{$t("main.statusTitle")}}: {{ $t(getStatus)  }} </v-footer>
-
+    <v-footer app> {{ $t("main.statusTitle") }}: {{ $t(getStatus) }} </v-footer>
   </v-app>
 </template>
 
