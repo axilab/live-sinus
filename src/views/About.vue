@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto my-12">
-    <v-img class="ma-3" src="logo.png"></v-img>
+    <v-img class="ma-3" src="logo.png"/>
 
     <v-card-title>Live sinus</v-card-title>
 
@@ -8,8 +8,8 @@
       <v-row align="center" class="mx-0">
         Мобильное приложение для управления генератором LS 5BT
       </v-row>
-      <v-row align="center" class="mx-0"> Версия: 1.0 </v-row>
-      <v-row align="center" class="mx-0"> Дата версии: 31.05.2021 </v-row>
+      <v-row align="center" class="mx-0"> Версия: {{appVersion}} </v-row>
+      <v-row align="center" class="mx-0"> Дата версии: {{appDate}} </v-row>
 
       <v-row align="center" class="mx-0">
         <a target="_blank" href="https://www.live-sinus.com"
@@ -56,6 +56,14 @@ export default {
       link_url.click();
       document.body.removeChild(link_url);
     },
+  },
+  computed: {
+    appVersion () {
+      return this.$store.getters.appVersion
+    },
+    appDate () {
+      return this.$store.getters.appDate
+    }
   },
   //computed: mapGetters(["getAllLogs"]),
   //methods: {}
