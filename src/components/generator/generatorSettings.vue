@@ -24,9 +24,56 @@
     <v-dialog v-model="DialogYesNoShow" width="500">
       <dialog-yes-no
         :input="DialogData"
-        @callback="DialogCallback($event)"
+        @callback="
+          DialogCallback({
+            result: $event,
+            type: 'generator_settings.factory_settings',
+          })
+        "
       ></dialog-yes-no>
     </v-dialog>
+
+    <v-dialog
+      v-if="DialogPhaseShiftShow"
+      v-model="DialogPhaseShiftShow"
+      scrollable
+    >
+      <num3select
+        :input="DialogData"
+        @Callback="DialogCallback($event)"
+      ></num3select>
+    </v-dialog>
+
+    <v-dialog
+      v-if="Dialognum2selectShow"
+      v-model="Dialognum2selectShow"
+      scrollable
+    >
+      <num2select
+        :input="DialogData"
+        @Callback="DialogCallback($event)"
+      ></num2select>
+    </v-dialog>
+
+    <v-dialog v-if="DialogNum3_1Show" v-model="DialogNum3_1Show" scrollable>
+      <num3_1Select
+        :input="DialogData"
+        @Callback="DialogCallback($event)"
+      ></num3_1Select>
+    </v-dialog>
+
+    <v-dialog
+      v-if="DialogfrequencyShow"
+      v-model="DialogfrequencyShow"
+      scrollable
+    >
+      <num3_2Select
+        :input="DialogData"
+        @Callback="DialogCallback($event)"
+      ></num3_2Select>
+    </v-dialog>
+
+    <p>{{ $t("settings.firmwareVer") }} {{ generatorVer }}</p>
 
     <v-list>
       <v-list-item-group color="primary">
@@ -49,12 +96,17 @@
 
       <v-list-item-group color="primary">
         <v-list-item>
-          <template v-slot:default="{ active }">
+          <template>
             <v-list-item-action>
-              <v-checkbox :input-value="active" color="primary"></v-checkbox>
+              <v-checkbox
+                color="primary"
+                v-model="checkboxIncubator"
+              ></v-checkbox>
             </v-list-item-action>
 
-            <v-list-item-content>
+            <v-list-item-content
+              @click="checkboxIncubator = !checkboxIncubator"
+            >
               <v-list-item-title>{{
                 $t("generator_settings.mode_incubator")
               }}</v-list-item-title>
@@ -65,12 +117,17 @@
 
       <v-list-item-group color="primary">
         <v-list-item>
-          <template v-slot:default="{ active }">
+          <template>
             <v-list-item-action>
-              <v-checkbox :input-value="active" color="primary"></v-checkbox>
+              <v-checkbox
+                color="primary"
+                v-model="checkboxSoundSignal"
+              ></v-checkbox>
             </v-list-item-action>
 
-            <v-list-item-content>
+            <v-list-item-content
+              @click="checkboxSoundSignal = !checkboxSoundSignal"
+            >
               <v-list-item-title>{{
                 $t("generator_settings.sound_signal")
               }}</v-list-item-title>
@@ -81,12 +138,15 @@
 
       <v-list-item-group color="primary">
         <v-list-item>
-          <template v-slot:default="{ active }">
+          <template>
             <v-list-item-action>
-              <v-checkbox :input-value="active" color="primary"></v-checkbox>
+              <v-checkbox
+                color="primary"
+                v-model="checkboxErrorOff"
+              ></v-checkbox>
             </v-list-item-action>
 
-            <v-list-item-content>
+            <v-list-item-content @click="checkboxErrorOff = !checkboxErrorOff">
               <v-list-item-title>{{
                 $t("generator_settings.error_off")
               }}</v-list-item-title>
@@ -97,12 +157,17 @@
 
       <v-list-item-group color="primary">
         <v-list-item>
-          <template v-slot:default="{ active }">
+          <template>
             <v-list-item-action>
-              <v-checkbox :input-value="active" color="primary"></v-checkbox>
+              <v-checkbox
+                color="primary"
+                v-model="checkboxModulation"
+              ></v-checkbox>
             </v-list-item-action>
 
-            <v-list-item-content>
+            <v-list-item-content
+              @click="checkboxModulation = !checkboxModulation"
+            >
               <v-list-item-title>{{
                 $t("generator_settings.modulation")
               }}</v-list-item-title>
@@ -153,6 +218,11 @@ import radioSelect from "@/components/dialogs/radioSelect";
 import timerSelect from "@/components/dialogs/timerSelect";
 import powerSelect from "@/components/dialogs/powerSelect";
 import dialogYesNo from "@/components/dialogs/YesNo";
+import num3select from "@/components/dialogs/num3select";
+import num2select from "@/components/dialogs/num2select";
+import num3_1Select from "@/components/dialogs/num3_1Select";
+import num3_2Select from "@/components/dialogs/num3_2Select";
+
 import bluetooth from "@/core/bluetooth";
 import util from "@/core/util";
 import constans from "../../core/constans";
@@ -160,15 +230,32 @@ import constans from "../../core/constans";
 export default {
   name: "GeneratorSetting",
   mixins: [bluetooth, util],
-  components: { radioSelect, timerSelect, powerSelect, dialogYesNo },
+  components: {
+    radioSelect,
+    timerSelect,
+    powerSelect,
+    dialogYesNo,
+    num3select,
+    num2select,
+    num3_1Select,
+    num3_2Select,
+  },
   data() {
     return {
+      checkboxIncubator: false,
+      checkboxSoundSignal: false,
+      checkboxErrorOff: false,
+      checkboxModulation: false,
+
       DialogSelectShow: false,
       DialogTimerShow: false,
       DialogPowerShow: false,
       DialogYesNoShow: false,
-
+      DialogPhaseShiftShow: false,
+      Dialognum2selectShow: false,
+      DialogNum3_1Show: false,
       DialogData: null,
+      DialogfrequencyShow: false,
 
       items: [
         { text: "generator_settings.generator_mode", icon: "mdi-cog-outline" },
@@ -213,10 +300,85 @@ export default {
       },
     };
   },
-  computed: {},
+  computed: {
+    compCheckboxIncubator() {
+      return this.$store.getters.getD80;
+    },
+    compCheckboxSoundSignal() {
+      return this.$store.getters.getD38;
+    },
+    compCheckboxErrorOff() {
+      return this.$store.getters.getD45;
+    },
+
+    compCheckboxModulation() {
+      return this.$store.getters.getD26;
+    },
+    generatorVer() {
+      return this.$store.getters.getD02;
+    },
+  },
+  watch: {
+    compCheckboxIncubator(newValue) {
+      let val = Boolean(parseInt(newValue));
+      if (val != this.checkboxIncubator) {
+        this.checkboxIncubator = val;
+      }
+    },
+    compCheckboxSoundSignal(newValue) {
+      let val = Boolean(parseInt(newValue));
+      if (val != this.checkboxSoundSignal) {
+        this.checkboxSoundSignal = val;
+      }
+    },
+    compCheckboxErrorOff(newValue) {
+      let val = Boolean(parseInt(newValue));
+      if (val != this.checkboxErrorOff) {
+        this.checkboxErrorOff = val;
+      }
+    },
+    compCheckboxModulation(newValue) {
+      let val = Boolean(parseInt(newValue));
+      if (val != this.checkboxModulation) {
+        this.checkboxModulation = val;
+      }
+    },
+
+    checkboxIncubator(newValue) {
+      let val = newValue ? "1" : "0";
+      let old = String(this.$store.getters.getD80);
+      if (val !== old) {
+        this.setIncubator(val);
+      }
+    },
+
+    checkboxSoundSignal(newValue) {
+      let val = newValue ? "1" : "0";
+      let old = String(this.$store.getters.getD38);
+      if (val !== old) {
+        this.setGeneratorSoundOn(val, true);
+      }
+    },
+
+    checkboxErrorOff(newValue) {
+      let val = newValue ? "1" : "0";
+      let old = String(this.$store.getters.getD45);
+      if (val !== old) {
+        this.setErrorOff(val, true);
+      }
+    },
+
+    checkboxModulation(newValue) {
+      let val = newValue ? "1" : "0";
+      let old = String(this.$store.getters.getD26);
+      if (val !== old) {
+        this.setGeneratorModulation(val, true);
+      }
+    },
+  },
   methods: {
     DialogCallback(ev) {
-      console.log("DialogSelectCallback", ev);
+      console.log("DialogCallback", ev);
       if (ev !== null) {
         const res = ev.result;
         const type = ev.type;
@@ -243,6 +405,73 @@ export default {
             this.setGeneratorTimerOn(ev.result, true);
             this.getGeneratorData("25");
             break;
+          case "generator_settings.rms_out_min":
+            this.setGeneratorMinMa(ev.result);
+            this.getGeneratorData("15");
+            break;
+          case "generator_settings.rms_out_mid":
+            this.setGeneratorMidMa(ev.result);
+            this.getGeneratorData("16");
+            break;
+          case "generator_settings.rms_out_max":
+            this.setGeneratorMaxMa(ev.result);
+            this.getGeneratorData("17");
+            break;
+          case "generator_settings.Searching_resonance_min":
+            this.setGeneratorStartSearchResonance(ev.result);
+            this.getGeneratorData("46");
+            break;
+          case "generator_settings.Searching_resonance_max":
+            this.setGeneratorFinishSearchResonance(ev.result);
+            this.getGeneratorData("47");
+            break;
+          case "generator_settings.phase_shift":
+            this.setGeneratorPhaseShift(ev.result, true);
+            this.getGeneratorData("19");
+            break;
+          case "generator_settings.frequency_autotuning":
+            this.setFrequencyAutotuning(ev.result, true);
+            this.getGeneratorData("37");
+            break;
+          case "generator_settings.am_form":
+            this.setGeneratorAmForm(ev.result, true);
+            this.getGeneratorData("29");
+            break;
+          case "generator_settings.am_dutyCycle":
+            this.setGeneratorDutyCycleAM(String(ev.result), true);
+            this.getGeneratorData("30");
+            break;
+          case "generator_settings.am_depth":
+            this.setGeneratorAmDepth(String(ev.result), true);
+            this.getGeneratorData("27");
+            break;
+          case "generator_settings.am_frequency":
+            this.setGeneratorAmFrequency(ev.result, true);
+            this.getGeneratorData("28");
+            break;
+          case "generator_settings.fm_form":
+            this.setGeneratorFmForm(ev.result, true);
+            this.getGeneratorData("33");
+            break;
+          case "generator_settings.fm_dutyCycle":
+            this.setGeneratorDutyCycleFM(String(ev.result), true);
+            this.getGeneratorData("74");
+            break;
+          case "generator_settings.fm_deviation":
+            this.setGeneratorFmDeviation(ev.result, true);
+            this.getGeneratorData("31");
+            break;
+          case "generator_settings.fm_frequency":
+            this.setGeneratorFmFrequency(ev.result, true);
+            this.getGeneratorData("32");
+            break;
+          case "generator_settings.factory_settings":
+            console.log("factory_settings", ev.result);
+            if (ev.result.answer === "yes") {
+              this.setDefaultEEPROM();
+              this.getEEPROMAllData();
+            }
+            break;
         }
         //this.getEEPROMAllData()
       }
@@ -251,6 +480,10 @@ export default {
       this.DialogTimerShow = false;
       this.DialogPowerShow = false;
       this.DialogYesNoShow = false;
+      this.DialogPhaseShiftShow = false;
+      this.Dialognum2selectShow = false;
+      this.DialogNum3_1Show = false;
+      this.DialogfrequencyShow = false;
     },
 
     clickSetting(item) {
@@ -306,7 +539,7 @@ export default {
           this.DialogData = {
             title: "generator_settings.rms_out_min",
             value: this.$store.getters.getD15,
-            type: "rms_out_min",
+            type: "generator_settings.rms_out_min",
           };
           this.DialogPowerShow = true;
           break;
@@ -314,7 +547,7 @@ export default {
           this.DialogData = {
             title: "generator_settings.rms_out_mid",
             value: this.$store.getters.getD16,
-            type: "rms_out_mid",
+            type: "generator_settings.rms_out_mid",
           };
           this.DialogPowerShow = true;
           break;
@@ -322,7 +555,7 @@ export default {
           this.DialogData = {
             title: "generator_settings.rms_out_max",
             value: this.$store.getters.getD17,
-            type: "rms_out_max",
+            type: "generator_settings.rms_out_max",
           };
           this.DialogPowerShow = true;
           break;
@@ -330,7 +563,7 @@ export default {
           this.DialogData = {
             title: "generator_settings.Searching_resonance_min",
             value: this.$store.getters.getD46,
-            type: "Searching_resonance_min",
+            type: "generator_settings.Searching_resonance_min",
           };
           this.DialogPowerShow = true;
           break;
@@ -338,15 +571,101 @@ export default {
           this.DialogData = {
             title: "generator_settings.Searching_resonance_max",
             value: this.$store.getters.getD47,
-            type: "Searching_resonance_max",
+            type: "generator_settings.Searching_resonance_max",
           };
           this.DialogPowerShow = true;
           break;
+        case "generator_settings.phase_shift":
+          this.DialogData = {
+            title: "generator_settings.phase_shift",
+            type: "generator_settings.phase_shift",
+            value: this.$store.getters.getD19,
+          };
+          this.DialogPhaseShiftShow = true;
+          break;
+        case "generator_settings.frequency_autotuning":
+          this.DialogData = {
+            value: this.$store.getters.getD37,
+            type: "generator_settings.frequency_autotuning",
+            title: "main.titles.frequency_autotuning",
+          };
+          this.Dialognum2selectShow = true;
+          break;
+        case "generator_settings.am_form":
+          this.DialogData = {
+            title: "main.titles.am_form",
+            list: constans.am_form,
+            select: this.$store.getters.getD29,
+            type: "generator_settings.am_form",
+          };
+          this.DialogSelectShow = true;
+          break;
+        case "generator_settings.am_dutyCycle":
+          this.DialogData = {
+            title: "main.settingsList.am_dutyCycle",
+            list: constans.am_dutyCycle,
+            select: Number(this.$store.getters.getD30),
+            type: "generator_settings.am_dutyCycle",
+          };
+          this.DialogSelectShow = true;
+          break;
+        case "generator_settings.am_depth":
+          this.DialogData = {
+            title: "main.titles.am_depth",
+            list: constans.am_depth,
+            select: Number(this.$store.getters.getD27),
+            type: "generator_settings.am_depth",
+          };
+          this.DialogSelectShow = true;
+          break;
+        case "generator_settings.am_frequency":
+          this.DialogData = {
+            value: this.$store.getters.getD28,
+            type: "generator_settings.am_frequency",
+            title: "main.titles.am_frequency",
+          };
+          this.DialogNum3_1Show = true;
+          break;
+        case "generator_settings.fm_form":
+          this.DialogData = {
+            title: "main.titles.fm_form",
+            list: constans.fm_form,
+            select: this.$store.getters.getD33,
+            type: "generator_settings.fm_form",
+          };
+          this.DialogSelectShow = true;
+          break;
+        case "generator_settings.fm_dutyCycle":
+          this.DialogData = {
+            title: "main.settingsList.fm_dutyCycle",
+            list: constans.fm_dutyCycle,
+            select: Number(this.$store.getters.getD34),
+            type: "generator_settings.fm_dutyCycle",
+          };
+          this.DialogSelectShow = true;
+          break;
+        case "generator_settings.fm_deviation":
+          this.DialogData = {
+            value: this.$store.getters.getD31,
+            type: "generator_settings.fm_deviation",
+            title: "main.titles.fm_deviation",
+          };
+          this.DialogfrequencyShow = true;
+          break;
+        case "generator_settings.fm_frequency":
+          this.DialogData = {
+            value: this.$store.getters.getD32,
+            type: "generator_settings.fm_frequency",
+            title: "main.titles.fm_frequency",
+          };
+          this.DialogNum3_1Show = true;
+          break;
+
         case "generator_settings.factory_settings":
           this.DialogData = {
             title: "general.warning",
             message: "generator_settings.factory_settings_answer",
-            type: "factory_settings",
+            type: "generator_settings.factory_settings_answer",
           };
           this.DialogYesNoShow = true;
           break;
@@ -374,25 +693,25 @@ export default {
       this.getGeneratorData("26"); // Модуляция (вкл)
       this.getGeneratorData("29"); // AM форма огибающей
       this.getGeneratorData("30"); // AM скважность огибающей
-      this.getGeneratorData("67"); // AM глубина
-      this.getGeneratorData("68"); // AM частота
-      this.getGeneratorData("73"); // FM форма огибающей
-      this.getGeneratorData("74"); // FM скважность огибающей
+      this.getGeneratorData("27"); // AM глубина
+      this.getGeneratorData("28"); // AM частота
+      this.getGeneratorData("33"); // FM форма огибающей
+      this.getGeneratorData("34"); // FM скважность огибающей
       this.getGeneratorData("31"); // FM девиация
       this.getGeneratorData("32"); // FM частота
       this.getGeneratorData("61"); // Фибоначчи
 
+      this.getGeneratorData("80"); // 80 Режим инкубатор
+      this.getGeneratorData("38"); // 38 Звуковой сигнал (вкл)
+      this.getGeneratorData("45"); // 45 Отключение при ошибке
+      this.getGeneratorData("26"); // 26 Модуляция (вкл)
+
       // 61 Фибоначчи
-      // 80 Режим инкубатор
-      // 38 Звуковой сигнал (вкл)
-      // 45 Отключение при ошибке
-      // 26 Модуляция (вкл)
     },
 
     subtitle(param) {
       switch (param) {
         case "generator_settings.generator_mode":
-          //return this.$t(this.$store.getters.getD35)
           return this.$t(this.$store.getters.getD35);
         case "generator_settings.timer_off_1":
           return this.$store.getters.getD21;
@@ -423,15 +742,15 @@ export default {
         case "generator_settings.am_dutyCycle":
           return this.$store.getters.getD30;
         case "generator_settings.am_depth":
-          return this.$store.getters.getD67;
+          return this.$store.getters.getD27;
         case "generator_settings.am_frequency":
-          return this.$store.getters.getD68;
+          return this.$store.getters.getD28;
         case "generator_settings.fm_form":
           return this.$t(
             constans.waveWormFromIndex[this.$store.getters.getD33]
           );
         case "generator_settings.fm_dutyCycle":
-          return this.$store.getters.getD74;
+          return this.$store.getters.getD34;
         case "generator_settings.fm_deviation":
           return this.$store.getters.getD31;
         case "generator_settings.fm_frequency":
@@ -445,6 +764,18 @@ export default {
   },
   created() {
     this.getEEPROMAllData();
+
+    this.checkboxIncubator =
+      String(this.$store.getters.getD80) === "1" ? true : false;
+
+    this.checkboxSoundSignal =
+      String(this.$store.getters.getD38) === "1" ? true : false;
+
+    this.checkboxErrorOff =
+      String(this.$store.getters.getD45) === "1" ? true : false;
+
+    this.checkboxModulation =
+      String(this.$store.getters.getD26) === "1" ? true : false;
   },
 };
 </script>

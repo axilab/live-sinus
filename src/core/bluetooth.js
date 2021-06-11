@@ -77,7 +77,7 @@ export default {
 
     writePort(data) {
       const serial = window.bluetoothSerial;
-      //console.log('send ',data)
+      console.log("send ", data);
       serial.write(
         data,
         () => {},
@@ -325,6 +325,9 @@ export default {
     reset() {
       this.writePort(constans.startByte + "01" + constans.stopByte);
     },
+    setDefaultEEPROM() {
+      this.writePort(constans.startByte + "9999" + constans.stopByte);
+    },
     deviceInit() {
       this.writePort(
         constans.startByte +
@@ -355,6 +358,7 @@ export default {
           "70" +
           "74" +
           "61" +
+          "58" +
           constans.stopByte
       );
 

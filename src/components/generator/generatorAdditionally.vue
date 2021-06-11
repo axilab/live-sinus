@@ -32,6 +32,25 @@
       </v-list-item-group>
 
       <v-list-item-group color="primary">
+        <v-list-item>
+          <template>
+            <v-list-item-action>
+              <v-checkbox
+                v-model="selectedSoundOn"
+                color="primary"
+              ></v-checkbox>
+            </v-list-item-action>
+
+            <v-list-item-content @click="selectedSoundOn = !selectedSoundOn">
+              <v-list-item-title>{{
+                $t("generator_settings.sound_signal")
+              }}</v-list-item-title>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+      </v-list-item-group>
+
+      <v-list-item-group color="primary">
         <v-list-item v-if="amperageStabilizationVisable">
           <template>
             <v-list-item-action>
@@ -91,9 +110,24 @@ export default {
 
       selectedAmperageStabilization: false,
       selectedErrorOff: false,
+      selectedSoundOn: false,
     };
   },
   watch: {
+    selectedSoundOn(newValue) {
+      let val = newValue ? "1" : "0";
+      let old = String(this.$store.getters.getD58);
+      if (val !== old) {
+        this.setGeneratorSoundOn(val, false);
+      }
+    },
+    modeSoundOn(newValue) {
+      let val = Boolean(parseInt(newValue));
+      if (val != this.selectedSoundOn) {
+        this.selectedSoundOn = val;
+      }
+    },
+
     selectedErrorOff(newValue) {
       let val = newValue ? "1" : "0";
       let old = String(this.$store.getters.getD65);
@@ -122,6 +156,10 @@ export default {
     },
   },
   computed: {
+    modeSoundOn() {
+      return this.$store.getters.getD58;
+    },
+
     modeAmperageStabilization() {
       return this.$store.getters.getD79;
     },
@@ -184,6 +222,8 @@ export default {
       String(this.$store.getters.getD65) === "1" ? true : false;
     this.selectedAmperageStabilization =
       String(this.$store.getters.getD79) === "1" ? true : false;
+    this.selectedSoundOn =
+      String(this.$store.getters.getD58) === "1" ? true : false;
   },
 };
 </script>

@@ -3,8 +3,8 @@ import Db from "@/core/Db";
 
 export default {
   state: {
-    packageVersion: process.env.PACKAGE_VERSION || '0',
-    packageDate: process.env.PACKAGE_DATE || '0',
+    packageVersion: process.env.PACKAGE_VERSION || "0",
+    packageDate: process.env.PACKAGE_DATE || "0",
 
     error: null,
     db: null,
@@ -146,10 +146,10 @@ export default {
   },
   getters: {
     appVersion: (state) => {
-      return state.packageVersion
+      return state.packageVersion;
     },
     appDate: (state) => {
-      return state.packageDate
+      return state.packageDate;
     },
 
     error(state) {

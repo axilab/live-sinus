@@ -238,13 +238,7 @@ export default {
         case "main.settingsList.am_form":
           this.DialogData = {
             title: "main.titles.am_form",
-            list: [
-              { id: "0", text: "wave_form.sinus" },
-              { id: "1", text: "wave_form.meander" },
-              { id: "2", text: "wave_form.triangle" },
-              { id: "3", text: "wave_form.sawtooth" },
-              { id: "4", text: "wave_form.rectangular" },
-            ],
+            list: constans.am_form,
             select: this.$store.getters.getD69,
             type: "main.settingsList.am_form",
           };
@@ -253,19 +247,7 @@ export default {
         case "main.settingsList.am_dutyCycle":
           this.DialogData = {
             title: "main.settingsList.am_dutyCycle",
-            list: [
-              { id: 0, text: "am_depth_values.p0" },
-              { id: 10, text: "am_depth_values.p10" },
-              { id: 20, text: "am_depth_values.p20" },
-              { id: 30, text: "am_depth_values.p30" },
-              { id: 40, text: "am_depth_values.p40" },
-              { id: 50, text: "am_depth_values.p50" },
-              { id: 60, text: "am_depth_values.p60" },
-              { id: 70, text: "am_depth_values.p70" },
-              { id: 80, text: "am_depth_values.p80" },
-              { id: 90, text: "am_depth_values.p90" },
-              { id: 100, text: "am_depth_values.p100" },
-            ],
+            list: constans.am_dutyCycle,
             select: Number(this.$store.getters.getD70),
             type: "main.settingsList.am_dutyCycle",
           };
@@ -274,18 +256,7 @@ export default {
         case "main.settingsList.am_depth":
           this.DialogData = {
             title: "main.titles.am_depth",
-            list: [
-              { id: 10, text: "am_depth_values.p10" },
-              { id: 20, text: "am_depth_values.p20" },
-              { id: 30, text: "am_depth_values.p30" },
-              { id: 40, text: "am_depth_values.p40" },
-              { id: 50, text: "am_depth_values.p50" },
-              { id: 60, text: "am_depth_values.p60" },
-              { id: 70, text: "am_depth_values.p70" },
-              { id: 80, text: "am_depth_values.p80" },
-              { id: 90, text: "am_depth_values.p90" },
-              { id: 100, text: "am_depth_values.p100" },
-            ],
+            list: constans.am_depth,
             select: Number(this.$store.getters.getD67),
             type: "main.settingsList.am_depth",
           };
@@ -302,13 +273,7 @@ export default {
         case "main.settingsList.fm_form":
           this.DialogData = {
             title: "main.titles.fm_form",
-            list: [
-              { id: "0", text: "wave_form.sinus" },
-              { id: "1", text: "wave_form.meander" },
-              { id: "2", text: "wave_form.triangle" },
-              { id: "3", text: "wave_form.sawtooth" },
-              { id: "4", text: "wave_form.rectangular" },
-            ],
+            list: constans.fm_form,
             select: this.$store.getters.getD73,
             type: "main.settingsList.fm_form",
           };
@@ -317,19 +282,7 @@ export default {
         case "main.settingsList.fm_dutyCycle":
           this.DialogData = {
             title: "main.settingsList.fm_dutyCycle",
-            list: [
-              { id: 0, text: "am_depth_values.p0" },
-              { id: 10, text: "am_depth_values.p10" },
-              { id: 20, text: "am_depth_values.p20" },
-              { id: 30, text: "am_depth_values.p30" },
-              { id: 40, text: "am_depth_values.p40" },
-              { id: 50, text: "am_depth_values.p50" },
-              { id: 60, text: "am_depth_values.p60" },
-              { id: 70, text: "am_depth_values.p70" },
-              { id: 80, text: "am_depth_values.p80" },
-              { id: 90, text: "am_depth_values.p90" },
-              { id: 100, text: "am_depth_values.p100" },
-            ],
+            list: constans.fm_dutyCycle,
             select: Number(this.$store.getters.getD74),
             type: "main.settingsList.fm_dutyCycle",
           };

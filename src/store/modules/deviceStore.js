@@ -240,7 +240,7 @@ export default {
       return state.d56;
     },
     getD53(state) {
-      return state.d58;
+      return state.d53;
     },
     getD54(state) {
       return state.d54;

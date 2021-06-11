@@ -48,7 +48,7 @@
       "frequency": "Частота (кГц)",
 
       "modulation": "Модуляция",
-      "fibonachi": "Фибоначчи",
+      "fibonachi": "Фибоначчи АМ+ЧМ",
       "am_form": "AM Форма огибающей",
       "am_dutyCycle": "AM скважность огибающей",
       "am_depth": "AM глубина (%)",
@@ -94,6 +94,7 @@
     "debug": "Debug"
   },
   "settings": {
+    "firmwareVer":"firmware version:",
     "language": "Application language",
     "languages": [{"key": "ru", "value": "Русский"}, {"key": "en", "value": "English"}],
     "theme": "Application theme",
@@ -127,8 +128,8 @@
     "fm_frequency": "FM частота (Гц)",
     "Searching_resonance_min": "Поиск резонанса - граница Min (кГц)",
     "Searching_resonance_max": "Поиск резонанса - граница Max (кГц)",
-    "mode_incubator": "Режим  'Инкубатор'",
-    "sound_signal": "Звуковой сигнал (Вкл)",
+    "mode_incubator": "Авто-включение",
+    "sound_signal": "Звуковой сигнал",
     "error_off": "Отключкеие при ошибке",
     "factory_settings": "Сброс на заводские настройки",
     "factory_settings_answer": "Установить заводские настройки генератора?"
