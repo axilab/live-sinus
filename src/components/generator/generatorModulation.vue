@@ -190,7 +190,7 @@ export default {
       let val = newValue ? "1" : "0";
       let old = String(this.$store.getters.getD61);
       if (val !== old) {
-        this.setGeneratorFibonchi(val, false);
+        this.setGeneratorFibonchi(val);
       }
     },
   },

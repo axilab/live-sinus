@@ -85,6 +85,24 @@
     "about": "О программе",
     "debug": "Отладка"
   },
+  "generatorMode": {
+    "selectTitle": "Режим работы генератора:",
+    "modes": [{"key":"0", "value":"авто"},{"key":"1", "value":"профи"},{"key":"2", "value":"инженерный"}],
+    "stepTitle": "Ступенчатный режим:",
+    "stepModes": [{"key":"0", "value":"выключено"},{"key":"1", "value":"ступени №1"},{"key":"2", "value":"ступени №2"}],
+    "step1PowerTitle":"Ток ступени №1 (ma)",
+    "step2PowerTitle":"Ток ступени №2 (ma)",
+    "step3PowerTitle":"Ток ступени №3 (ma)",
+    "stepsPower":"Мощность ступеней:",
+    "fibonachi": "Фибоначчи АМ+ЧМ",
+    "timeWork": "Время работы:",
+    "stepMode2TimerTitle":"Время переключения ступеней (сек.)",
+    "apply": "Применить",
+    "fibonachi2":" + Фибоначчи",
+    "step1":" + Ступени №1",
+    "step2":" + Ступени №2"
+  },
+
   "settings": {
     "firmwareVer":"Версия прошивки:",
     "language": "Язык приложения",

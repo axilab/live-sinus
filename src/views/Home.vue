@@ -158,7 +158,7 @@ export default {
       } else {
         this.$store.commit("setError", "Нет соединения с генератором");
       }
-      console.log("conn", conn);
+      //console.log("conn", conn);
     },
   },
   mounted() {
@@ -167,20 +167,15 @@ export default {
       /* eslint-disable */
                     typeof cordova !== 'undefined' ? 'deviceready' : 'DOMContentLoaded',
                     () => {
-                      //console.log('cordova', cordova)
                       this.bluetoothle = window.bluetoothle
-                      //console.log('init ok')
                     }
             )
 
-    //console.log('>>', this.getLocaleList())
-    //console.log('locale ', this.getUserLocale())
+
   }
 
 
 };
-
-//.getAdapterInfo
 
 
 </script>

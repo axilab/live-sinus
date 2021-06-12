@@ -233,19 +233,18 @@ export default {
     getD47(state) {
       return state.d47;
     },
-    getD55(state) {
-      return state.d55;
-    },
-    getD56(state) {
-      return state.d56;
-    },
     getD53(state) {
       return state.d53;
     },
     getD54(state) {
       return state.d54;
     },
-
+    getD55(state) {
+      return state.d55;
+    },
+    getD56(state) {
+      return state.d56;
+    },
     getD58(state) {
       return state.d58;
     },

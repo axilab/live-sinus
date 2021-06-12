@@ -76,7 +76,7 @@ export default {
             {title: 'menu.home', icon:'mdi-home', url: {name: 'Home'}},
             {title: 'menu.settings', icon:'mdi-cog ', url: {name: 'Settings'}},
             {title: 'menu.about', icon:'mdi-information', url: {name: 'About'}},
-            {title: 'menu.debug', icon:'mdi-bugs', url: {name: 'Debug'}},
+            // {title: 'menu.debug', icon:'mdi-bugs', url: {name: 'Debug'}},
     ]
   }),
 

@@ -36,6 +36,17 @@
       ></num3select>
     </v-dialog>
 
+    <v-dialog
+      v-if="DialogGeneratorModeShow"
+      v-model="DialogGeneratorModeShow"
+      scrollable
+    >
+      <generatorMode
+        :input="DialogData"
+        @Callback="DialogSelectCallback($event)"
+      ></generatorMode>
+    </v-dialog>
+
     <div id="clock" :class="clockClass">
       <p class="time" style="margin-bottom: 0px">{{ getTimer }}</p>
     </div>
@@ -81,13 +92,20 @@ import radioSelect from "@/components/dialogs/radioSelect";
 import powerSelect from "@/components/dialogs/powerSelect";
 import num3_2Select from "@/components/dialogs/num3_2Select";
 import num3select from "@/components/dialogs/num3select";
+import generatorMode from "@/components/dialogs/generatorModeSettings";
 //import constans from ".@/core/constans";
 import bluetooth from "@/core/bluetooth";
 
 export default {
   name: "GeneratorMain",
   mixins: [bluetooth],
-  components: { radioSelect, powerSelect, num3_2Select, num3select },
+  components: {
+    radioSelect,
+    powerSelect,
+    num3_2Select,
+    num3select,
+    generatorMode,
+  },
   data() {
     return {
       DialogData: null,
@@ -95,6 +113,7 @@ export default {
       DialogPowerShow: false,
       DialogfrequencyShow: false,
       DialogPhaseShiftShow: false,
+      DialogGeneratorModeShow: false,
 
       items: [
         {
@@ -115,7 +134,7 @@ export default {
   },
   computed: {
     settings() {
-      //console.log('settings', this.$store.getters.getD75)
+      //console.log('settings', htis.$store.getters.getD75)
       if (this.$store.getters.getD75 === "generator_modes.engineering") {
         return [
           {
@@ -207,10 +226,28 @@ export default {
           return "nodata";
       }
     },
+    generatorModeTitle() {
+      let mode = this.$t(this.$store.getters.getD75);
+      const FibonachiOn =
+        String(this.$store.getters.getD61) === "1" ? true : false;
+      const Step1 = String(this.$store.getters.getD53) === "1" ? true : false;
+      const Step2 = String(this.$store.getters.getD53) === "2" ? true : false;
+
+      if (FibonachiOn) {
+        mode += this.$t("generatorMode.fibonachi2");
+      }
+      if (Step1) {
+        mode += this.$t("generatorMode.step1");
+      }
+      if (Step2) {
+        mode += this.$t("generatorMode.step2");
+      }
+      return mode;
+    },
     subtitle(param) {
       switch (param) {
         case "main.settingsList.generator_mode":
-          return this.$t(this.$store.getters.getD75);
+          return this.generatorModeTitle();
         case "main.settingsList.waveform":
           return this.$t(this.$store.getters.getD09);
         case "main.settingsList.power":
@@ -229,10 +266,14 @@ export default {
     },
 
     DialogSelectCallback(ev) {
+      console.log("generatorMain DialogSelectCallback", ev);
+
       this.DialogSelectShow = false;
       this.DialogPowerShow = false;
       this.DialogfrequencyShow = false;
       this.DialogPhaseShiftShow = false;
+      this.DialogGeneratorModeShow = false;
+
       if (ev == null) {
         return;
       }
@@ -320,15 +361,17 @@ export default {
         case "main.settingsList.generator_mode":
           this.DialogData = {
             title: "main.titles.generator_mode",
-            list: [
-              { id: "0", text: "generator_modes.auto" },
-              { id: "1", text: "generator_modes.profi" },
-              { id: "2", text: "generator_modes.engineering" },
-            ],
-            select: this.$store.getters.get_D75,
-            type: "generator_mode",
+            //   list: [
+            //     { id: "0", text: "generator_modes.auto" },
+            //     { id: "1", text: "generator_modes.profi" },
+            //     { id: "2", text: "generator_modes.engineering" },
+            //   ],
+            //   select: this.$store.getters.get_D75,
+            //   type: "generator_mode",
           };
-          this.DialogSelectShow = true;
+          //this.DialogSelectShow = true;
+          this.DialogGeneratorModeShow = true;
+
           break;
         case "main.settingsList.power":
           this.DialogData = {
