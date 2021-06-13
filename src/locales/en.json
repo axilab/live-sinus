@@ -1,9 +1,9 @@
 {
   "general": {
-    "yes": "Да",
-    "cancel":"Отмена",
-    "warning": "Предупреждение",
-    "nodata": "Нет данных"
+    "yes": "Yes",
+    "cancel":"Cancel",
+    "warning": "Warning",
+    "nodata": "No data"
   },
 
   "main": {
@@ -15,74 +15,74 @@
     },
 
     "tabs_settings": {
-      "application": "Приложение",
-      "generator": "Генератор"
+      "application": "Application",
+      "generator": "Generator"
     },
 
 
     "status": {
       "OFF": "Waiting...",
-      "ON_search_for_resonant_frequency": "Поиск резонансной частоты",
-      "ON_calculating_the_Qfactor_of_the_coil": "Вычисление добротности катушки",
-      "ON_in_the_mode_of_tuning_the_resonant_frequency": "Подстройки резонансной частоты",
-      "PAUSE":"Пауза",
-      "ON":"Генерация",
-      "ON_in_coil_urrent_trim_mode":"Подстройка тока катушки",
+      "ON_search_for_resonant_frequency": "Finding the resonant frequency",
+      "ON_calculating_the_Qfactor_of_the_coil": "Calculation of the Q factor of a coil",
+      "ON_in_the_mode_of_tuning_the_resonant_frequency": "Resonant frequency adjustments",
+      "PAUSE":"Pause",
+      "ON":"Generation",
+      "ON_in_coil_urrent_trim_mode":"Coil current adjustment",
       "init": "Connected..."
     },
 
     "fabcommands": {
-      "START": "Включить",
-      "STOP": "Выключить",
-      "PAUSE": "Пауза",
-      "RESUME": "Возобновить"
+      "START": "Enable",
+      "STOP": "Turn off",
+      "PAUSE": "Pause",
+      "RESUME": "Resume"
 
     },
     "settingsList": {
-      "generator_mode": "Режим работы генератора",
-      "waveform": "Форма",
-      "power": "Мощность",
-      "timer_off": "Таймер выключения",
-      "timer_on": "Таймер включения",
-      "phase_shift": "Сдвиг фазы (град.)",
-      "frequency": "Частота (кГц)",
+      "generator_mode": "Generator operating mode",
+      "waveform": "Form",
+      "power": "Power",
+      "timer_off": "Timer off",
+      "timer_on": "Timer on",
+      "phase_shift": "Phase shift (deg.)",
+      "frequency": "Frequency (kHz)",
 
-      "modulation": "Фиксированная модуляция",
-      "fibonachi": "Фибоначчи АМ+ЧМ",
-      "am_form": "AM Форма огибающей",
-      "am_dutyCycle": "AM скважность огибающей",
-      "am_depth": "AM глубина (%)",
-      "am_frequency": "AM частота (Гц)",
-      "fm_form": "FM форма огибающей",
-      "fm_dutyCycle": "FM скважность огибающей",
-      "fm_deviation": "FM девиация (кГц)",
-      "fm_frequency": "FM частота (Гц)",
+      "modulation": "Fixed modulation",
+      "fibonachi": "Fibonacci AM+FM",
+      "am_form": "AM Envelope shape",
+      "am_dutyCycle": "AM envelope duty cycle",
+      "am_depth": "AM depth (%)",
+      "am_frequency": "AM frequency (Hz)",
+      "fm_form": "FM envelope shape",
+      "fm_dutyCycle": "FM envelope duty cycle",
+      "fm_deviation": "FM deviation (kHz)",
+      "fm_frequency": "FM frequency (Hz)",
 
-      "error_off": "Отключение при ошибке",
-      "amperage_stabilization": "Стабилизация тока",
-      "frequency_autotuning": "Периодичность автоподстройки (сек)"
+      "error_off": "Disable on error",
+      "amperage_stabilization": "Current stabilization",
+      "frequency_autotuning": "Frequency of auto-tuning (sec)"
 
     },
     "indicatorsList": {
-      "frequency": "Частота (кГц)",
-      "voltage": "Напряжение питания (В)",
-      "rms": "Вых. напр. RMS (В)",
-      "q_factor": "Добротность катушки"
+      "frequency": "Frequency (kHz)",
+      "voltage": "Supply voltage (V)",
+      "rms": "Out. ex. RMS (B)",
+      "q_factor": "Coil quality factor"
     },
     "titles": {
-      "generator_mode": "Режим работы генератора",
-      "carrier_type": "Тип несущей",
-      "load_current": "Ток в нагрузке",
-      "session_duration": "Длительность сеанса",
-      "period_between_on": "Период между включениями",
-      "phase_shift": "Сдвиг фазы между током и напряж. (град.)",
-      "generator_frequency": "Частота генератора",
-      "am_form":"AM форма огибающей",
-      "am_depth": "AM глубина (%)",
-      "am_frequency": "AM частота (Гц)",
-      "fm_form": "FM форма огибающей",
-      "fm_deviation": "FM девиация (кГц)",
-      "fm_frequency": "FM частота (Гц)"
+      "generator_mode": "Generator operating mode",
+      "carrier_type": "Carrier type",
+      "load_current": "Load current",
+      "session_duration": "Session duration",
+      "period_between_on": "The period between inclusions",
+      "phase_shift": "Phase shift between current and voltage (deg.)",
+      "generator_frequency": "Generator frequency",
+      "am_form":"AM envelope shape",
+      "am_depth": "AM depth (%)",
+      "am_frequency": "AM frequency (Hz)",
+      "fm_form": "FM envelope shape",
+      "fm_deviation": "FM deviation (kHz)",
+      "fm_frequency": "FM frequency (Hz)"
     }
 
 
@@ -95,22 +95,22 @@
   },
 
   "generatorMode": {
-    "selectTitle": "Режим работы генератора:",
-    "modes": [{"key":"0", "value":"авто"},{"key":"1", "value":"профи"},{"key":"2", "value":"инженерный"}],
-    "stepTitle": "Ступенчатный режим:",
-    "stepModes": [{"id":"0", "text":"выключено"},{"id":"1", "text":"ступени №1"},{"id":"2", "text":"ступени №2"}],
-    "step1PowerTitle":"Ток ступени №1 (ma)",
-    "step2PowerTitle":"Ток ступени №2 (ma)",
-    "step3PowerTitle":"Ток ступени №3 (ma)",
-    "stepsPower":"Мощность ступеней:",
-    "fibonachi": "Фибоначчи АМ+ЧМ",
-    "timeWork": "Время работы:",
-    "stepMode2TimerTitle":"Время переключения ступеней (сек.)",
-    "stepMode2Timer":"Таймер переключения ступеней:",
-    "apply": "Применить",
-    "fibonachi2":" + Фибоначчи",
-    "step1":" + Ступени №1",
-    "step2":" + Ступени №2"
+    "selectTitle": "Generator operating mode:",
+    "modes": [{"key":"0", "value":"auto"},{"key":"1", "value":"profi"},{"key":"2", "value":"engineering"}],
+    "stepTitle": "Step mode:",
+    "stepModes": [{"id":"0", "text":"turned off"},{"id":"1", "text":"step number 1"},{"id":"2", "text":"step number 2"}],
+    "step1PowerTitle":"Stage 1 current (ma)",
+    "step2PowerTitle":"Stage 2 current (ma)",
+    "step3PowerTitle":"Stage 3 current (ma)",
+    "stepsPower":"Step power:",
+    "fibonachi": "Fibonacci AM+FM",
+    "timeWork": "Working hours:",
+    "stepMode2TimerTitle":"Step switching time (sec.)",
+    "stepMode2Timer":"Step switching timer:",
+    "apply": "Apply",
+    "fibonachi2":" + Fibonacci",
+    "step1":" + Step number 1",
+    "step2":" + Step number 2"
   },
 
 
@@ -128,39 +128,39 @@
     "descriptionForButtonSelectGenetatorNotSelect": "(Device not selected)"
   },
   "generator_settings": {
-    "stepMode": "Ступенчатый сценарий мощности",
-    "step1Power":"Ток супени 1 (Min)",
-    "step2Power":"Ток супени 2 (Mid)",
-    "step3Power":"Ток супени 3 (Max)",
-    "percentStep1":"Время работы ступени 1 (%)",
-    "percentStep2":"Время работы ступени 2 (%)",
-    "timerStepMode2":"Таймер Ступени №2 (сек.)",
-    "generator_mode": "Режим",
-    "timer_off_1": "Таймер откл. №1",
-    "timer_off_2": "Таймер откл. №2",
-    "timer_off_3": "Таймер откл. №3",
-    "period_between_on": "Период между включениями",
-    "rms_out_min": "Ток вых. RMS Min (mA)",
-    "rms_out_mid": "Ток вых. RMS Mid (mA)",
-    "rms_out_max": "Ток вых. RMS Max (mA)",
-    "phase_shift": "Сдвиг фазы между током и напряжением (град.)",
-    "frequency_autotuning": "Периодичность автоподстройки (сек)",
-    "modulation": "Модуляция (Вкл)",
-    "am_form": "АМ форма огибающей",
-    "am_dutyCycle": "AM скважность огибающей",
-    "am_depth": "АМ глубина (%)",
-    "am_frequency": "АМ частота (Гц)",
-    "fm_form": "FM форма огибаюзей",
-    "fm_dutyCycle": "FM скважность огибающей",
-    "fm_deviation": "FM девиация (кГц)",
-    "fm_frequency": "FM частота (Гц)",
-    "Searching_resonance_min": "Поиск резонанса - граница Min (кГц)",
-    "Searching_resonance_max": "Поиск резонанса - граница Max (кГц)",
-    "mode_incubator": "Авто-включение",
-    "sound_signal": "Звуковой сигнал",
-    "error_off": "Отключкеие при ошибке",
-    "factory_settings": "Сброс на заводские настройки",
-    "factory_settings_answer": "Установить заводские настройки генератора?"
+    "stepMode": "Power step scenario",
+    "step1Power":"Supeni current 1 (Min)",
+    "step2Power":"Supeni current 2 (Mid)",
+    "step3Power":"Supeni current 3 (Max)",
+    "percentStep1":"Stage 1 running time (%)",
+    "percentStep2":"Stage 2 running time (%)",
+    "timerStepMode2":"Timer Step №2 (sec.)",
+    "generator_mode": "Mode",
+    "timer_off_1": "Off timer №1",
+    "timer_off_2": "Off timer №2",
+    "timer_off_3": "Off timer №3",
+    "period_between_on": "The period between inclusions",
+    "rms_out_min": "Output current RMS Min (mA)",
+    "rms_out_mid": "Output current RMS Miв (mA)",
+    "rms_out_max": "Output current RMS Max (mA)",
+    "phase_shift": "Phase shift between current and voltage (deg.)",
+    "frequency_autotuning": "Frequency of auto-tuning (sec)",
+    "modulation": "Modulation (On)",
+    "am_form": "AM envelope shape",
+    "am_dutyCycle": "AM envelope duty cycle",
+    "am_depth": "AM depth (%)",
+    "am_frequency": "AM frequency (Hz)",
+    "fm_form": "FM envelope shape",
+    "fm_dutyCycle": "FM envelope duty cycle",
+    "fm_deviation": "FM deviation (kHz)",
+    "fm_frequency": "FM frequency (Hz)",
+    "Searching_resonance_min": "Resonance search - Min limit (kHz)",
+    "Searching_resonance_max": "Resonance Search - Max Limit (kHz))",
+    "mode_incubator": "Auto-enable",
+    "sound_signal": "Sound signal",
+    "error_off": "Disable on error",
+    "factory_settings": "Factory reset",
+    "factory_settings_answer": "Reset generator to factory settings?"
   },
   "wave_form": {
     "sinus": "синус",
@@ -171,30 +171,30 @@
 
   },
   "generator_modes": {
-    "auto": "авто",
-    "profi": "профи",
-    "engineering": "инженерный"
+    "auto": "auto",
+    "profi": "profi",
+    "engineering": "engineering"
   },
   "timer_off_values": {
-    "off": "Отключить",
-    "m15": "15 мин",
-    "m30": "30 мин",
-    "m45": "45 мин",
-    "m60": "60 мин"
+    "off": "Disable",
+    "m15": "15 min",
+    "m30": "30 min",
+    "m45": "45 min",
+    "m60": "60 min"
   },
   "timer_on_values": {
-    "off": "Отключен",
-    "h1": "1 ч.",
-    "h2": "2 ч.",
-    "h3": "3 ч.",
-    "h4": "4 ч.",
-    "h5": "5 ч.",
-    "h6": "6 ч.",
-    "h7": "7 ч.",
-    "h8": "8 ч.",
-    "h9": "9 ч.",
-    "h12": "12 ч.",
-    "h24": "24 ч."
+    "off": "Disabled",
+    "h1": "1 h.",
+    "h2": "2 h.",
+    "h3": "3 h.",
+    "h4": "4 h.",
+    "h5": "5 h.",
+    "h6": "6 h.",
+    "h7": "7 h.",
+    "h8": "8 h.",
+    "h9": "9 h.",
+    "h12": "12 h.",
+    "h24": "24 h."
   },
   "am_depth_values": {
     "p0": "0%",
