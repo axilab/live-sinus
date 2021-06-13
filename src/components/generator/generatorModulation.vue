@@ -27,7 +27,7 @@
 
     <v-list>
       <v-list-item-group color="primary">
-        <v-list-item>
+        <!-- <v-list-item>
           <template>
             <v-list-item-action>
               <v-checkbox
@@ -44,7 +44,7 @@
               }}</v-list-item-title>
             </v-list-item-content>
           </template>
-        </v-list-item>
+        </v-list-item> -->
 
         <v-list-item>
           <template>
@@ -111,6 +111,9 @@ export default {
   computed: {
     items() {
       let options = [];
+
+      if (!this.selectModulationOn){return options}
+
       options.push({
         text: "main.settingsList.am_form",
         icon: "mdi-cog-outline",

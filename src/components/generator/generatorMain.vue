@@ -95,10 +95,11 @@ import num3select from "@/components/dialogs/num3select";
 import generatorMode from "@/components/dialogs/generatorModeSettings";
 //import constans from ".@/core/constans";
 import bluetooth from "@/core/bluetooth";
+import util from "@/core/util";
 
 export default {
   name: "GeneratorMain",
-  mixins: [bluetooth],
+  mixins: [bluetooth, util],
   components: {
     radioSelect,
     powerSelect,
@@ -228,12 +229,13 @@ export default {
     },
     generatorModeTitle() {
       let mode = this.$t(this.$store.getters.getD75);
+      const mod = Number(this.$store.getters.get_D75);
       const FibonachiOn =
         String(this.$store.getters.getD61) === "1" ? true : false;
       const Step1 = String(this.$store.getters.getD53) === "1" ? true : false;
       const Step2 = String(this.$store.getters.getD53) === "2" ? true : false;
 
-      if (FibonachiOn) {
+      if (FibonachiOn && mod > 0) {
         mode += this.$t("generatorMode.fibonachi2");
       }
       if (Step1) {
@@ -265,6 +267,25 @@ export default {
       }
     },
 
+    async setGeneratorMode2(result){
+      this.setGeneratorFibonchi(result.fibonachi ? '1' : '0');
+      await this.sleep(200)
+      this.setGeneratorPowerStepMode(result.stepMode, false);
+      await this.sleep(200)
+      this.setGeneratorMode(result.generatorMode, false);
+      await this.sleep(200)
+      this.setGeneratorStep1Percent(String(result.percent1));
+      await this.sleep(200)
+      this.setGeneratorStep2Percent(String(result.percent2));
+      await this.sleep(200)
+      this.setGeneratorStepPowerMin(String(result.power1));
+      await this.sleep(200)
+      this.setGeneratorStepPowerMid(String(result.power2));
+      await this.sleep(200)
+      this.setGeneratorStepPowerMax(String(result.power3));
+      await this.sleep(200)
+      this.setGeneratorStepPower(result.timer2);//timer2
+    },
     DialogSelectCallback(ev) {
       console.log("generatorMain DialogSelectCallback", ev);
 
@@ -280,7 +301,9 @@ export default {
 
       switch (ev.type) {
         case "generator_mode":
-          this.setGeneratorMode(ev.result, false);
+          //console.log('result',ev.result)
+          this.setGeneratorMode2(ev.result)
+          //this.setGeneratorMode(ev.result, false);
           break;
         case "waveform":
           this.setGeneratorWaveForm(ev.result, false);
@@ -367,7 +390,7 @@ export default {
             //     { id: "2", text: "generator_modes.engineering" },
             //   ],
             //   select: this.$store.getters.get_D75,
-            //   type: "generator_mode",
+               type: "generator_mode",
           };
           //this.DialogSelectShow = true;
           this.DialogGeneratorModeShow = true;

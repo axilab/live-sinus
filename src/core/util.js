@@ -28,6 +28,9 @@ export default {
       console.log("timer", result);
       return result;
     },
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+  },
 
     // getUserLocale(){
     //     return window.navigator.language.split('-')[0]
