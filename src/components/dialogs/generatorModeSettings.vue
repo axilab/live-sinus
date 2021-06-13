@@ -51,8 +51,8 @@
               v-model="listStep"
               :items="$t('generatorMode.stepModes')"
               :label="$t('generatorMode.stepTitle')"
-              item-text="value"
-              item-value="key"
+              item-text="text"
+              item-value="id"
               @change="listStepChange"
             ></v-select>
           </v-col>
@@ -159,9 +159,9 @@ export default {
   },
   computed: {
     visbleFibonachi() {
-    //   if (this.$store.getters.get_D75 == "0") {
-    //     return false;
-    //   }
+      //   if (this.$store.getters.get_D75 == "0") {
+      //     return false;
+      //   }
       return true;
     },
     timerStepMode2() {
@@ -194,10 +194,10 @@ export default {
   },
   methods: {
     stepMode1PowerChange() {
-    //   const st1 = this.stepMode1Power[0];
-    //   const st2 = this.stepMode1Power[1] - this.stepMode1Power[0];
-    //   this.setGeneratorStep1Percent(String(st1));
-    //   this.setGeneratorStep2Percent(String(st2));
+      //   const st1 = this.stepMode1Power[0];
+      //   const st2 = this.stepMode1Power[1] - this.stepMode1Power[0];
+      //   this.setGeneratorStep1Percent(String(st1));
+      //   this.setGeneratorStep2Percent(String(st2));
     },
     DialogPowerCallback(ev) {
       console.log("DialogPowerCallback", ev);
@@ -208,15 +208,15 @@ export default {
 
       switch (ev.type) {
         case "power1":
-          this.power1 = ev.result
+          this.power1 = ev.result;
           //this.setGeneratorStepPowerMin(ev.result);
           break;
         case "power2":
-          this.power2 = ev.result
+          this.power2 = ev.result;
           //this.setGeneratorStepPowerMid(ev.result);
           break;
         case "power3":
-          this.power3 = ev.result  
+          this.power3 = ev.result;
           //this.setGeneratorStepPowerMax(ev.result);
           break;
         default:
@@ -226,7 +226,7 @@ export default {
     DialogTimerCallback(ev) {
       this.Dialognum2selectShow = false;
       if (ev != null) {
-        this.timer2 = ev.result
+        this.timer2 = ev.result;
         //this.setGeneratorStepPower(ev.result);
       }
     },
@@ -241,7 +241,7 @@ export default {
         //power = this.$store.getters.getD86;
       }
       if (step == 3) {
-        power = this.power3;  
+        power = this.power3;
         //power = this.$store.getters.getD87;
       }
 
@@ -260,11 +260,11 @@ export default {
       //this.setGeneratorMode(this.listMode, false);
     },
     switchFibonachiChange() {
-    //   let val = this.switchFibonachi ? "1" : "0";
-    //   let old = String(this.$store.getters.getD61);
-    //   if (val !== old) {
-    //     this.setGeneratorFibonchi(val);
-    //   }
+      //   let val = this.switchFibonachi ? "1" : "0";
+      //   let old = String(this.$store.getters.getD61);
+      //   if (val !== old) {
+      //     this.setGeneratorFibonchi(val);
+      //   }
     },
 
     timerStep2modeClick() {
@@ -282,11 +282,21 @@ export default {
     },
 
     clickSelect() {
-        const st1 = this.stepMode1Power[0];
-        const st2 = this.stepMode1Power[1] - this.stepMode1Power[0];
+      const st1 = this.stepMode1Power[0];
+      const st2 = this.stepMode1Power[1] - this.stepMode1Power[0];
 
       this.$emit("Callback", {
-        result: {fibonachi: this.switchFibonachi, generatorMode: this.listMode, stepMode: this.listStep, power1: this.power1, power2: this.power2, power3: this.power3, percent1: st1, percent2: st2, timer2: this.timer2},
+        result: {
+          fibonachi: this.switchFibonachi,
+          generatorMode: this.listMode,
+          stepMode: this.listStep,
+          power1: this.power1,
+          power2: this.power2,
+          power3: this.power3,
+          percent1: st1,
+          percent2: st2,
+          timer2: this.timer2,
+        },
         type: this.type,
       });
     },
@@ -305,13 +315,11 @@ export default {
     this.listMode = this.$store.getters.get_D75;
     this.listStep = this.$store.getters.getD53;
 
-
     this.power1 = this.$store.getters.getD85;
     this.power2 = this.$store.getters.getD86;
     this.power3 = this.$store.getters.getD87;
 
-    this.timer2 = this.$store.getters.getD55
-
-},
+    this.timer2 = this.$store.getters.getD55;
+  },
 };
 </script>

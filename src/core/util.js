@@ -18,7 +18,7 @@ export default {
     },
 
     timerFormat(min) {
-      console.log("min", min);
+      //console.log("min", min);
       const timestamp = Number(min);
       const hours = Math.floor(timestamp / 60 / 60);
       const result = [
@@ -29,8 +29,8 @@ export default {
       return result;
     },
     sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
-  },
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    },
 
     // getUserLocale(){
     //     return window.navigator.language.split('-')[0]

@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title class="headline grey lighten-2" primary-title>{{
-        $t(input.title)
-      }}</v-card-title>
+      <v-card-title>{{ $t(input.title) }}</v-card-title>
       <v-card-text class="mt-4">{{ $t(input.message) }}</v-card-text>
 
       <v-card-actions>

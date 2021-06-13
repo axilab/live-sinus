@@ -79,7 +79,10 @@ export default {
     tabModulationVisable() {
       //console.log("генератор моде", this.$store.getters.getD75);
       //Если режим генератора Авто или включен режим Фибоначчи то вкладку Модуляция не показываем
-      if (this.$store.getters.getD75 === "generator_modes.auto"||this.$store.getters.getD61==="1") {
+      if (
+        this.$store.getters.getD75 === "generator_modes.auto" ||
+        this.$store.getters.getD61 === "1"
+      ) {
         return false;
       } else {
         return true;

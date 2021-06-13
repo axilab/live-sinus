@@ -7,7 +7,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="title"> LiveSinus </v-list-item-title>
-          <v-list-item-subtitle> ver 1.0 </v-list-item-subtitle>
+          <v-list-item-subtitle> ver {{appVersion}} </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -87,8 +87,6 @@ export default {
     },
 
     async onDeviceReady() {
-      //this.$store.commit('setError',"onDeviceReady")
-        //window.alert('onDeviceReady')
         this.$store.commit('dbInit')
         const db = this.$store.getters.getDb
 
@@ -159,6 +157,10 @@ export default {
   },
   computed:{
     // ...mapGetters(["getStatus"]),
+    appVersion() {
+      return this.$store.getters.appVersion;
+    },
+
     getStatus(){
       return "main.status."+this.$store.getters.getD03
     },

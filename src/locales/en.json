@@ -98,7 +98,7 @@
     "selectTitle": "Режим работы генератора:",
     "modes": [{"key":"0", "value":"авто"},{"key":"1", "value":"профи"},{"key":"2", "value":"инженерный"}],
     "stepTitle": "Ступенчатный режим:",
-    "stepModes": [{"key":"0", "value":"выключено"},{"key":"1", "value":"ступени №1"},{"key":"2", "value":"ступени №2"}],
+    "stepModes": [{"id":"0", "text":"выключено"},{"id":"1", "text":"ступени №1"},{"id":"2", "text":"ступени №2"}],
     "step1PowerTitle":"Ток ступени №1 (ma)",
     "step2PowerTitle":"Ток ступени №2 (ma)",
     "step3PowerTitle":"Ток ступени №3 (ma)",
@@ -128,6 +128,13 @@
     "descriptionForButtonSelectGenetatorNotSelect": "(Device not selected)"
   },
   "generator_settings": {
+    "stepMode": "Ступенчатый сценарий мощности",
+    "step1Power":"Ток супени 1 (Min)",
+    "step2Power":"Ток супени 2 (Mid)",
+    "step3Power":"Ток супени 3 (Max)",
+    "percentStep1":"Время работы ступени 1 (%)",
+    "percentStep2":"Время работы ступени 2 (%)",
+    "timerStepMode2":"Таймер Ступени №2 (сек.)",
     "generator_mode": "Режим",
     "timer_off_1": "Таймер откл. №1",
     "timer_off_2": "Таймер откл. №2",

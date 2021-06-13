@@ -112,7 +112,9 @@ export default {
     items() {
       let options = [];
 
-      if (!this.selectModulationOn){return options}
+      if (!this.selectModulationOn) {
+        return options;
+      }
 
       options.push({
         text: "main.settingsList.am_form",

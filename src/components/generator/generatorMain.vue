@@ -267,24 +267,24 @@ export default {
       }
     },
 
-    async setGeneratorMode2(result){
-      this.setGeneratorFibonchi(result.fibonachi ? '1' : '0');
-      await this.sleep(200)
+    async setGeneratorMode2(result) {
+      this.setGeneratorFibonchi(result.fibonachi ? "1" : "0");
+      await this.sleep(200);
       this.setGeneratorPowerStepMode(result.stepMode, false);
-      await this.sleep(200)
+      await this.sleep(200);
       this.setGeneratorMode(result.generatorMode, false);
-      await this.sleep(200)
+      await this.sleep(200);
       this.setGeneratorStep1Percent(String(result.percent1));
-      await this.sleep(200)
+      await this.sleep(200);
       this.setGeneratorStep2Percent(String(result.percent2));
-      await this.sleep(200)
+      await this.sleep(200);
       this.setGeneratorStepPowerMin(String(result.power1));
-      await this.sleep(200)
+      await this.sleep(200);
       this.setGeneratorStepPowerMid(String(result.power2));
-      await this.sleep(200)
+      await this.sleep(200);
       this.setGeneratorStepPowerMax(String(result.power3));
-      await this.sleep(200)
-      this.setGeneratorStepPower(result.timer2);//timer2
+      await this.sleep(200);
+      this.setGeneratorStepPower(result.timer2); //timer2
     },
     DialogSelectCallback(ev) {
       console.log("generatorMain DialogSelectCallback", ev);
@@ -302,7 +302,7 @@ export default {
       switch (ev.type) {
         case "generator_mode":
           //console.log('result',ev.result)
-          this.setGeneratorMode2(ev.result)
+          this.setGeneratorMode2(ev.result);
           //this.setGeneratorMode(ev.result, false);
           break;
         case "waveform":
@@ -384,15 +384,8 @@ export default {
         case "main.settingsList.generator_mode":
           this.DialogData = {
             title: "main.titles.generator_mode",
-            //   list: [
-            //     { id: "0", text: "generator_modes.auto" },
-            //     { id: "1", text: "generator_modes.profi" },
-            //     { id: "2", text: "generator_modes.engineering" },
-            //   ],
-            //   select: this.$store.getters.get_D75,
-               type: "generator_mode",
+            type: "generator_mode",
           };
-          //this.DialogSelectShow = true;
           this.DialogGeneratorModeShow = true;
 
           break;
