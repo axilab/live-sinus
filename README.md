@@ -2,7 +2,7 @@
 
 ## Мобильное приложение для генератора Live Sinus 
 
-Скачать [APK]/android/app/release/app-release.apk) для Android
+Скачать [APK](/android/app/release/app-release.apk) для Android
 
 ```
 git clone https://github.com/axilab/live-sinus.git
