@@ -66,7 +66,7 @@
     "indicatorsList": {
       "frequency": "Frequency (kHz)",
       "voltage": "Supply voltage (V)",
-      "rms": "Out. ex. RMS (B)",
+      "rms": "Out. ex. RMS (V)",
       "q_factor": "Coil quality factor"
     },
     "titles": {
@@ -163,11 +163,11 @@
     "factory_settings_answer": "Reset generator to factory settings?"
   },
   "wave_form": {
-    "sinus": "синус",
-    "meander": "меандер",
-    "triangle": "треугольник",
-    "sawtooth": "пилообразный (с регулировкой скважности)",
-    "rectangular": "прямоугольный (с регулировкой скважности)"
+    "sinus": "sinus",
+    "meander": "meander",
+    "triangle": "triangle",
+    "sawtooth": "sawtooth (with duty cycle adjustment)",
+    "rectangular": "rectangular (with duty cycle adjustment)"
 
   },
   "generator_modes": {
@@ -208,5 +208,27 @@
     "p80": "80%",
     "p90": "90%",
     "p100": "100%"
+  },
+
+  "generatorStatus": [
+    {"key": "0", "description": "generator is off, put into sleep mode"},
+    {"key": "1", "description": "enabled in the resonant frequency search mode"},
+    {"key": "2", "description": "enabled in the mode of calculating the Q-factor of the coil"},
+    {"key": "3", "description": "enabled in resonant frequency adjustment mode"},
+    {"key": "4", "description": "PAUSE mode is enabled, output generation is disabled and timers are frozen"},
+    {"key": "5", "description": "switched on in standard generation mode"},
+    {"key": "6", "description": "enabled in coil current trim mode"}
+  ],
+  "generatorWaveform": [
+    {"key": "0", "description": "sinus"},
+    {"key": "1", "description": "meander"},
+    {"key": "2", "description": "triangular"}
+  ],
+  "about":{
+    "title":"Live Sinus",
+    "description":"Mobile application for generator control LS 5BT",
+    "version_title":"Version:",
+    "version_date_title":"Version date:"    
   }
+
 }

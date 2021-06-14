@@ -213,5 +213,11 @@
     {"key": "0", "description": "синус"},
     {"key": "1", "description": "меандр"},
     {"key": "2", "description": "треугольный"}
-  ]
+  ],
+  "about":{
+    "title":"Live Sinus",
+    "description":"Мобильное приложение для управления генератором LS 5BT",
+    "version_title":"Версия:",
+    "version_date_title":"Дата версии:"    
+  }
 }

@@ -2,18 +2,18 @@
   <v-card class="mx-auto my-12">
     <v-img class="ma-3" src="logo.png" />
 
-    <v-card-title>Live sinus</v-card-title>
+    <v-card-title>{{$t('about.title')}}</v-card-title>
 
     <v-card-text>
       <v-row align="center" class="mx-0">
-        Мобильное приложение для управления генератором LS 5BT
+        {{$t('about.description')}}
       </v-row>
-      <v-row align="center" class="mx-0"> Версия: {{ appVersion }} </v-row>
-      <v-row align="center" class="mx-0"> Дата версии: {{ appDate }} </v-row>
+      <v-row align="center" class="mx-0"> {{$t('about.version_title')}} {{ appVersion }} </v-row>
+      <v-row align="center" class="mx-0"> {{$t('about.version_date_title')}} {{ appDate }} </v-row>
 
       <v-row align="center" class="mx-0">
-        <a target="_blank" href="https://www.live-sinus.com"
-          >www.live-sinus.com</a
+        <a target="_blank" href="https://live-sinus.com"
+          >https://live-sinus.com</a
         >
       </v-row>
 

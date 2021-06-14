@@ -1,0 +1,13 @@
+{
+  "appId": "live.sinus.pro",
+  "appName": "Live Sinus Pro",
+  "bundledWebRuntime": true,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
