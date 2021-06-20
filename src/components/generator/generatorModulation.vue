@@ -167,7 +167,7 @@ export default {
       return this.$store.getters.getD66;
     },
     FibonachiOn() {
-      return this.$store.getters.getD61;
+      return this.$store.getters.getD62;
     },
   },
   watch: {
@@ -193,7 +193,7 @@ export default {
     },
     selectFibonachiOn(newValue) {
       let val = newValue ? "1" : "0";
-      let old = String(this.$store.getters.getD61);
+      let old = String(this.$store.getters.getD62);
       if (val !== old) {
         this.setGeneratorFibonchi(val, false);
       }
@@ -345,7 +345,7 @@ export default {
     this.selectModulationOn =
       String(this.$store.getters.getD66) === "1" ? true : false;
     this.selectFibonachiOn =
-      String(this.$store.getters.getD61) === "1" ? true : false;
+      String(this.$store.getters.getD62) === "1" ? true : false;
   },
 };
 </script>

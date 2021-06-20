@@ -122,6 +122,9 @@
       <v-btn color="blue darken-1" @click="clickSelect">
         {{ $t("generatorMode.apply") }}
       </v-btn>
+        <v-btn color="blue darken-1" text @click="clickClose">
+        {{ $t("settings.selectDeviceDialogButtonCancel") }}
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -306,7 +309,7 @@ export default {
     this.title = this.input.title;
 
     this.switchFibonachi =
-      String(this.$store.getters.getD61) === "1" ? true : false;
+      String(this.$store.getters.getD62) === "1" ? true : false;
 
     this.stepMode1Power[0] = Number(this.$store.getters.getD88);
     this.stepMode1Power[1] =

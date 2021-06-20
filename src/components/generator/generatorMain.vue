@@ -231,7 +231,7 @@ export default {
       let mode = this.$t(this.$store.getters.getD75);
       const mod = Number(this.$store.getters.get_D75);
       const FibonachiOn =
-        String(this.$store.getters.getD61) === "1" ? true : false;
+        String(this.$store.getters.getD62) === "1" ? true : false;
       const Step1 = String(this.$store.getters.getD53) === "1" ? true : false;
       const Step2 = String(this.$store.getters.getD53) === "2" ? true : false;
 
