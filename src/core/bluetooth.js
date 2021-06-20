@@ -47,9 +47,9 @@ export default {
         const serial = window.bluetoothSerial;
         serial.connect(
           macAddress,
-          () => {        
+          () => {
             //console.log('>>bluetoothSubscribe>>')
-            this.deviceInit()
+            this.deviceInit();
             //this.$store.commit('setStateDevice',{command:'03', data:'-1'})
             this.$store.commit("bluetoothSubscribe");
             resolve({ status: "ok", message: "port opened", code: 200 });

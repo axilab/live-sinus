@@ -122,7 +122,7 @@
       <v-btn color="blue darken-1" @click="clickSelect">
         {{ $t("generatorMode.apply") }}
       </v-btn>
-        <v-btn color="blue darken-1" text @click="clickClose">
+      <v-btn color="blue darken-1" text @click="clickClose">
         {{ $t("settings.selectDeviceDialogButtonCancel") }}
       </v-btn>
     </v-card-actions>

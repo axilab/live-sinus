@@ -7,7 +7,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="title"> LiveSinus </v-list-item-title>
-          <v-list-item-subtitle> ver {{appVersion}} </v-list-item-subtitle>
+          <v-list-item-subtitle> ver {{ appVersion }} </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
