@@ -127,7 +127,7 @@ export default {
           text: "main.settingsList.timer_off",
           icon: "mdi-clock-time-two-outline",
         },
-        { text: "main.settingsList.timer_on", icon: "mdi-update" },
+        // { text: "main.settingsList.timer_on", icon: "mdi-update" },
         { text: "main.settingsList.phase_shift", icon: "mdi-cog-outline" },
         { text: "main.settingsList.frequency", icon: "mdi-cog-outline" },
       ],
@@ -148,7 +148,7 @@ export default {
             text: "main.settingsList.timer_off",
             icon: "mdi-clock-time-two-outline",
           },
-          { text: "main.settingsList.timer_on", icon: "mdi-update" },
+          // { text: "main.settingsList.timer_on", icon: "mdi-update" },
           { text: "main.settingsList.phase_shift", icon: "mdi-cog-outline" },
           { text: "main.settingsList.frequency", icon: "mdi-cog-outline" },
         ];
@@ -164,7 +164,7 @@ export default {
             text: "main.settingsList.timer_off",
             icon: "mdi-clock-time-two-outline",
           },
-          { text: "main.settingsList.timer_on", icon: "mdi-update" },
+          // { text: "main.settingsList.timer_on", icon: "mdi-update" },
           { text: "main.settingsList.phase_shift", icon: "mdi-cog-outline" },
         ];
       } else {
@@ -179,7 +179,7 @@ export default {
             text: "main.settingsList.timer_off",
             icon: "mdi-clock-time-two-outline",
           },
-          { text: "main.settingsList.timer_on", icon: "mdi-update" },
+          // { text: "main.settingsList.timer_on", icon: "mdi-update" },
         ];
       }
     },

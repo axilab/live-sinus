@@ -24,10 +24,10 @@ export default {
       //this.setStateDevice2("20", "0")
       window.bluetoothSerial.unsubscribe(
         (success) => {
-          console.log("success", success);
+          console.log("unsubscribe success", success);
         },
         (failure) => {
-          console.log("failure", failure);
+          console.log("unsubscribe failure", failure);
         }
       );
       window.bluetoothSerial.subscribe(
