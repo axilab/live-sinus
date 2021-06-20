@@ -268,7 +268,7 @@ export default {
     },
 
     async setGeneratorMode2(result) {
-      this.setGeneratorFibonchi(result.fibonachi ? "1" : "0");
+      this.setGeneratorFibonchi(result.fibonachi ? "1" : "0", false);
       await this.sleep(200);
       this.setGeneratorPowerStepMode(result.stepMode, false);
       await this.sleep(200);

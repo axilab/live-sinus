@@ -105,8 +105,12 @@ export default {
 
     /* режима работы - constans.generatorMode */
 
-    setGeneratorFibonchi(mode) {
-      this.writePort(constans.startByte + "61" + mode + constans.stopByte);
+    setGeneratorFibonchi(mode, EEPROM) {
+      if (EEPROM) {
+        this.writePort(constans.startByte + "61" + mode + constans.stopByte);
+      } else {
+        this.writePort(constans.startByte + "62" + mode + constans.stopByte);
+      }
     },
     setGeneratorMinMa(ma) {
       this.writePort(constans.startByte + "15" + ma + constans.stopByte);
