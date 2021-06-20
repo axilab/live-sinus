@@ -94,61 +94,13 @@
     <v-expansion-panels>
       <v-expansion-panel>
         <v-expansion-panel-header>
-          Ступенчатый режим работы
+          {{ $t("generator_settings.step_mode") }}
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-list>
             <v-list-item-group color="primary">
               <v-list-item
                 v-for="(item, i) in stepItems"
-                :key="i"
-                @click="clickSetting(item)"
-              >
-                <v-list-item-icon>
-                  <v-icon v-text="item.icon"></v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title v-text="$t(item.text)"></v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    subtitle(item.text)
-                  }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-
-      <v-expansion-panel>
-        <v-expansion-panel-header>
-          Фиксированная модуляция
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-list>
-            <v-list-item-group color="primary">
-              <v-list-item>
-                <template>
-                  <v-list-item-action>
-                    <v-checkbox
-                      color="primary"
-                      v-model="checkboxModulation"
-                    ></v-checkbox>
-                  </v-list-item-action>
-
-                  <v-list-item-content
-                    @click="checkboxModulation = !checkboxModulation"
-                  >
-                    <v-list-item-title>{{
-                      $t("generator_settings.modulation")
-                    }}</v-list-item-title>
-                  </v-list-item-content>
-                </template>
-              </v-list-item>
-            </v-list-item-group>
-
-            <v-list-item-group color="primary">
-              <v-list-item
-                v-for="(item, i) in items2"
                 :key="i"
                 @click="clickSetting(item)"
               >
@@ -199,6 +151,78 @@
             <v-list-item-group color="primary">
               <v-list-item
                 v-for="(item, i) in powers"
+                :key="i"
+                @click="clickSetting(item)"
+              >
+                <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="$t(item.text)"></v-list-item-title>
+                  <v-list-item-subtitle>{{
+                    subtitle(item.text)
+                  }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel :disabled="selectFibonachiOn">
+        <v-expansion-panel-header>
+          {{ $t("generator_settings.fixing_modulation") }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-list>
+            <v-list-item-group color="primary">
+              <v-list-item>
+                <template>
+                  <v-list-item-action>
+                    <v-checkbox
+                      color="primary"
+                      v-model="checkboxModulation"
+                    ></v-checkbox>
+                  </v-list-item-action>
+
+                  <v-list-item-content
+                    @click="checkboxModulation = !checkboxModulation"
+                  >
+                    <v-list-item-title>{{
+                      $t("generator_settings.modulation")
+                    }}</v-list-item-title>
+                  </v-list-item-content>
+                </template>
+              </v-list-item>
+            </v-list-item-group>
+
+            <v-divider></v-divider>
+            <p>{{ $t("generator_settings.am_modulation") }}</p>
+            <v-list-item-group color="primary">
+              <v-list-item
+                :disabled="!checkboxModulation || selectFibonachiOn"
+                v-for="(item, i) in items2"
+                :key="i"
+                @click="clickSetting(item)"
+              >
+                <v-list-item-icon>
+                  <v-icon v-text="item.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="$t(item.text)"></v-list-item-title>
+                  <v-list-item-subtitle>{{
+                    subtitle(item.text)
+                  }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+
+            <v-divider></v-divider>
+            <p>{{ $t("generator_settings.fm_modulation") }}</p>
+            <v-list-item-group color="primary">
+              <v-list-item
+                :disabled="!checkboxModulation || selectFibonachiOn"
+                v-for="(item, i) in items3"
                 :key="i"
                 @click="clickSetting(item)"
               >
@@ -391,6 +415,7 @@ export default {
 
       items: [
         { text: "generator_settings.generator_mode", icon: "mdi-cog-outline" },
+        { text: "main.settingsList.waveform", icon: "mdi-cog-outline" },
         {
           text: "generator_settings.Searching_resonance_min",
           icon: "mdi-cog-outline",
@@ -405,16 +430,7 @@ export default {
           icon: "mdi-cog-outline",
         },
       ],
-      items2: [
-        { text: "generator_settings.am_form", icon: "mdi-cog-outline" },
-        { text: "generator_settings.am_dutyCycle", icon: "mdi-cog-outline" },
-        { text: "generator_settings.am_depth", icon: "mdi-cog-outline" },
-        { text: "generator_settings.am_frequency", icon: "mdi-cog-outline" },
-        { text: "generator_settings.fm_form", icon: "mdi-cog-outline" },
-        { text: "generator_settings.fm_dutyCycle", icon: "mdi-cog-outline" },
-        { text: "generator_settings.fm_deviation", icon: "mdi-cog-outline" },
-        { text: "generator_settings.fm_frequency", icon: "mdi-cog-outline" },
-      ],
+
       factory_settings: {
         text: "generator_settings.factory_settings",
         subtitle: "",
@@ -423,6 +439,48 @@ export default {
     };
   },
   computed: {
+    items2() {
+      if (
+        this.$store.getters.getD29 === "0" ||
+        this.$store.getters.getD29 === "1" ||
+        this.$store.getters.getD29 === "2"
+      ) {
+        return [
+          { text: "generator_settings.am_form", icon: "mdi-cog-outline" },
+          { text: "generator_settings.am_depth", icon: "mdi-cog-outline" },
+          { text: "generator_settings.am_frequency", icon: "mdi-cog-outline" },
+        ];
+      } else {
+        return [
+          { text: "generator_settings.am_form", icon: "mdi-cog-outline" },
+          { text: "generator_settings.am_dutyCycle", icon: "mdi-cog-outline" },
+          { text: "generator_settings.am_depth", icon: "mdi-cog-outline" },
+          { text: "generator_settings.am_frequency", icon: "mdi-cog-outline" },
+        ];
+      }
+    },
+
+    items3() {
+      if (
+        this.$store.getters.getD33 === "0" ||
+        this.$store.getters.getD33 === "1" ||
+        this.$store.getters.getD33 === "2"
+      ) {
+        return [
+          { text: "generator_settings.fm_form", icon: "mdi-cog-outline" },
+          { text: "generator_settings.fm_deviation", icon: "mdi-cog-outline" },
+          { text: "generator_settings.fm_frequency", icon: "mdi-cog-outline" },
+        ];
+      } else {
+        return [
+          { text: "generator_settings.fm_form", icon: "mdi-cog-outline" },
+          { text: "generator_settings.fm_dutyCycle", icon: "mdi-cog-outline" },
+          { text: "generator_settings.fm_deviation", icon: "mdi-cog-outline" },
+          { text: "generator_settings.fm_frequency", icon: "mdi-cog-outline" },
+        ];
+      }
+    },
+
     compCheckboxIncubator() {
       return this.$store.getters.getD80;
     },
@@ -514,6 +572,10 @@ export default {
         const type = ev.type;
         console.log("type", type, "res", res);
         switch (ev.type) {
+          case "main.settingsList.waveform":
+            this.setGeneratorWaveForm(ev.result, true);
+            this.getGeneratorData("10");
+            break;
           case "main.titles.generator_mode":
             this.setGeneratorMode(ev.result, true);
             this.getGeneratorData("35"); // Режим работы
@@ -585,7 +647,7 @@ export default {
             break;
           case "generator_settings.fm_dutyCycle":
             this.setGeneratorDutyCycleFM(String(ev.result), true);
-            this.getGeneratorData("74");
+            this.getGeneratorData("34");
             break;
           case "generator_settings.fm_deviation":
             this.setGeneratorFmDeviation(ev.result, true);
@@ -640,6 +702,19 @@ export default {
     clickSetting(item) {
       console.log("item", item);
       switch (item.text) {
+        case "main.settingsList.waveform":
+          this.DialogData = {
+            title: "main.titles.carrier_type",
+            list: [
+              { id: "0", text: "wave_form.sinus" },
+              { id: "1", text: "wave_form.meander" },
+              { id: "2", text: "wave_form.triangle" },
+            ],
+            select: this.$store.getters.get_D10,
+            type: "main.settingsList.waveform",
+          };
+          this.DialogSelectShow = true;
+          break;
         case "generator_settings.stepMode":
           this.DialogData = {
             title: "generator_settings.stepMode",
@@ -883,6 +958,7 @@ export default {
     },
     getEEPROMAllData() {
       this.getGeneratorData("02"); // Версия прошивки генератора
+      this.getGeneratorData("10"); // Запрос генерируемой формы волны генератора в EEPROM, 0-2
       this.getGeneratorData("35"); // Режим работы
       this.getGeneratorData("21"); // Таймер откл. №1
       this.getGeneratorData("22"); // Таймер откл. №2
@@ -919,6 +995,8 @@ export default {
 
     subtitle(param) {
       switch (param) {
+        case "main.settingsList.waveform":
+          return this.$t(this.$store.getters.getD10);
         case "generator_settings.stepMode":
           return this.$t("generatorMode.stepModes").find((item) => {
             if (item.id == this.$store.getters.getD54) {

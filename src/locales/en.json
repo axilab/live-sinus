@@ -40,7 +40,7 @@
     },
     "settingsList": {
       "generator_mode": "Generator operating mode",
-      "waveform": "Form",
+      "waveform": "Wave form",
       "power": "Power",
       "timer_off": "Timer off",
       "timer_on": "Timer on",
@@ -160,7 +160,12 @@
     "sound_signal": "Sound signal",
     "error_off": "Disable on error",
     "factory_settings": "Factory reset",
-    "factory_settings_answer": "Reset generator to factory settings?"
+    "factory_settings_answer": "Reset generator to factory settings?",
+    "am_modulation": "AM modulation",
+    "fm_modulation": "FM modulation",
+    "fixing_modulation":"Fixed modulation",
+    "step_mode": "Step mode of operation"
+
   },
   "wave_form": {
     "sinus": "sinus",

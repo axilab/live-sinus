@@ -101,9 +101,22 @@ export default {
           return "general.nodata";
       }
     },
-    getD10(state) {
+    get_D10(state) {
       return state.d10;
     },
+    getD10(state) {
+      switch (state.d10) {
+        case constans.waveForm.sinus:
+          return "wave_form.sinus";
+        case constans.waveForm.meander:
+          return "wave_form.meander";
+        case constans.waveForm.triangle:
+          return "wave_form.triangle";
+        default:
+          return "general.nodata";
+      }
+    },
+
     getD11(state) {
       return state.d11;
     },
