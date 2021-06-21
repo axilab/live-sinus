@@ -91,7 +91,7 @@
       </v-list-item>
     </v-list-item-group>
 
-    <v-expansion-panels>
+    <v-expansion-panels v-model="panel">
       <v-expansion-panel>
         <v-expansion-panel-header>
           {{ $t("generator_settings.step_mode") }}
@@ -120,7 +120,9 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header> Таймеры </v-expansion-panel-header>
+        <v-expansion-panel-header>
+          {{ $t("generator_settings.timers") }}
+        </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-list>
             <v-list-item-group color="primary">
@@ -145,7 +147,9 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header> Мощность </v-expansion-panel-header>
+        <v-expansion-panel-header>
+          {{ $t("generator_settings.power") }}
+        </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-list>
             <v-list-item-group color="primary">
@@ -169,7 +173,10 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
-      <v-expansion-panel :disabled="selectFibonachiOn">
+      <v-expansion-panel
+        :disabled="selectFibonachiOn"
+        v-if="generatorMode != '0'"
+      >
         <v-expansion-panel-header>
           {{ $t("generator_settings.fixing_modulation") }}
         </v-expansion-panel-header>
@@ -323,6 +330,29 @@
         </v-list-item>
       </v-list-item-group>
 
+      <v-list-item-group color="primary" v-if="generatorMode == '2'">
+        <v-list-item>
+          <template>
+            <v-list-item-action>
+              <v-checkbox
+                v-model="selectedAmperageStabilization"
+                color="primary"
+              ></v-checkbox>
+            </v-list-item-action>
+
+            <v-list-item-content
+              @click="
+                selectedAmperageStabilization = !selectedAmperageStabilization
+              "
+            >
+              <v-list-item-title>{{
+                $t("main.settingsList.amperage_stabilization")
+              }}</v-list-item-title>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+      </v-list-item-group>
+
       <v-list-item-group color="primary">
         <v-list-item @click="clickSetting(factory_settings)">
           <v-list-item-icon>
@@ -387,6 +417,9 @@ export default {
       DialogData: null,
       DialogfrequencyShow: false,
 
+      panel: [],
+      selectedAmperageStabilization: false,
+
       timers: [
         { text: "generator_settings.timer_off_1", icon: "mdi-cog-outline" },
         { text: "generator_settings.timer_off_2", icon: "mdi-cog-outline" },
@@ -410,25 +443,8 @@ export default {
         { text: "generator_settings.step3Power", icon: "mdi-cog-outline" },
         { text: "generator_settings.percentStep1", icon: "mdi-cog-outline" },
         { text: "generator_settings.percentStep2", icon: "mdi-cog-outline" },
+        { text: "generator_settings.percentStep3", icon: "mdi-cog-outline" },
         { text: "generator_settings.timerStepMode2", icon: "mdi-cog-outline" },
-      ],
-
-      items: [
-        { text: "generator_settings.generator_mode", icon: "mdi-cog-outline" },
-        { text: "main.settingsList.waveform", icon: "mdi-cog-outline" },
-        {
-          text: "generator_settings.Searching_resonance_min",
-          icon: "mdi-cog-outline",
-        },
-        {
-          text: "generator_settings.Searching_resonance_max",
-          icon: "mdi-cog-outline",
-        },
-        { text: "generator_settings.phase_shift", icon: "mdi-cog-outline" },
-        {
-          text: "generator_settings.frequency_autotuning",
-          icon: "mdi-cog-outline",
-        },
       ],
 
       factory_settings: {
@@ -439,6 +455,73 @@ export default {
     };
   },
   computed: {
+    items() {
+      switch (this.generatorMode) {
+        case "0": //Режим Авто
+          return [
+            {
+              text: "generator_settings.generator_mode",
+              icon: "mdi-cog-outline",
+            },
+            { text: "main.settingsList.waveform", icon: "mdi-cog-outline" },
+            {
+              text: "generator_settings.Searching_resonance_min",
+              icon: "mdi-cog-outline",
+            },
+            {
+              text: "generator_settings.Searching_resonance_max",
+              icon: "mdi-cog-outline",
+            },
+          ];
+        case "1": // Режим профи
+          return [
+            {
+              text: "generator_settings.generator_mode",
+              icon: "mdi-cog-outline",
+            },
+            { text: "main.settingsList.waveform", icon: "mdi-cog-outline" },
+            {
+              text: "generator_settings.Searching_resonance_min",
+              icon: "mdi-cog-outline",
+            },
+            {
+              text: "generator_settings.Searching_resonance_max",
+              icon: "mdi-cog-outline",
+            },
+            { text: "generator_settings.phase_shift", icon: "mdi-cog-outline" },
+            {
+              text: "generator_settings.frequency_autotuning",
+              icon: "mdi-cog-outline",
+            },
+          ];
+        case "2": // Режим инженерный
+          return [
+            {
+              text: "generator_settings.generator_mode",
+              icon: "mdi-cog-outline",
+            },
+            { text: "main.settingsList.waveform", icon: "mdi-cog-outline" },
+            { text: "main.settingsList.frequency", icon: "mdi-cog-outline" },
+            { text: "generator_settings.phase_shift", icon: "mdi-cog-outline" },
+            {
+              text: "generator_settings.frequency_autotuning",
+              icon: "mdi-cog-outline",
+            },
+          ];
+        default:
+          return [];
+      }
+    },
+
+    generatorMode() {
+      console.log("generatorMode", this.$store.getters.get_D35);
+      return this.$store.getters.get_D35;
+    },
+
+    modeAmperageStabilization() {
+      return this.$store.getters.getD78;
+    },
+
     items2() {
       if (
         this.$store.getters.getD29 === "0" ||
@@ -499,7 +582,22 @@ export default {
     },
   },
   watch: {
+    modeAmperageStabilization(newValue) {
+      let val = Boolean(parseInt(newValue));
+      if (val != this.selectedAmperageStabilization) {
+        this.selectedAmperageStabilization = val;
+      }
+    },
+    selectedAmperageStabilization(newValue) {
+      let val = newValue ? "1" : "0";
+      let old = String(this.$store.getters.getD78);
+      if (val !== old) {
+        this.setAmperageStabilization(val, true);
+      }
+    },
+
     selectFibonachiOn(newValue) {
+      this.panel = [];
       let val = newValue ? "1" : "0";
       let old = String(this.$store.getters.getD61);
       if (val !== old) {
@@ -572,6 +670,11 @@ export default {
         const type = ev.type;
         console.log("type", type, "res", res);
         switch (ev.type) {
+          case "frequency":
+            console.log("main.settingsList.frequency", ev.result);
+            this.setGeneratorFrequency(ev.result, true);
+            this.getGeneratorData("76");
+            break;
           case "main.settingsList.waveform":
             this.setGeneratorWaveForm(ev.result, true);
             this.getGeneratorData("10");
@@ -702,6 +805,14 @@ export default {
     clickSetting(item) {
       console.log("item", item);
       switch (item.text) {
+        case "main.settingsList.frequency":
+          this.DialogData = {
+            value: this.$store.getters.getD76,
+            type: "frequency",
+            title: "main.titles.generator_frequency",
+          };
+          this.DialogfrequencyShow = true;
+          break;
         case "main.settingsList.waveform":
           this.DialogData = {
             title: "main.titles.carrier_type",
@@ -984,7 +1095,8 @@ export default {
       this.getGeneratorData("31"); // FM девиация
       this.getGeneratorData("32"); // FM частота
       this.getGeneratorData("61"); // Фибоначчи
-
+      this.getGeneratorData("76"); // Частота генератора
+      this.getGeneratorData("78"); // Стабилизация тока
       this.getGeneratorData("80"); // 80 Режим инкубатор
       this.getGeneratorData("38"); // 38 Звуковой сигнал (вкл)
       this.getGeneratorData("45"); // 45 Отключение при ошибке
@@ -995,6 +1107,8 @@ export default {
 
     subtitle(param) {
       switch (param) {
+        case "main.settingsList.frequency":
+          return this.$store.getters.getD76;
         case "main.settingsList.waveform":
           return this.$t(this.$store.getters.getD10);
         case "generator_settings.stepMode":
@@ -1013,6 +1127,12 @@ export default {
           return this.$store.getters.getD88;
         case "generator_settings.percentStep2":
           return this.$store.getters.getD89;
+        case "generator_settings.percentStep3":
+          return (
+            100 -
+            (Number(this.$store.getters.getD88) +
+              Number(this.$store.getters.getD89))
+          );
         case "generator_settings.timerStepMode2":
           return this.$store.getters.getD55;
         case "generator_settings.generator_mode":
@@ -1083,6 +1203,9 @@ export default {
 
     this.selectFibonachiOn =
       String(this.$store.getters.getD61) === "1" ? true : false;
+
+    this.selectedAmperageStabilization =
+      String(this.$store.getters.getD78) === "1" ? true : false;
   },
 };
 </script>

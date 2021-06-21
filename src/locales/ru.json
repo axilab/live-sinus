@@ -119,11 +119,12 @@
   },
   "generator_settings": {
     "stepMode": "Ступенчатый сценарий мощности",
-    "step1Power":"Ток супени 1 (Min)",
-    "step2Power":"Ток супени 2 (Mid)",
-    "step3Power":"Ток супени 3 (Max)",
+    "step1Power":"Ток ступени 1 (Min)",
+    "step2Power":"Ток ступени 2 (Mid)",
+    "step3Power":"Ток ступени 3 (Max)",
     "percentStep1":"Время работы ступени 1 (%)",
     "percentStep2":"Время работы ступени 2 (%)",
+    "percentStep3":"Время работы ступени 3 (%)",
     "timerStepMode2":"Таймер Ступени №2 (сек)",
     "generator_mode": "Режим",
     "timer_off_1": "Таймер откл. №1",
@@ -148,13 +149,15 @@
     "Searching_resonance_max": "Поиск резонанса - граница Max (кГц)",
     "mode_incubator": "Авто-включение",
     "sound_signal": "Звуковой сигнал",
-    "error_off": "Отключкеие при ошибке",
+    "error_off": "Отключение при ошибке",
     "factory_settings": "Сброс на заводские настройки",
     "factory_settings_answer": "Установить заводские настройки генератора?",
     "am_modulation": "АМ модуляция",
     "fm_modulation": "ЧМ модуляция",
     "fixing_modulation":"Фиксированная модуляция",
-    "step_mode": "Ступенчатый режим работы"
+    "step_mode": "Ступенчатый режим работы",
+    "timers": "Таймеры",
+    "power": "Мощность"
   },
   "wave_form": {
     "sinus": "синус",

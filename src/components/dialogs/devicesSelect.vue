@@ -1,11 +1,12 @@
 <template>
   <v-card>
-    <v-card-title class="headline grey lighten-2" primary-title>
+    <v-card-title>
       <v-btn icon v-on:click="clickBack">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       {{ $t("settings.selectDeviceDialogTitle") }}
     </v-card-title>
+    <v-divider></v-divider>
     <v-card-text>
       <v-radio-group v-model="selectDevice" column>
         <v-radio

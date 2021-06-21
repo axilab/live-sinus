@@ -22,11 +22,10 @@
     <v-divider></v-divider>
     <v-card-text style="height: 300px">
       <v-container fluid>
-        <v-row class="mt-n8" v-if="visbleFibonachi">
+        <v-row class="mt-n8">
           <v-col class="d-flex" cols="12">
             <v-switch
               v-model="switchFibonachi"
-              @change="switchFibonachiChange"
               :label="$t('generatorMode.fibonachi')"
             ></v-switch>
           </v-col>
@@ -40,7 +39,6 @@
               :label="$t('generatorMode.selectTitle')"
               item-text="value"
               item-value="key"
-              @change="listModeChange"
             ></v-select>
           </v-col>
         </v-row>
@@ -53,7 +51,6 @@
               :label="$t('generatorMode.stepTitle')"
               item-text="text"
               item-value="id"
-              @change="listStepChange"
             ></v-select>
           </v-col>
         </v-row>
@@ -93,7 +90,7 @@
             <v-row class="mt-n8">
               <v-col class="d-flex" cols="12">
                 <v-range-slider
-                  @change="stepMode1PowerChange"
+                  disabled
                   v-model="stepMode1Power"
                   min="0"
                   max="100"
@@ -161,12 +158,6 @@ export default {
     };
   },
   computed: {
-    visbleFibonachi() {
-      //   if (this.$store.getters.get_D75 == "0") {
-      //     return false;
-      //   }
-      return true;
-    },
     timerStepMode2() {
       return this.timeFormat(Number(this.$store.getters.getD55));
     },
@@ -176,32 +167,8 @@ export default {
       const st3 = 100 - this.stepMode1Power[1];
       return "" + st1 + "-" + st2 + "-" + st3 + "%";
     },
-
-    // powerStep1() {
-    //   return this.$store.getters.getD85;
-    // },
-
-    // powerStep2() {
-    //   return this.$store.getters.getD86;
-    // },
-
-    // powerStep3() {
-    //   return this.$store.getters.getD87;
-    // },
-    // generatorMode() {
-    //   return this.$store.getters.get_D75;
-    // },
-    // stepMode() {
-    //   return this.$store.getters.getD53;
-    // },
   },
   methods: {
-    stepMode1PowerChange() {
-      //   const st1 = this.stepMode1Power[0];
-      //   const st2 = this.stepMode1Power[1] - this.stepMode1Power[0];
-      //   this.setGeneratorStep1Percent(String(st1));
-      //   this.setGeneratorStep2Percent(String(st2));
-    },
     DialogPowerCallback(ev) {
       console.log("DialogPowerCallback", ev);
       this.DialogPowerShow = false;
@@ -212,15 +179,12 @@ export default {
       switch (ev.type) {
         case "power1":
           this.power1 = ev.result;
-          //this.setGeneratorStepPowerMin(ev.result);
           break;
         case "power2":
           this.power2 = ev.result;
-          //this.setGeneratorStepPowerMid(ev.result);
           break;
         case "power3":
           this.power3 = ev.result;
-          //this.setGeneratorStepPowerMax(ev.result);
           break;
         default:
           break;
@@ -230,22 +194,18 @@ export default {
       this.Dialognum2selectShow = false;
       if (ev != null) {
         this.timer2 = ev.result;
-        //this.setGeneratorStepPower(ev.result);
       }
     },
     setPowerSet(step) {
       let power = 0;
       if (step == 1) {
-        //power = this.$store.getters.getD85;
         power = this.power1;
       }
       if (step == 2) {
         power = this.power2;
-        //power = this.$store.getters.getD86;
       }
       if (step == 3) {
         power = this.power3;
-        //power = this.$store.getters.getD87;
       }
 
       this.DialogData = {
@@ -253,31 +213,16 @@ export default {
         value: power,
         type: "power" + step,
       };
-      this.DialogPowerShow = true;
-    },
-
-    listStepChange() {
-      //this.setGeneratorPowerStepMode(this.listStep, false);
-    },
-    listModeChange() {
-      //this.setGeneratorMode(this.listMode, false);
-    },
-    switchFibonachiChange() {
-      //   let val = this.switchFibonachi ? "1" : "0";
-      //   let old = String(this.$store.getters.getD61);
-      //   if (val !== old) {
-      //     this.setGeneratorFibonchi(val);
-      //   }
+      //this.DialogPowerShow = true;
     },
 
     timerStep2modeClick() {
       this.DialogData = {
-        //value: this.$store.getters.getD55,
         value: this.timer2,
         type: "stepTimer",
         title: this.$t("generatorMode.stepMode2TimerTitle"),
       };
-      this.Dialognum2selectShow = true;
+      //this.Dialognum2selectShow = true;
     },
 
     clickClose() {
