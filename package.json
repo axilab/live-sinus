@@ -1,7 +1,7 @@
 {
   "name": "live-sinus",
-  "version": "0.1.5",
-  "versionDate": "21.06.2021",
+  "version": "0.1.6",
+  "versionDate": "22.06.2021",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

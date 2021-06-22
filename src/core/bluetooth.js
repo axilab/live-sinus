@@ -325,6 +325,12 @@ export default {
       }
     },
 
+    setLedIndicator(position, status) {
+      this.writePort(
+        constans.startByte + "51" + position + "" + status + constans.stopByte
+      );
+    },
+
     getGeneratorData(register) {
       this.writePort(constans.startByte + register + constans.stopByte);
     },

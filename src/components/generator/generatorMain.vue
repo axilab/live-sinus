@@ -71,7 +71,6 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-
       <v-simple-table>
         <template v-slot:default>
           <tbody>
@@ -274,17 +273,21 @@ export default {
       await this.sleep(200);
       this.setGeneratorMode(result.generatorMode, false);
       await this.sleep(200);
-      this.setGeneratorStep1Percent(String(result.percent1));
-      await this.sleep(200);
-      this.setGeneratorStep2Percent(String(result.percent2));
-      await this.sleep(200);
-      this.setGeneratorStepPowerMin(String(result.power1));
-      await this.sleep(200);
-      this.setGeneratorStepPowerMid(String(result.power2));
-      await this.sleep(200);
-      this.setGeneratorStepPowerMax(String(result.power3));
-      await this.sleep(200);
-      this.setGeneratorStepPower(result.timer2); //timer2
+      // this.setGeneratorStep1Percent(String(result.percent1));
+      // await this.sleep(200);
+      // this.setGeneratorStep2Percent(String(result.percent2));
+      // await this.sleep(200);
+      // this.setGeneratorStepPowerMin(String(result.power1));
+      // await this.sleep(200);
+      // this.setGeneratorStepPowerMid(String(result.power2));
+      // await this.sleep(200);
+      // this.setGeneratorStepPowerMax(String(result.power3));
+      // await this.sleep(200);
+      // this.setGeneratorStepPower(result.timer2); //timer2
+
+      if (this.$store.getters.getD03 === "OFF") {
+        this.setLedIndicator("0", "0");
+      }
     },
     DialogSelectCallback(ev) {
       console.log("generatorMain DialogSelectCallback", ev);

@@ -136,6 +136,7 @@
     "percentStep2":"Stage 2 running time (%)",
     "percentStep3":"Stage 3 running time (%)",
     "timerStepMode2":"Timer Step №2 (sec.)",
+    "activateStepMode2":"Activate Stage №2 for Power generator",
     "generator_mode": "Mode",
     "timer_off_1": "Off timer №1",
     "timer_off_2": "Off timer №2",

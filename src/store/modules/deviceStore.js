@@ -121,7 +121,11 @@ export default {
       return state.d11;
     },
     getD13(state) {
-      return state.d13;
+      if (state.d13 < 10) {
+        return 0;
+      } else {
+        return state.d13;
+      }
     },
     getD14(state) {
       return state.d14;

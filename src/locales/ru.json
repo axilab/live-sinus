@@ -126,6 +126,7 @@
     "percentStep2":"Время работы ступени 2 (%)",
     "percentStep3":"Время работы ступени 3 (%)",
     "timerStepMode2":"Таймер Ступени №2 (сек)",
+    "activateStepMode2":"Активировать Ступень №2 для Power ген.",
     "generator_mode": "Режим",
     "timer_off_1": "Таймер откл. №1",
     "timer_off_2": "Таймер откл. №2",
