@@ -381,6 +381,7 @@ export default {
           "53" +
           "54" +
           "55" +
+          "09" +
           constans.stopByte
       );
 
